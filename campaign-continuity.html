@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LegacyTrackr - Make Sure the People You Love Are Never Left in the Dark</title>
+<meta name="description" content="One secure place for every asset, entity, and document. Built for people with complex wealth. Organize it for yourself. Make it accessible to the people you love.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300..700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0B1D3A;
+  --navy-light: #132D54;
+  --gold: #C9A84C;
+  --gold-light: #D4BA6A;
+  --bg: #FAFAF7;
+  --surface: #F5F4F0;
+  --white: #FFFFFF;
+  --border: #E5E2DA;
+  --border-light: #EEECE6;
+  --text-primary: #1A1A18;
+  --text-secondary: #5C5A54;
+  --text-muted: #8A8780;
+  --text-on-navy: #F5F4F0;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========== NAV ========== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0 48px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-light);
+  transition: box-shadow 250ms ease;
+}
+
+.nav.scrolled {
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+}
+
+.nav-logo .legacy {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--navy);
+}
+
+.nav-logo .trackr {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--gold);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.nav-links a:hover { color: var(--navy); }
+
+.btn-nav {
+  padding: 10px 24px;
+  background: var(--gold);
+  color: var(--navy) !important;
+  border-radius: 4px;
+  font-weight: 600 !important;
+  transition: background 150ms ease;
+}
+
+.btn-nav:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+
+.nav-login {
+  color: var(--text-muted) !important;
+  font-weight: 400 !important;
+}
+
+/* Hamburger */
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--navy);
+  border-radius: 1px;
+  transition: transform 250ms ease, opacity 150ms ease;
+}
+
+.nav-hamburger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-hamburger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ========== HERO ========== */
+.hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--navy);
+  overflow: hidden;
+  padding: 120px 48px 96px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 800px;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: 52px;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+
+.hero p {
+  font-size: 18px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  margin-bottom: 40px;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 150ms ease;
+}
+
+.btn-primary:hover { background: var(--gold-light); }
+
+.btn-primary svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: transparent;
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.btn-secondary:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+.btn-secondary svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* ========== CREDIBILITY BAR ========== */
+.credibility-bar {
+  background: var(--navy-light);
+  padding: 32px 48px;
+  text-align: center;
+}
+
+.credibility-bar p {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.5px;
+}
+
+.credibility-bar .sep {
+  display: inline-block;
+  margin: 0 16px;
+  color: rgba(255,255,255,0.15);
+}
+
+.credibility-stat {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.35);
+  font-style: italic;
+  margin-top: 12px;
+  line-height: 1.6;
+}
+
+/* ========== SECTIONS ========== */
+.section {
+  padding: 96px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-full {
+  padding: 96px 48px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.section-body {
+  font-size: 17px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  max-width: 640px;
+}
+
+.section-body + .section-body {
+  margin-top: 16px;
+}
+
+/* ========== PROBLEM ========== */
+.problem-section {
+  background: var(--bg);
+}
+
+.problem-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.problem-list {
+  list-style: none;
+  margin: 24px 0;
+  padding: 0;
+}
+
+.problem-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.problem-list li svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--gold);
+  fill: none;
+  stroke-width: 2.5;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.problem-cta {
+  margin-top: 36px;
+}
+
+/* ========== PLATFORM ========== */
+.platform-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.platform-visual {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  min-height: 360px;
+}
+
+/* Mini dashboard mockup */
+.mockup {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 13px;
+}
+
+.mockup-header {
+  background: var(--navy);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mockup-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.mockup-title {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  font-family: var(--font-body);
+}
+
+.mockup-body {
+  padding: 20px;
+}
+
+.mockup-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.mockup-row:last-child { border-bottom: none; }
+
+.mockup-label {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.mockup-value {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--text-primary);
+}
+
+.mockup-bar {
+  display: flex;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 16px 0 20px;
+  gap: 2px;
+}
+
+.mockup-bar-seg {
+  border-radius: 4px;
+}
+
+.mockup-entities {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+.mockup-entity-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.mockup-entity-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.mockup-entity-tag {
+  font-size: 11px;
+  padding: 4px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  color: var(--text-secondary);
+}
+
+/* ========== HOW IT WORKS ========== */
+.how-section {
+  background: var(--surface);
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.how-card {
+  padding: 32px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.how-number {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.how-card h3 {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.how-card p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.how-cta {
+  text-align: center;
+  margin-top: 48px;
+}
+
+/* ========== WHY IT MATTERS ========== */
+.why-section {
+  background: var(--white);
+}
+
+.why-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ========== QUOTE ========== */
+.quote-section {
+  background: var(--navy);
+  padding: 96px 48px;
+  text-align: center;
+}
+
+.quote-text {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-style: italic;
+  color: #FFFFFF;
+  max-width: 700px;
+  margin: 0 auto 24px;
+  line-height: 1.5;
+}
+
+.quote-attr {
+  font-size: 14px;
+  color: rgba(255,255,255,0.5);
+}
+
+.quote-attr strong {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* ========== PRICING ========== */
+.pricing-section {
+  background: var(--bg);
+}
+
+.pricing-center {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.pricing-card {
+  max-width: 480px;
+  margin: 0 auto;
+  background: var(--white);
+  border: 2px solid var(--navy);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.pricing-header {
+  background: var(--navy);
+  padding: 32px;
+  text-align: center;
+}
+
+.pricing-header .label {
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.pricing-header .price {
+  font-family: var(--font-mono);
+  font-size: 48px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.pricing-header .period {
+  font-size: 16px;
+  color: rgba(255,255,255,0.5);
+  font-family: var(--font-body);
+}
+
+.pricing-header .alt {
+  font-size: 14px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 8px;
+}
+
+.pricing-body {
+  padding: 32px;
+}
+
+.pricing-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.pricing-feature svg {
+  width: 18px;
+  height: 18px;
+  stroke: var(--gold);
+  fill: none;
+  stroke-width: 2.5;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pricing-cta {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  margin-top: 24px;
+  transition: background 150ms ease;
+}
+
+.pricing-cta:hover { background: var(--gold-light); }
+
+.pricing-note {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ========== FINAL CTA ========== */
+.final-cta {
+  background: var(--navy);
+  padding: 120px 48px;
+  text-align: center;
+}
+
+.final-cta h2 {
+  font-family: var(--font-display);
+  font-size: 36px;
+  color: #FFFFFF;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.final-cta p {
+  font-size: 17px;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 36px;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  background: var(--navy);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 32px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo .legacy {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: #FFFFFF;
+}
+
+.footer-logo .trackr {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--gold);
+}
+
+.footer-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+.footer-copy {
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .nav { padding: 0 24px; }
+  .nav-hamburger { display: flex; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    flex-direction: column;
+    padding: 16px 24px 24px;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li { padding: 12px 0; }
+  .nav-links .btn-nav {
+    display: block;
+    text-align: center;
+    margin-top: 8px;
+  }
+  .hero { padding: 100px 24px 72px; min-height: 80vh; }
+  .hero h1 { font-size: 34px; }
+  .hero p { font-size: 16px; }
+  .credibility-bar { padding: 24px; }
+  .credibility-bar p { font-size: 12px; line-height: 2; }
+  .credibility-bar .sep { margin: 0 8px; }
+  .credibility-stat { font-size: 12px; }
+  .section, .section-full { padding: 64px 24px; }
+  .section-heading { font-size: 30px; }
+  .platform-grid { grid-template-columns: 1fr; gap: 32px; }
+  .how-grid { grid-template-columns: 1fr; }
+  .quote-text { font-size: 22px; }
+  .final-cta { padding: 80px 24px; }
+  .final-cta h2 { font-size: 28px; }
+  .footer { flex-direction: column; gap: 20px; text-align: center; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">
+    <span class="legacy">Legacy</span><span class="trackr">Trackr</span>
+  </div>
+  <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="https://app.legacytrackr.com/login" class="nav-login">Log In</a></li>
+    <li><a href="/early-access.html" class="btn-nav">Get Started</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Wealth Platform for Complex Portfolios</div>
+    <h1>Make sure the people you love are never left in the dark.</h1>
+    <p>LegacyTrackr is one secure place for every asset, entity, and document. Built for people with wealth too complex for basic tools. Organize it for yourself today. Make it accessible to the people you love.</p>
+    <a href="/early-access.html" class="btn-primary">
+      Get Started
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- CREDIBILITY BAR -->
+<div class="credibility-bar">
+  <p>Private Equity<span class="sep">&middot;</span>Real Estate<span class="sep">&middot;</span>Trusts & LLCs<span class="sep">&middot;</span>Public Equities<span class="sep">&middot;</span>Operating Businesses<span class="sep">&middot;</span>Royalties & Minerals</p>
+  <p class="credibility-stat">Families spend an average of 6-18 months piecing together the full financial picture after a transition.</p>
+</div>
+
+<!-- PROBLEM -->
+<section class="section-full problem-section">
+  <div class="section" style="padding-top: 0; padding-bottom: 0;">
+    <div class="problem-inner">
+      <div class="eyebrow">The Problem</div>
+      <h2 class="section-heading">You're the only person who knows where everything is.</h2>
+      <p class="section-body">You've spent years building a complex portfolio: private equity, real estate, operating businesses, trusts, LLCs. Multiple advisors, each seeing a slice. Multiple entities, each holding pieces.</p>
+      <p class="section-body">It all makes sense to you. But think about who else might need to understand it:</p>
+      <ul class="problem-list">
+        <li>
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Your spouse may know 30% of the picture
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Your estate attorney has the trust docs but not the full financial map
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Your financial advisor knows the accounts they manage, not the other 60%
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Your accountant pieces together a snapshot once a year at tax time
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          No single person, including you, has it all in one view
+        </li>
+      </ul>
+      <p class="section-body">Existing tools are either too basic for this level of complexity or cost $50,000+ a year and require dedicated staff.</p>
+      <div class="problem-cta">
+        <a href="#how" class="btn-secondary">
+          See How It Works
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM -->
+<section class="section" id="features">
+  <div class="platform-grid">
+    <div>
+      <div class="eyebrow">The Platform</div>
+      <h2 class="section-heading">One place for everything you own.</h2>
+      <p class="section-body">LegacyTrackr brings every asset class, entity structure, and critical document into a single dashboard. See your full allocation, track what matters, and know that the complete picture exists somewhere safer and more accessible than a spreadsheet on your laptop.</p>
+    </div>
+    <div class="platform-visual">
+      <div class="mockup">
+        <div class="mockup-header">
+          <div class="mockup-dot"></div>
+          <span class="mockup-title">LegacyTrackr</span>
+        </div>
+        <div class="mockup-body">
+          <div class="mockup-row" style="border-bottom: none; padding-bottom: 0;">
+            <span class="mockup-label">Allocation</span>
+            <span class="mockup-value" style="font-size: 11px; color: var(--text-muted);">6 asset classes</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 24px; padding: 20px 0;">
+            <!-- Donut chart via SVG -->
+            <svg viewBox="0 0 120 120" style="width: 140px; height: 140px; flex-shrink: 0; transform: rotate(-90deg);">
+              <!-- Real Estate 35% = 0.35 * 339.292 = 118.75 -->
+              <circle cx="60" cy="60" r="54" fill="none" stroke="#0B1D3A" stroke-width="12"
+                stroke-dasharray="118.75 220.54" stroke-dashoffset="0"/>
+              <!-- Private Equity 25% = 84.82 -->
+              <circle cx="60" cy="60" r="54" fill="none" stroke="#C9A84C" stroke-width="12"
+                stroke-dasharray="84.82 254.47" stroke-dashoffset="-118.75"/>
+              <!-- Public Equities 18% = 61.07 -->
+              <circle cx="60" cy="60" r="54" fill="none" stroke="#2E6B8A" stroke-width="12"
+                stroke-dasharray="61.07 278.22" stroke-dashoffset="-203.57"/>
+              <!-- Operating Business 12% = 40.72 -->
+              <circle cx="60" cy="60" r="54" fill="none" stroke="#5C5A54" stroke-width="12"
+                stroke-dasharray="40.72 298.57" stroke-dashoffset="-264.64"/>
+              <!-- Royalties 6% = 20.36 -->
+              <circle cx="60" cy="60" r="54" fill="none" stroke="#B8B5AD" stroke-width="12"
+                stroke-dasharray="20.36 318.93" stroke-dashoffset="-305.36"/>
+              <!-- Personal Property 4% = 13.57 -->
+              <circle cx="60" cy="60" r="54" fill="none" stroke="#D4D1C9" stroke-width="12"
+                stroke-dasharray="13.57 325.72" stroke-dashoffset="-325.72"/>
+            </svg>
+            <div style="flex: 1; font-size: 12px;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                <span style="width: 8px; height: 8px; border-radius: 2px; background: #0B1D3A; flex-shrink: 0;"></span>
+                <span style="color: var(--text-secondary); flex: 1;">Real Estate</span>
+                <span style="font-family: var(--font-mono); font-weight: 500; color: var(--text-primary);">35%</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                <span style="width: 8px; height: 8px; border-radius: 2px; background: #C9A84C; flex-shrink: 0;"></span>
+                <span style="color: var(--text-secondary); flex: 1;">Private Equity</span>
+                <span style="font-family: var(--font-mono); font-weight: 500; color: var(--text-primary);">25%</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                <span style="width: 8px; height: 8px; border-radius: 2px; background: #2E6B8A; flex-shrink: 0;"></span>
+                <span style="color: var(--text-secondary); flex: 1;">Public Equities</span>
+                <span style="font-family: var(--font-mono); font-weight: 500; color: var(--text-primary);">18%</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                <span style="width: 8px; height: 8px; border-radius: 2px; background: #5C5A54; flex-shrink: 0;"></span>
+                <span style="color: var(--text-secondary); flex: 1;">Operating Business</span>
+                <span style="font-family: var(--font-mono); font-weight: 500; color: var(--text-primary);">12%</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                <span style="width: 8px; height: 8px; border-radius: 2px; background: #B8B5AD; flex-shrink: 0;"></span>
+                <span style="color: var(--text-secondary); flex: 1;">Royalties</span>
+                <span style="font-family: var(--font-mono); font-weight: 500; color: var(--text-primary);">6%</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 8px; height: 8px; border-radius: 2px; background: #D4D1C9; flex-shrink: 0;"></span>
+                <span style="color: var(--text-secondary); flex: 1;">Personal Property</span>
+                <span style="font-family: var(--font-mono); font-weight: 500; color: var(--text-primary);">4%</span>
+              </div>
+            </div>
+          </div>
+          <div class="mockup-entities">
+            <div class="mockup-entity-label">Entities</div>
+            <div class="mockup-entity-row">
+              <span class="mockup-entity-tag">Family Trust</span>
+              <span class="mockup-entity-tag">Holdings LLC</span>
+              <span class="mockup-entity-tag">Properties LP</span>
+              <span class="mockup-entity-tag">+4 more</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section-full how-section" id="how">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <div style="text-align: center; margin-bottom: 48px;">
+      <div class="eyebrow">How It Works</div>
+      <h2 class="section-heading">Three steps to a complete picture.</h2>
+    </div>
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-number">01</div>
+        <h3>Add your assets.</h3>
+        <p>Every asset class: liquid investments, real estate, private equity, operating businesses, personal property, royalties. Add as much or as little detail as you want. Our onboarding team helps with the heavy lifting.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-number">02</div>
+        <h3>Organize your structure.</h3>
+        <p>Document your entities (trusts, LLCs, LPs, foundations) and which assets they hold. See the full ownership picture in one view.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-number">03</div>
+        <h3>Control access.</h3>
+        <p>Invite a spouse, business partner, advisor, or family member. Set permissions for each person. You decide who sees what, and you can change it anytime.</p>
+      </div>
+    </div>
+    <div class="how-cta">
+      <a href="/early-access.html" class="btn-secondary">
+        Get Started
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WHY IT MATTERS -->
+<section class="section why-section">
+  <div class="why-inner">
+    <div class="eyebrow">Beyond Organization</div>
+    <h2 class="section-heading">Document your playbook. Share it on your terms.</h2>
+    <p class="section-body">Right now, you know where everything is. You know who manages what, which entities hold which assets, and where the documents are. That knowledge has real value: to your family, your partners, and your advisors.</p>
+    <p class="section-body">LegacyTrackr makes sure that knowledge lives somewhere accessible, not just in your head. So when anyone needs it, for tax season, estate planning, a liquidity event, or a family transition, it's all there.</p>
+  </div>
+</section>
+
+<!-- FOUNDER QUOTE -->
+<section class="quote-section">
+  <div class="quote-text">"I realized that 20+ investments, multiple entities, and real estate across two states all made perfect sense to me. But only to me. If my family, my attorney, or my accountant ever needed the full picture, they'd be starting from zero."</div>
+  <div class="quote-attr"><strong>Steve McKeever</strong>, Founder</div>
+</section>
+
+<!-- PRICING -->
+<section class="section-full pricing-section" id="pricing">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <div class="pricing-center">
+      <div class="eyebrow">Founding Member Pricing</div>
+      <h2 class="section-heading">One plan. Full access. White-glove onboarding.</h2>
+      <p class="section-body" style="max-width: 520px; margin: 0 auto;">No tiers. No feature gating. Every founding member gets the complete platform with dedicated onboarding support.</p>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-header">
+        <div class="label">Founding Member</div>
+        <div class="price">$2,500<span class="period">/year</span></div>
+        <div class="alt">or $250/month</div>
+      </div>
+      <div class="pricing-body">
+        <div class="pricing-feature">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Full platform access: every asset class, entity, and document type
+        </div>
+        <div class="pricing-feature">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          White-glove onboarding (2.5 hours included)
+        </div>
+        <div class="pricing-feature">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Invite family members, partners, or advisors with role-based permissions
+        </div>
+        <div class="pricing-feature">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Encrypted and secure. Your data is never sold or shared.
+        </div>
+        <a href="/early-access.html" class="pricing-cta">Get Started</a>
+      </div>
+    </div>
+    <p class="pricing-note">Have a referral code? Apply it at checkout.</p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>You spent decades building it.<br>Spend two hours making sure it's never lost.</h2>
+  <p>Get started in minutes. Our team will help you get everything set up.</p>
+  <a href="/early-access.html" class="btn-primary">
+    Get Started
+    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">
+    <span class="legacy">Legacy</span><span class="trackr">Trackr</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#">Privacy Policy</a></li>
+    <li><a href="#">Terms of Service</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="footer-copy">&copy; 2026 Legacy Tracker, Inc.</div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('open');
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navToggle.classList.remove('open');
+    navLinks.classList.remove('open');
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LegacyTrackr - Early Access</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300..700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0B1D3A;
+  --navy-light: #132D54;
+  --gold: #C9A84C;
+  --gold-light: #D4BA6A;
+  --bg: #FAFAF7;
+  --surface: #F5F4F0;
+  --white: #FFFFFF;
+  --border: #E5E2DA;
+  --text-primary: #1A1A18;
+  --text-secondary: #5C5A54;
+  --text-muted: #8A8780;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--navy);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.container {
+  text-align: center;
+  max-width: 480px;
+  width: 100%;
+}
+
+.logo {
+  margin-bottom: 48px;
+}
+
+.logo .legacy {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: #FFFFFF;
+}
+
+.logo .trackr {
+  font-family: var(--font-body);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--gold);
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.body-text {
+  font-size: 17px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+/* Form */
+.form-card {
+  background: var(--navy-light);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 6px;
+}
+
+.form-input {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 4px;
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 15px;
+  margin-bottom: 20px;
+  transition: border-color 150ms ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.form-input::placeholder {
+  color: rgba(255,255,255,0.25);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-submit {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 150ms ease;
+  margin-top: 4px;
+}
+
+.form-submit:hover { background: var(--gold-light); }
+
+.form-error {
+  display: none;
+  font-size: 13px;
+  color: #E07A5F;
+  margin-top: -14px;
+  margin-bottom: 20px;
+}
+
+.form-input.invalid {
+  border-color: #E07A5F;
+}
+
+.form-input.invalid + .form-error {
+  display: block;
+}
+
+/* Success state */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 24px 0;
+}
+
+.form-success .check {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(45, 122, 79, 0.15);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.form-success .check svg {
+  width: 24px;
+  height: 24px;
+  stroke: #2D7A4F;
+  fill: none;
+  stroke-width: 2.5;
+}
+
+.form-success h3 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+}
+
+.form-success p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.6;
+}
+
+.back-link {
+  font-size: 14px;
+  color: rgba(255,255,255,0.35);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.back-link:hover { color: rgba(255,255,255,0.6); }
+
+@media (max-width: 768px) {
+  h1 { font-size: 30px; }
+  .form-card { padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="logo">
+    <span class="legacy">Legacy</span><span class="trackr">Trackr</span>
+  </div>
+
+  <div class="eyebrow">Founding Member Access</div>
+  <h1>Your estate shouldn't be a mystery to the people you love.</h1>
+  <p class="body-text">We're opening LegacyTrackr to a small group of founding members with dedicated onboarding and early pricing. Request your invitation.</p>
+
+  <div class="form-card">
+    <form id="earlyAccessForm">
+      <label class="form-label" for="name">Name</label>
+      <input class="form-input" type="text" id="name" name="name" placeholder="Your name">
+      <div class="form-error" id="nameError">Please enter your name.</div>
+
+      <label class="form-label" for="email">Email</label>
+      <input class="form-input" type="email" id="email" name="email" placeholder="you@example.com">
+      <div class="form-error" id="emailError">Please enter a valid email.</div>
+
+      <label class="form-label" for="portfolio">How would you describe your financial picture? <span style="color: rgba(255,255,255,0.25);">(optional)</span></label>
+      <select class="form-input" id="portfolio" name="portfolio">
+        <option value="" disabled selected style="color: rgba(255,255,255,0.25);">Select one</option>
+        <option value="single-advisor">Multiple asset types, single advisor</option>
+        <option value="multi-advisor">Multiple asset types, multiple advisors</option>
+        <option value="entities">Multiple entities (trusts, LLCs, etc.)</option>
+        <option value="all">All of the above</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label class="form-label" for="message">What brings you to LegacyTrackr? <span style="color: rgba(255,255,255,0.25);">(optional)</span></label>
+      <textarea class="form-input form-textarea" id="message" name="message" placeholder="e.g., organizing assets across multiple entities"></textarea>
+
+      <button type="submit" class="form-submit">Request an Invitation</button>
+    </form>
+
+    <div class="form-success" id="formSuccess">
+      <div class="check">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h3>Invitation requested.</h3>
+      <p>We'll be in touch within 48 hours with next steps and your founding member details.</p>
+    </div>
+  </div>
+
+  <a href="/" class="back-link">&larr; Back to LegacyTrackr</a>
+</div>
+
+<script>
+document.getElementById('earlyAccessForm').setAttribute('novalidate', '');
+
+// Clear error on input
+document.querySelectorAll('.form-input').forEach(function(input) {
+  input.addEventListener('input', function() {
+    this.classList.remove('invalid');
+  });
+});
+
+document.getElementById('earlyAccessForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  // Custom validation
+  var valid = true;
+  var nameEl = document.getElementById('name');
+  var emailEl = document.getElementById('email');
+
+  nameEl.classList.remove('invalid');
+  emailEl.classList.remove('invalid');
+
+  if (!nameEl.value.trim()) {
+    nameEl.classList.add('invalid');
+    valid = false;
+  }
+
+  if (!emailEl.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
+    emailEl.classList.add('invalid');
+    valid = false;
+  }
+
+  if (!valid) return;
+
+  // Collect form data
+  const data = {
+    name: document.getElementById('name').value,
+    email: document.getElementById('email').value,
+    portfolio: document.getElementById('portfolio').value || '',
+    message: document.getElementById('message').value,
+    source: document.referrer || 'direct'
+  };
+
+  // API URL — always hits production since landing pages are static
+  const API_BASE = 'https://api.legacytrackr.com';
+
+  const submitBtn = document.querySelector('.form-submit');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting...';
+
+  fetch(API_BASE + '/api/early-access', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(function(response) {
+    if (!response.ok) throw new Error('Request failed');
+    // Show success state
+    document.getElementById('earlyAccessForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  })
+  .catch(function(error) {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Request an Invitation';
+    alert('Something went wrong. Please try again.');
+  });
+});
+</script>
+
+</body>
+</html>
