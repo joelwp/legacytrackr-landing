@@ -323,7 +323,7 @@ document.getElementById('earlyAccessForm').addEventListener('submit', function(e
   submitBtn.disabled = true;
   submitBtn.textContent = 'Submitting...';
 
-  fetch(API_BASE + '/api/early-access', {
+  fetch(API_BASE + '/early-access', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
