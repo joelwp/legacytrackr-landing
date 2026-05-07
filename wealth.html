@@ -132,13 +132,12 @@ body {
 /* ========== HERO ========== */
 .hero {
   position: relative;
-  min-height: 90vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   background: var(--navy);
   overflow: hidden;
-  padding: 120px 48px 96px;
+  padding: 140px 48px 0;
 }
 
 .hero-content {
@@ -166,6 +165,15 @@ body {
   margin-bottom: 24px;
 }
 
+.hero-mission {
+  font-size: 18px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  max-width: 620px;
+  margin: 0 auto 40px;
+}
+
 .hero p {
   font-size: 18px;
   color: rgba(255,255,255,0.65);
@@ -174,6 +182,34 @@ body {
   max-width: 620px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* Hero screenshot */
+.hero-screenshot {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 64px;
+  padding: 0 48px;
+  text-align: center;
+}
+
+.hero-screenshot img {
+  width: 100%;
+  display: block;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -4px 40px rgba(0,0,0,0.3), 0 0 80px rgba(0,0,0,0.15);
+}
+
+.hero-screenshot-fade {
+  position: absolute;
+  bottom: 0;
+  left: 48px;
+  right: 48px;
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--navy-light));
+  pointer-events: none;
 }
 
 .btn-primary {
@@ -699,9 +735,12 @@ body {
     text-align: center;
     margin-top: 8px;
   }
-  .hero { padding: 100px 24px 72px; min-height: 80vh; }
+  .hero { padding: 100px 24px 0; }
   .hero h1 { font-size: 30px; }
+  .hero-mission { font-size: 17px; }
   .hero p { font-size: 16px; }
+  .hero-screenshot { margin-top: 40px; padding: 0 16px; }
+  .hero-screenshot-fade { left: 16px; right: 16px; }
   .credibility-bar { padding: 24px; }
   .credibility-bar p { font-size: 12px; line-height: 2; }
   .credibility-bar .sep { margin: 0 8px; }
@@ -741,13 +780,17 @@ body {
 <!-- HERO -->
 <section class="hero">
   <div class="hero-content">
-    <div class="hero-eyebrow">Wealth Dashboard for Complex Portfolios</div>
     <h1>Your complete wealth picture. Finally clear.</h1>
-    <p>See everything in one place across accounts, entities, and documents without relying on spreadsheets or memory.</p>
+    <div class="hero-mission">LegacyTrackr turns financial complexity into family clarity that can be preserved and carried forward across generations.</div>
     <a href="/early-access.html" class="btn-primary">
       Request a Demo
       <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
     </a>
+  </div>
+  <div class="hero-screenshot">
+    <div class="hero-eyebrow">Wealth Dashboard for Complex Portfolios</div>
+    <img src="images/screenshot-dashboard.png" alt="LegacyTrackr portfolio dashboard showing allocation, performance, net worth, and projected income across all asset classes" loading="eager">
+    <div class="hero-screenshot-fade"></div>
   </div>
 </section>
 
@@ -786,82 +829,8 @@ body {
       <p class="section-body">LegacyTrackr brings every asset class, entity structure, and critical document into a single dashboard, with the notes, instructions, and context that a spreadsheet can't carry. Add exit strategies for each investment. Note who to contact and why. Control exactly who can see what. And know that your financial picture is not dependent on any one file, device, or person.</p>
     </div>
     <div class="platform-visual">
-      <div class="mockup">
-        <div class="mockup-header">
-          <div class="mockup-dot"></div>
-          <span class="mockup-title">LegacyTrackr</span>
-        </div>
-        <div class="mockup-body">
-          <div class="mockup-row" style="border-bottom: none; padding-bottom: 0;">
-            <span class="mockup-label">Allocation</span>
-            <span class="mockup-value" style="font-size: 11px; color: var(--text-muted);">6 asset classes</span>
-          </div>
-          <div style="display: flex; align-items: center; gap: 24px; padding: 20px 0;">
-            <!-- Donut chart via SVG -->
-            <svg viewBox="0 0 120 120" style="width: 140px; height: 140px; flex-shrink: 0; transform: rotate(-90deg);">
-              <!-- Real Estate 35% = 0.35 * 339.292 = 118.75 -->
-              <circle cx="60" cy="60" r="54" fill="none" stroke="#0B1D3A" stroke-width="12"
-                stroke-dasharray="118.75 220.54" stroke-dashoffset="0"/>
-              <!-- Private Equity 25% = 84.82 -->
-              <circle cx="60" cy="60" r="54" fill="none" stroke="#C9A84C" stroke-width="12"
-                stroke-dasharray="84.82 254.47" stroke-dashoffset="-118.75"/>
-              <!-- Public Equities 18% = 61.07 -->
-              <circle cx="60" cy="60" r="54" fill="none" stroke="#2E6B8A" stroke-width="12"
-                stroke-dasharray="61.07 278.22" stroke-dashoffset="-203.57"/>
-              <!-- Operating Business 12% = 40.72 -->
-              <circle cx="60" cy="60" r="54" fill="none" stroke="#5C5A54" stroke-width="12"
-                stroke-dasharray="40.72 298.57" stroke-dashoffset="-264.64"/>
-              <!-- Royalties 6% = 20.36 -->
-              <circle cx="60" cy="60" r="54" fill="none" stroke="#B8B5AD" stroke-width="12"
-                stroke-dasharray="20.36 318.93" stroke-dashoffset="-305.36"/>
-              <!-- Personal Property 4% = 13.57 -->
-              <circle cx="60" cy="60" r="54" fill="none" stroke="#D4D1C9" stroke-width="12"
-                stroke-dasharray="13.57 325.72" stroke-dashoffset="-325.72"/>
-            </svg>
-            <div style="flex: 1; font-size: 12px;">
-              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                <span style="width: 8px; height: 8px; border-radius: 2px; background: #0B1D3A; flex-shrink: 0;"></span>
-                <span style="color: var(--text-secondary); flex: 1;">Real Estate</span>
-                <span style="font-family: var(--font-mono); font-weight: 500; color: var(--text-primary);">35%</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                <span style="width: 8px; height: 8px; border-radius: 2px; background: #C9A84C; flex-shrink: 0;"></span>
-                <span style="color: var(--text-secondary); flex: 1;">Private Equity</span>
-                <span style="font-family: var(--font-mono); font-weight: 500; color: var(--text-primary);">25%</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                <span style="width: 8px; height: 8px; border-radius: 2px; background: #2E6B8A; flex-shrink: 0;"></span>
-                <span style="color: var(--text-secondary); flex: 1;">Public Equities</span>
-                <span style="font-family: var(--font-mono); font-weight: 500; color: var(--text-primary);">18%</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                <span style="width: 8px; height: 8px; border-radius: 2px; background: #5C5A54; flex-shrink: 0;"></span>
-                <span style="color: var(--text-secondary); flex: 1;">Operating Business</span>
-                <span style="font-family: var(--font-mono); font-weight: 500; color: var(--text-primary);">12%</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-                <span style="width: 8px; height: 8px; border-radius: 2px; background: #B8B5AD; flex-shrink: 0;"></span>
-                <span style="color: var(--text-secondary); flex: 1;">Royalties</span>
-                <span style="font-family: var(--font-mono); font-weight: 500; color: var(--text-primary);">6%</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="width: 8px; height: 8px; border-radius: 2px; background: #D4D1C9; flex-shrink: 0;"></span>
-                <span style="color: var(--text-secondary); flex: 1;">Personal Property</span>
-                <span style="font-family: var(--font-mono); font-weight: 500; color: var(--text-primary);">4%</span>
-              </div>
-            </div>
-          </div>
-          <div class="mockup-entities">
-            <div class="mockup-entity-label">Entities</div>
-            <div class="mockup-entity-row">
-              <span class="mockup-entity-tag">Family Trust</span>
-              <span class="mockup-entity-tag">Holdings LLC</span>
-              <span class="mockup-entity-tag">Properties LP</span>
-              <span class="mockup-entity-tag">+4 more</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <img src="images/screenshot-estate-allocation.png" alt="Portfolio allocation across asset classes with dollar amounts" style="width: 100%; border-radius: 8px;">
+      <img src="images/screenshot-pe-performance.png" alt="Private equity performance showing invested vs current value" style="width: 100%; border-radius: 8px; margin-top: 16px;">
     </div>
   </div>
 </section>
