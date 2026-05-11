@@ -339,7 +339,7 @@ form.addEventListener('submit', function(e) {
     message: 'Founding member invitation'
   };
 
-  fetch('https://staging-api.legacytrackr.com/early-access', {
+  fetch('https://api.legacytrackr.com/early-access', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data)
