@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LegacyTrackr - For Advisors</title>
+<meta name="description" content="Refer the clients you already advise. Earn 15% recurring commission on every subscription.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon-lt.svg" type="image/svg+xml">
+<link rel="shortcut icon" href="/favicon-lt.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300..700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0B1D3A;
+  --navy-light: #132D54;
+  --gold: #C9A84C;
+  --gold-light: #D4BA6A;
+  --gold-muted: #A8923F;
+  --bg: #FAFAF7;
+  --surface: #F5F4F0;
+  --white: #FFFFFF;
+  --border: #E5E2DA;
+  --text-primary: #1A1A18;
+  --text-secondary: #5C5A54;
+  --text-muted: #8A8780;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--navy);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px;
+}
+
+/* Logo */
+.logo { margin-bottom: 48px; }
+
+/* Hero */
+.hero {
+  text-align: center;
+  max-width: 580px;
+  margin-bottom: 48px;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold-muted);
+  margin-bottom: 16px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.hero p {
+  font-size: 16px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.7;
+}
+
+/* Form card */
+.form-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 32px;
+  max-width: 520px;
+  width: 100%;
+  margin-bottom: 48px;
+}
+
+.form-card-title {
+  font-weight: 600;
+  color: #FFFFFF;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.form-card-desc {
+  font-size: 12px;
+  color: rgba(245,244,240,0.4);
+  margin-bottom: 24px;
+}
+
+/* Form fields */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group { margin-bottom: 20px; }
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 6px;
+}
+
+.form-label .optional {
+  color: rgba(255,255,255,0.25);
+  font-weight: 400;
+}
+
+.form-input {
+  display: block;
+  width: 100%;
+  padding: 11px 14px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 14px;
+  transition: border-color 150ms ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: rgba(201,168,76,0.5);
+}
+
+.form-input::placeholder { color: rgba(255,255,255,0.2); }
+
+select.form-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.3)' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+select.form-input option {
+  background: var(--navy);
+  color: #FFFFFF;
+}
+
+textarea.form-input {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-error {
+  display: none;
+  font-size: 12px;
+  color: #E07A5F;
+  margin-top: 4px;
+}
+
+.form-input.invalid { border-color: #E07A5F; }
+.form-input.invalid + .form-error { display: block; }
+
+.form-submit {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 150ms ease;
+  margin-top: 4px;
+}
+
+.form-submit:hover { background: var(--gold-light); }
+.form-submit:disabled { opacity: 0.6; cursor: default; }
+
+.form-hint {
+  font-size: 12px;
+  color: rgba(255,255,255,0.35);
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* How it works */
+.steps {
+  max-width: 520px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 48px;
+}
+
+.step {
+  display: flex;
+  gap: 14px;
+}
+
+.step-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(201,168,76,0.15);
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.step-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+}
+
+.step-desc {
+  font-size: 12px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.5;
+}
+
+/* Footer */
+.footer {
+  max-width: 520px;
+  width: 100%;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-copy {
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.35);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.footer-links a:hover { color: rgba(255,255,255,0.6); }
+
+/* Success state */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 16px 0;
+}
+
+.form-success .check {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(45,122,79,0.15);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.form-success .check svg {
+  width: 22px;
+  height: 22px;
+  stroke: #2D7A4F;
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.form-success h3 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: #FFFFFF;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+.form-success p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.7;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+  body { padding: 32px 20px; }
+  .hero h1 { font-size: 30px; }
+  .form-row { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr; }
+  .footer { flex-direction: column; gap: 16px; text-align: center; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="logo">
+  <a href="/"><img src="/LT_logo_white_for_blueBG.svg" height="56" alt="LegacyTrackr"></a>
+</div>
+
+<div class="hero">
+  <div class="hero-eyebrow">For wealth advisors, estate planners, attorneys &amp; CPAs</div>
+  <h1>Refer the clients you already advise. Earn 15% recurring.</h1>
+  <p>Your clients manage complex wealth across multiple advisors, entities, and accounts. LegacyTrackr gives them one secure place to organize the full picture and ensure their family can access it when it matters. We pay you 15% for the introduction, for as long as they stay a customer.</p>
+</div>
+
+<div class="form-card" id="formWrapper">
+  <div class="form-card-title">Apply to become a founding referral partner</div>
+  <div class="form-card-desc">We're selecting a small group of advisors for our initial program.</div>
+
+  <form id="advisorForm" novalidate>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="firstName">First name</label>
+        <input class="form-input" type="text" id="firstName" name="first_name" placeholder="Eleanor" autocomplete="given-name">
+        <div class="form-error">Please enter your first name.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="lastName">Last name</label>
+        <input class="form-input" type="text" id="lastName" name="last_name" placeholder="Whitfield" autocomplete="family-name">
+        <div class="form-error">Please enter your last name.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="email">Work email</label>
+      <input class="form-input" type="email" id="email" name="email" placeholder="you@firm.com" autocomplete="email">
+      <div class="form-error">Please enter a valid email address.</div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="firmName">Firm name</label>
+      <input class="form-input" type="text" id="firmName" name="firm_name" placeholder="Whitfield Wealth Partners" autocomplete="organization">
+      <div class="form-error">Please enter your firm name.</div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="advisorType">I work as a</label>
+        <select class="form-input" id="advisorType" name="advisor_type">
+          <option value="" disabled selected>Select type...</option>
+          <option value="wealth_advisor">Wealth Advisor</option>
+          <option value="estate_attorney">Estate Attorney</option>
+          <option value="cpa">CPA / Tax Advisor</option>
+          <option value="financial_planner">Financial Planner</option>
+          <option value="insurance_advisor">Insurance Advisor</option>
+          <option value="other">Other</option>
+        </select>
+        <div class="form-error">Please select your advisor type.</div>
+        <input class="form-input" type="text" id="advisorTypeOther" name="advisor_type_other" placeholder="Tell us what you do" style="display:none;margin-top:8px">
+        <div class="form-error" id="otherError">Please describe your role.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="clientCount">Roughly how many clients</label>
+        <select class="form-input" id="clientCount" name="client_count_range">
+          <option value="" disabled selected>Select range...</option>
+          <option value="1-10">1-10</option>
+          <option value="11-50">11-50</option>
+          <option value="51-200">51-200</option>
+          <option value="200+">200+</option>
+        </select>
+        <div class="form-error">Please select a range.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="message">Anything we should know? <span class="optional">(optional)</span></label>
+      <textarea class="form-input" id="message" name="message" placeholder="How did you hear about us? Any clients in mind?"></textarea>
+    </div>
+
+    <button type="submit" class="form-submit" id="submitBtn">Submit application</button>
+    <div id="formError" style="display:none;text-align:center;margin-top:12px;padding:12px 16px;background:rgba(224,122,95,0.1);border:1px solid rgba(224,122,95,0.2);border-radius:4px;font-size:13px;color:#E07A5F;line-height:1.5">
+      Something isn't working right now. Please try again shortly or email <a href="mailto:joel@legacytrackr.com" style="color:#E07A5F;text-decoration:underline">joel@legacytrackr.com</a> directly.
+    </div>
+    <div class="form-hint">We review every application personally. You'll hear back within a few business days.</div>
+  </form>
+</div>
+
+<div class="form-success" id="formSuccess">
+  <div class="check">
+    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <h3>Application received.</h3>
+  <p>Joel Phillips, our CEO, will review your application and follow up personally within a few business days.</p>
+</div>
+
+<div class="steps">
+  <div class="step">
+    <div class="step-num">01</div>
+    <div>
+      <div class="step-title">Apply</div>
+      <div class="step-desc">We review every application and reach out personally.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">02</div>
+    <div>
+      <div class="step-title">Share your link</div>
+      <div class="step-desc">Your dashboard gives you a tracked link and an email invite flow. Disclosure is built in.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">03</div>
+    <div>
+      <div class="step-title">Earn 15% recurring</div>
+      <div class="step-desc">You earn a commission on every payment your referred client makes, for as long as they subscribe.</div>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-num">04</div>
+    <div>
+      <div class="step-title">No client data risk</div>
+      <div class="step-desc">You never touch client data. Your clients' privacy is fully protected.</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-copy">&copy; 2026 Legacy Tracker, Inc.</div>
+  <ul class="footer-links">
+    <li><a href="https://app.legacytrackr.com/privacy" target="_blank" rel="noopener">Privacy</a></li>
+    <li><a href="https://app.legacytrackr.com/terms" target="_blank" rel="noopener">Terms</a></li>
+    <li><a href="/">Home</a></li>
+  </ul>
+</div>
+
+<script>
+var form = document.getElementById('advisorForm');
+var submitBtn = document.getElementById('submitBtn');
+
+document.querySelectorAll('.form-input').forEach(function(input) {
+  input.addEventListener('input', function() {
+    this.classList.remove('invalid');
+  });
+  input.addEventListener('change', function() {
+    this.classList.remove('invalid');
+  });
+});
+
+// Show "Other" text field when Other is selected
+document.getElementById('advisorType').addEventListener('change', function() {
+  var otherInput = document.getElementById('advisorTypeOther');
+  if (this.value === 'other') {
+    otherInput.style.display = 'block';
+  } else {
+    otherInput.style.display = 'none';
+    otherInput.value = '';
+    otherInput.classList.remove('invalid');
+  }
+});
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  var fields = [
+    { el: document.getElementById('firstName'), test: function(v) { return v.trim().length > 0; } },
+    { el: document.getElementById('lastName'), test: function(v) { return v.trim().length > 0; } },
+    { el: document.getElementById('email'), test: function(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); } },
+    { el: document.getElementById('firmName'), test: function(v) { return v.trim().length > 0; } },
+    { el: document.getElementById('advisorType'), test: function(v) { return v !== ''; } },
+    { el: document.getElementById('clientCount'), test: function(v) { return v !== ''; } }
+  ];
+
+  var valid = true;
+  fields.forEach(function(f) {
+    f.el.classList.remove('invalid');
+    if (!f.test(f.el.value)) {
+      f.el.classList.add('invalid');
+      valid = false;
+    }
+  });
+
+  // Validate "Other" text field if Other is selected
+  var otherInput = document.getElementById('advisorTypeOther');
+  if (document.getElementById('advisorType').value === 'other') {
+    otherInput.classList.remove('invalid');
+    if (!otherInput.value.trim()) {
+      otherInput.classList.add('invalid');
+      valid = false;
+    }
+  }
+
+  if (!valid) return;
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Submitting...';
+
+  var data = {
+    first_name: document.getElementById('firstName').value.trim(),
+    last_name: document.getElementById('lastName').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    firm_name: document.getElementById('firmName').value.trim(),
+    advisor_type: document.getElementById('advisorType').value,
+    client_count_range: document.getElementById('clientCount').value,
+    message: document.getElementById('message').value.trim(),
+    advisor_type_other: document.getElementById('advisorTypeOther').value.trim()
+  };
+
+  fetch('https://api.legacytrackr.com/api/advisor/apply', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(function(response) {
+    if (!response.ok) throw new Error('failed');
+    document.getElementById('formWrapper').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  })
+  .catch(function() {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit application';
+    document.getElementById('formError').style.display = 'block';
+  });
+});
+</script>
+
+</body>
+</html>
