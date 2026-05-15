@@ -420,8 +420,8 @@ textarea.form-input {
   <div class="check">
     <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
   </div>
-  <h3>Application received.</h3>
-  <p>Joel Phillips, our CEO, will review your application and follow up personally within a few business days.</p>
+  <h3 id="successTitle">Application received.</h3>
+  <p id="successMessage">We review every application personally. You'll hear back within a few business days.</p>
 </div>
 
 <div class="steps">
@@ -543,6 +543,13 @@ form.addEventListener('submit', function(e) {
   })
   .then(function(response) {
     if (!response.ok) throw new Error('failed');
+    return response.json();
+  })
+  .then(function(result) {
+    if (result.already_submitted) {
+      document.getElementById('successTitle').textContent = 'We already have your application on file.';
+      document.getElementById('successMessage').textContent = 'No need to submit again — we\'ll be in touch soon.';
+    }
     document.getElementById('formWrapper').style.display = 'none';
     document.getElementById('formSuccess').style.display = 'block';
   })
