@@ -197,14 +197,6 @@ h1 {
 
 .form-input.invalid + .form-error { display: block; }
 
-.honeypot {
-  position: absolute;
-  left: -10000px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
 .form-submit,
 .download-btn,
 .review-btn {
@@ -317,11 +309,6 @@ h1 {
         <p class="form-desc">Tell us where to send the worksheet. The download link will also appear immediately. No account required.</p>
 
         <form id="worksheetForm" novalidate>
-          <div class="honeypot" aria-hidden="true">
-            <label for="company">Company</label>
-            <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
-          </div>
-
           <label class="form-label" for="email">Email</label>
           <input class="form-input" type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email">
           <div class="form-error">Please enter a valid email address.</div>
@@ -401,8 +388,7 @@ form.addEventListener('submit', function(e) {
     utm_medium: getParam('utm_medium'),
     utm_campaign: getParam('utm_campaign'),
     utm_term: getParam('utm_term'),
-    utm_content: getParam('utm_content'),
-    company: document.getElementById('company').value
+    utm_content: getParam('utm_content')
   };
 
   submitBtn.disabled = true;
