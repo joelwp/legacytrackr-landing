@@ -246,6 +246,36 @@ body {
   stroke-width: 2;
 }
 
+.hero-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 30px;
+  background: rgba(255,255,255,0.06);
+  color: #FFFFFF;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.26);
+}
+
 /* ========== CREDIBILITY BAR ========== */
 .credibility-bar {
   background: var(--navy-light);
@@ -611,6 +641,14 @@ body {
   margin-top: 16px;
   font-size: 13px;
   color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.pricing-note a {
+  color: var(--navy);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 /* ========== FINAL CTA ========== */
@@ -693,6 +731,8 @@ body {
   .hero h1 { font-size: 34px; }
   .hero-mission { font-size: 17px; }
   .hero p { font-size: 16px; }
+  .hero-actions { width: 100%; }
+  .hero-actions a { width: 100%; justify-content: center; }
   .hero-screenshot { margin-top: 40px; padding: 0 16px; }
   .hero-screenshot-fade { left: 16px; right: 16px; }
   .credibility-bar { padding: 24px; }
@@ -724,8 +764,9 @@ body {
     <li><a href="#features">Features</a></li>
     <li><a href="#how">How It Works</a></li>
     <li><a href="#pricing">Pricing</a></li>
+    <li><a href="/advisors.html">For Advisors</a></li>
     <li><a href="https://app.legacytrackr.com/login" class="nav-login">Log In</a></li>
-    <li><a href="/early-access.html" class="btn-nav">Get Started</a></li>
+    <li><a href="/worksheet.html?src=homepage_nav" class="btn-nav">Get the Worksheet</a></li>
   </ul>
 </nav>
 
@@ -734,10 +775,13 @@ body {
   <div class="hero-content">
     <h1>The greatest gift you leave behind is not money. It is clarity for those you love.</h1>
     <div class="hero-mission">LegacyTrackr turns financial complexity into family clarity that can be preserved and carried forward across generations.</div>
-    <a href="/demo.html" class="btn-primary">
-      Request a Demo
-      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-    </a>
+    <div class="hero-actions">
+      <a href="/demo.html?src=homepage_hero" class="btn-primary">
+        Request a Demo
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a href="/worksheet.html?src=homepage_hero" class="btn-secondary">Get the Worksheet</a>
+    </div>
   </div>
   <div class="hero-screenshot">
     <div class="hero-eyebrow">Wealth Dashboard for Complex Portfolios</div>
@@ -857,18 +901,18 @@ See your full allocation, track what matters, and know the complete picture exis
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
           Encrypted and secure. Your data is never sold or shared.
         </div>
-        <a href="/early-access.html" class="pricing-cta">Get Started</a>
+        <a href="https://app.legacytrackr.com/signup?src=homepage_pricing" class="pricing-cta">Start Signup</a>
       </div>
     </div>
-    <p class="pricing-note">Have a referral code? Apply it at checkout.</p>
+    <p class="pricing-note"><a href="/demo.html?src=homepage_pricing">Prefer to talk first? Book a walkthrough.</a><br>Have a referral code or coupon? Apply it at checkout.</p>
   </div>
 </section>
 
 <!-- FINAL CTA -->
 <section class="final-cta">
   <h2>Your complete financial picture.<br>Organized. Accessible. Secure.</h2>
-  <p>Get started in minutes. Our team will help you get everything set up.</p>
-  <a href="/demo.html" class="btn-primary">
+  <p>Book a walkthrough and see whether LegacyTrackr fits your family.</p>
+  <a href="/demo.html?src=homepage_final" class="btn-primary">
     Request a Demo
     <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
   </a>
@@ -882,7 +926,7 @@ See your full allocation, track what matters, and know the complete picture exis
   <ul class="footer-links">
     <li><a href="https://app.legacytrackr.com/privacy" target="_blank" rel="noopener">Privacy Policy</a></li>
     <li><a href="https://app.legacytrackr.com/terms" target="_blank" rel="noopener">Terms of Service</a></li>
-    <li><a href="/early-access.html">Contact</a></li>
+    <li><a href="/worksheet.html">Worksheet</a></li>
     <li><a href="/advisors.html">For Advisors</a></li>
   </ul>
   <div class="footer-copy">&copy; 2026 Legacy Tracker, Inc.</div>

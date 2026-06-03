@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LegacyTrackr - Personal Financial Inventory Worksheet</title>
+<meta name="description" content="Download the Personal Financial Inventory worksheet for complex households with assets, entities, documents, and advisors spread across many places.">
+<link rel="icon" href="/favicon-lt.svg" type="image/svg+xml">
+<link rel="shortcut icon" href="/favicon-lt.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300..700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0B1D3A;
+  --navy-light: #132D54;
+  --gold: #C9A84C;
+  --gold-light: #D4BA6A;
+  --bg: #FAFAF7;
+  --surface: #F5F4F0;
+  --white: #FFFFFF;
+  --border: #E5E2DA;
+  --text-primary: #1A1A18;
+  --text-secondary: #5C5A54;
+  --text-muted: #8A8780;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+}
+
+.left {
+  background: var(--navy);
+  color: #FFFFFF;
+  padding: 56px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logo { margin-bottom: 72px; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 22px;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 50px;
+  line-height: 1.08;
+  font-weight: 400;
+  max-width: 640px;
+  margin-bottom: 26px;
+}
+
+.intro {
+  font-size: 18px;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.66);
+  max-width: 620px;
+}
+
+.fit-list {
+  margin-top: 42px;
+  display: grid;
+  gap: 14px;
+  max-width: 610px;
+}
+
+.fit-item {
+  display: flex;
+  gap: 12px;
+  color: rgba(255,255,255,0.72);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.fit-mark {
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgba(201,168,76,0.65);
+  color: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-size: 13px;
+}
+
+.quote {
+  margin-top: 52px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  font-family: var(--font-display);
+  font-size: 20px;
+  line-height: 1.45;
+  color: rgba(255,255,255,0.5);
+  max-width: 620px;
+}
+
+.right {
+  padding: 56px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 500px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 34px;
+  box-shadow: 0 18px 50px rgba(11,29,58,0.08);
+}
+
+.form-title {
+  font-family: var(--font-display);
+  color: var(--navy);
+  font-size: 31px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.form-desc {
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.65;
+  margin-bottom: 26px;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.optional {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.form-input {
+  display: block;
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 15px;
+  margin-bottom: 18px;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: var(--white);
+}
+
+.form-input.invalid { border-color: #B65A45; }
+
+.form-error {
+  display: none;
+  font-size: 13px;
+  color: #B65A45;
+  margin-top: -12px;
+  margin-bottom: 16px;
+}
+
+.form-input.invalid + .form-error { display: block; }
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-submit,
+.download-btn,
+.review-btn {
+  display: inline-flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 18px;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.form-submit,
+.download-btn {
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+}
+
+.form-submit:hover,
+.download-btn:hover { background: var(--gold-light); }
+
+.form-submit:disabled { opacity: 0.65; cursor: default; }
+
+.review-btn {
+  margin-top: 12px;
+  background: var(--navy);
+  color: #FFFFFF;
+  border: 1px solid var(--navy);
+}
+
+.safe-note {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.form-success {
+  display: none;
+}
+
+.success-title {
+  font-family: var(--font-display);
+  color: var(--navy);
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.success-copy {
+  color: var(--text-secondary);
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: var(--text-muted);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.back-link:hover { color: var(--navy); }
+
+@media (max-width: 900px) {
+  .page { grid-template-columns: 1fr; }
+  .left { padding: 42px 28px; }
+  .logo { margin-bottom: 42px; }
+  h1 { font-size: 38px; }
+  .intro { font-size: 16px; }
+  .right { padding: 32px 20px 48px; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <section class="left">
+    <div>
+      <div class="logo">
+        <a href="/"><img src="/LT_logo_white_for_blueBG.svg" height="64" alt="LegacyTrackr"></a>
+      </div>
+
+      <div class="eyebrow">Personal Financial Inventory</div>
+      <h1>See how complete your financial picture really is.</h1>
+      <p class="intro">This free worksheet helps you map the accounts, entities, documents, people, and obligations that your family would need to find if they had to step in. If you are not sure, leave it blank. Those gaps show where the plan still depends on memory, inboxes, or other people's files.</p>
+
+      <div class="fit-list" aria-label="Who this worksheet is for">
+        <div class="fit-item"><span class="fit-mark">&#10003;</span><span>You have assets spread across multiple institutions, advisors, or spreadsheets.</span></div>
+        <div class="fit-item"><span class="fit-mark">&#10003;</span><span>You own private investments, real estate, an operating business, or entities such as trusts and LLCs.</span></div>
+        <div class="fit-item"><span class="fit-mark">&#10003;</span><span>Right now, the full picture depends on you. You need a plan to bring your spouse, family, or executor into the picture before they have to act.</span></div>
+      </div>
+
+      <div class="quote">If the worksheet is hard to finish, the issue is not the worksheet. It is a sign the plan still depends too much on you.</div>
+    </div>
+  </section>
+
+  <section class="right">
+    <div class="form-card">
+      <div id="formWrapper">
+        <h2 class="form-title">Get the worksheet.</h2>
+        <p class="form-desc">Tell us where to send the worksheet. The download link will also appear immediately. No account required.</p>
+
+        <form id="worksheetForm" novalidate>
+          <div class="honeypot" aria-hidden="true">
+            <label for="company">Company</label>
+            <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+          </div>
+
+          <label class="form-label" for="email">Email</label>
+          <input class="form-input" type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email">
+          <div class="form-error">Please enter a valid email address.</div>
+
+          <label class="form-label" for="name">Name <span class="optional">(optional)</span></label>
+          <input class="form-input" type="text" id="name" name="name" placeholder="Your name" autocomplete="name">
+
+          <button type="submit" class="form-submit" id="submitBtn">Send Me the Worksheet</button>
+        </form>
+
+        <p class="safe-note">Once filled in, this worksheet may describe sensitive financial information. Do not write live passwords, PINs, or private keys on it. Store the completed copy somewhere secure.</p>
+      </div>
+
+      <div class="form-success" id="formSuccess">
+        <h2 class="success-title">Your worksheet is ready.</h2>
+        <p class="success-copy">Check your email for the worksheet, or download it here now. Fill in what you can, and use the blanks as a guide to what still lives only in your head or someone else's files.</p>
+        <a class="download-btn" href="/personal-financial-inventory.pdf" download>Download PDF</a>
+        <a class="review-btn" href="/demo.html?src=worksheet_download">Schedule a Call</a>
+        <a href="/" class="back-link">Back to LegacyTrackr</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+var WORKSHEET_ENDPOINT = 'https://ffrqhefpkmocgffnolkn.supabase.co/functions/v1/worksheet-request';
+
+function getParam(name) {
+  var params = new URLSearchParams(window.location.search);
+  return params.get(name) || '';
+}
+
+function getSource() {
+  return getParam('src') ||
+    getParam('utm_source') ||
+    getParam('utm_campaign') ||
+    'worksheet_direct';
+}
+
+var form = document.getElementById('worksheetForm');
+var submitBtn = document.getElementById('submitBtn');
+
+document.querySelectorAll('.form-input').forEach(function(input) {
+  input.addEventListener('input', function() {
+    this.classList.remove('invalid');
+  });
+  input.addEventListener('change', function() {
+    this.classList.remove('invalid');
+  });
+});
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  var emailEl = document.getElementById('email');
+  var nameEl = document.getElementById('name');
+  var valid = true;
+
+  emailEl.classList.remove('invalid');
+
+  if (!emailEl.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
+    emailEl.classList.add('invalid');
+    valid = false;
+  }
+
+  if (!valid) return;
+
+  var source = getSource();
+  var data = {
+    lead_type: 'worksheet',
+    email: emailEl.value.trim(),
+    name: nameEl.value.trim(),
+    source: source,
+    page_url: window.location.href,
+    referrer: document.referrer || '',
+    utm_source: getParam('utm_source'),
+    utm_medium: getParam('utm_medium'),
+    utm_campaign: getParam('utm_campaign'),
+    utm_term: getParam('utm_term'),
+    utm_content: getParam('utm_content'),
+    company: document.getElementById('company').value
+  };
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+
+  fetch(WORKSHEET_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(function(response) {
+    if (!response.ok) throw new Error('failed');
+    document.getElementById('formWrapper').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  })
+  .catch(function() {
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send Me the Worksheet';
+    alert('Something went wrong. Please try again or email info@legacytrackr.com.');
+  });
+});
+</script>
+</body>
+</html>

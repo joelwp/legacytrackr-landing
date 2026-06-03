@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LegacyTrackr - Founding Member</title>
+<title>LegacyTrackr - Founding Member Invitation</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="/favicon-lt.svg" type="image/svg+xml">
 <link rel="shortcut icon" href="/favicon-lt.svg">
@@ -99,6 +99,36 @@ h1 {
   color: rgba(201, 168, 76, 0.8);
 }
 
+.founding-list {
+  margin: 24px 0 0;
+  padding: 18px 20px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 4px;
+  list-style: none;
+}
+
+.founding-list li {
+  color: rgba(255,255,255,0.58);
+  font-size: 14px;
+  line-height: 1.65;
+  padding-left: 18px;
+  position: relative;
+}
+
+.founding-list li + li { margin-top: 7px; }
+
+.founding-list li::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+  position: absolute;
+  left: 0;
+  top: 10px;
+}
+
 /* Divider */
 .divider {
   border: none;
@@ -136,6 +166,16 @@ h1 {
 
 .form-input::placeholder {
   color: rgba(255,255,255,0.2);
+}
+
+.form-textarea {
+  min-height: 86px;
+  resize: vertical;
+}
+
+.optional {
+  color: rgba(255,255,255,0.28);
+  font-weight: 400;
 }
 
 .form-error {
@@ -255,12 +295,21 @@ h1 {
     <a href="/"><img src="/LT_logo_white_for_blueBG.svg" height="72" alt="LegacyTrackr"></a>
   </div>
 
-  <div class="eyebrow">Founding Member</div>
+  <div class="eyebrow">Early Access</div>
   <h1>You're invited.</h1>
 
-  <p class="body-text">Right now, it all makes sense to you. Your family knows pieces of it, and your advisors each know their slice, but the full picture rarely exists in one organized place. LegacyTrackr is one secure place for the accounts, entities, documents, and context your family may someday need. Designed for individuals and families managing meaningful financial complexity, we're opening to a small number of founding members before any broad launch, with dedicated onboarding and preferred pricing locked in permanently.</p>
+  <p class="body-text">Right now, it all makes sense to you. Your family knows pieces of it, and your advisors each know their slice, but the full picture rarely exists in one organized place. LegacyTrackr is one secure place for the accounts, entities, documents, and context your family may someday need.</p>
+
+  <p class="body-text">We're opening early access to a small group of founding members with meaningful financial complexity. Founding members receive dedicated onboarding, preferred pricing, and direct founder support while bringing their complete picture into LegacyTrackr.</p>
 
   <p class="price-note">Founding members receive preferred pricing of <strong>$1,250/year</strong> or <strong>$125/month</strong>, locked in for as long as you remain a subscriber. You won't be charged today.</p>
+
+  <ul class="founding-list">
+    <li>White-glove onboarding included.</li>
+    <li>Direct founder support while your account is set up.</li>
+    <li>Preferred founding pricing locked while you remain subscribed.</li>
+    <li>A chance to shape the product while the first families are coming onboard.</li>
+  </ul>
 
   <hr class="divider">
 
@@ -273,6 +322,12 @@ h1 {
       <label class="form-label" for="email">Email</label>
       <input class="form-input" type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email">
       <div class="form-error" id="emailError">Please enter a valid email address.</div>
+
+      <label class="form-label" for="invitedBy">Who invited you? <span class="optional">(optional)</span></label>
+      <input class="form-input" type="text" id="invitedBy" name="invited_by" placeholder="Joel, Steve, or another referral source">
+
+      <label class="form-label" for="complexity">What makes your financial picture complex? <span class="optional">(optional)</span></label>
+      <textarea class="form-input form-textarea" id="complexity" name="complexity" placeholder="e.g., multiple entities, private deals, real estate, operating business"></textarea>
 
       <button type="submit" class="form-submit" id="submitBtn">Request access</button>
     </form>
@@ -299,6 +354,15 @@ h1 {
 <script>
 var form = document.getElementById('foundingForm');
 var submitBtn = document.getElementById('submitBtn');
+
+function getSource() {
+  var params = new URLSearchParams(window.location.search);
+  return params.get('src') ||
+    params.get('utm_source') ||
+    params.get('utm_campaign') ||
+    document.referrer ||
+    'founding_direct';
+}
 
 document.querySelectorAll('.form-input').forEach(function(input) {
   input.addEventListener('input', function() {
@@ -334,9 +398,9 @@ form.addEventListener('submit', function(e) {
   var data = {
     name: nameEl.value.trim(),
     email: emailEl.value.trim(),
-    source: 'founding-qr',
-    portfolio: '',
-    message: 'Founding member invitation'
+    source: getSource(),
+    portfolio: document.getElementById('complexity').value.trim(),
+    message: 'Founding member access request. Invited by: ' + (document.getElementById('invitedBy').value.trim() || 'not provided') + '. Context: ' + (document.getElementById('complexity').value.trim() || 'not provided') + '. Source: ' + getSource()
   };
 
   fetch('https://api.legacytrackr.com/early-access', {
@@ -352,7 +416,7 @@ form.addEventListener('submit', function(e) {
   .catch(function() {
     submitBtn.disabled = false;
     submitBtn.textContent = 'Request access';
-    alert('Something went wrong. Please try again or email joel@legacytrackr.com directly.');
+    alert('Something went wrong. Please try again or email info@legacytrackr.com.');
   });
 });
 </script>
