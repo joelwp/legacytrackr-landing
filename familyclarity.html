@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LegacyTrackr - Family Clarity Score</title>
+<meta name="description" content="A short, private self-assessment of how complete, documented, and transferable your family's financial picture really is.">
+<link rel="icon" href="/favicon-lt.svg" type="image/svg+xml">
+<link rel="shortcut icon" href="/favicon-lt.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300..700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0B1D3A;
+  --navy-light: #132D54;
+  --gold: #C9A84C;
+  --gold-light: #D4BA6A;
+  --gold-muted: #A8923F;
+  --bg: #FAFAF7;
+  --surface: #F5F4F0;
+  --white: #FFFFFF;
+  --border: #E5E2DA;
+  --border-light: #EEECE6;
+  --text-primary: #1A1A18;
+  --text-secondary: #5C5A54;
+  --text-muted: #8A8780;
+  --success: #2D7A4F;
+  --error: #A63D40;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+a { color: var(--navy); }
+
+/* ---------- Header ---------- */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+.site-header .inner {
+  max-width: 880px; margin: 0 auto; padding: 18px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.site-header img { height: 30px; }
+.header-note { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
+
+/* ---------- Shell ---------- */
+.wrap { max-width: 720px; margin: 0 auto; padding: 40px 24px 80px; }
+
+/* ---------- Progress ---------- */
+.progress { margin-bottom: 28px; }
+.progress-meta { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+.progress-step { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
+.progress-score { font-family: var(--font-mono); font-size: 12px; color: var(--text-secondary); }
+.progress-score b { color: var(--navy); font-weight: 600; }
+.progress-bar { height: 3px; background: var(--border); border-radius: 9999px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--gold); width: 0; transition: width 250ms cubic-bezier(0.22,1,0.36,1); }
+
+/* ---------- Typography ---------- */
+.eyebrow { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 2.2px; text-transform: uppercase; color: var(--gold-muted); margin-bottom: 16px; }
+h1 { font-family: var(--font-display); font-weight: 400; font-size: 44px; line-height: 1.1; color: var(--navy); margin-bottom: 18px; }
+h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-height: 1.15; color: var(--navy); margin-bottom: 8px; }
+.lead { font-size: 17px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 18px; }
+.step-help { font-size: 15px; color: var(--text-secondary); margin-bottom: 24px; }
+
+/* ---------- Buttons ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 24px; border-radius: 4px; font-family: var(--font-body); font-size: 16px; font-weight: 700; text-decoration: none; cursor: pointer; border: 1px solid transparent; transition: background 150ms ease, border-color 150ms ease; }
+.btn-gold { background: var(--gold); color: var(--navy); }
+.btn-gold:hover { background: var(--gold-light); }
+.btn-gold:disabled { opacity: 0.55; cursor: default; }
+.btn-navy { background: var(--navy); color: #fff; border-color: var(--navy); }
+.btn-navy:hover { background: var(--navy-light); }
+.btn-ghost { background: transparent; color: var(--text-secondary); border-color: var(--border); }
+.btn-ghost:hover { border-color: var(--text-muted); color: var(--navy); }
+.btn-block { width: 100%; }
+.nav-row { display: flex; justify-content: space-between; gap: 12px; margin-top: 32px; }
+
+/* ---------- Intro ---------- */
+.privacy-note { margin-top: 26px; padding: 16px 18px; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 6px; font-size: 13.5px; line-height: 1.6; color: var(--text-secondary); }
+.privacy-note b { color: var(--navy); }
+
+/* ---------- Intro split (worksheet-style) ---------- */
+.intro-split { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.9fr); }
+.intro-left { background: var(--navy); color: #fff; padding: 56px 56px; display: flex; flex-direction: column; justify-content: space-between; }
+.intro-left .logo { margin-bottom: 52px; }
+.intro-left .logo img { height: 30px; }
+.intro-eyebrow { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+.intro-left h1 { font-family: var(--font-display); font-weight: 400; font-size: 46px; line-height: 1.08; color: #fff; margin-bottom: 22px; }
+.intro-p { font-size: 16.5px; line-height: 1.7; color: rgba(255,255,255,0.66); margin-bottom: 28px; max-width: 600px; }
+.intro-fitlist { display: grid; gap: 13px; max-width: 580px; }
+.intro-fit { display: flex; gap: 12px; color: rgba(255,255,255,0.74); font-size: 14.5px; line-height: 1.5; }
+.intro-fitmark { width: 20px; height: 20px; border: 1px solid rgba(201,168,76,0.65); color: var(--gold); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-size: 12px; }
+.intro-quote { margin-top: 44px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); font-family: var(--font-display); font-size: 19px; line-height: 1.45; color: rgba(255,255,255,0.5); max-width: 600px; }
+.intro-right { padding: 48px; display: flex; align-items: center; justify-content: center; }
+.start-card { width: 100%; max-width: 440px; background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 34px; box-shadow: 0 18px 50px rgba(11,29,58,0.08); }
+.start-card h2 { font-family: var(--font-display); color: var(--navy); font-size: 28px; font-weight: 400; margin-bottom: 10px; }
+.start-desc { color: var(--text-secondary); font-size: 15px; line-height: 1.65; margin-bottom: 20px; }
+.start-meta { display: flex; gap: 22px; margin-bottom: 22px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
+.start-meta span { position: relative; }
+.start-meta span + span::before { content: "\00B7"; position: absolute; left: -13px; }
+.start-or { text-align: center; margin-top: 14px; }
+.start-or a { color: var(--text-muted); font-size: 14px; text-decoration: none; }
+.start-or a:hover { color: var(--navy); }
+@media (max-width: 900px) {
+  .intro-split { grid-template-columns: 1fr; }
+  .intro-left { padding: 40px 28px; }
+  .intro-left .logo { margin-bottom: 36px; }
+  .intro-left h1 { font-size: 36px; }
+  .intro-quote { margin-top: 32px; }
+  .intro-right { padding: 28px 20px 48px; }
+}
+
+/* ---------- Count step (steppers) ---------- */
+.count-row { display: flex; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border-light); }
+.count-row:last-child { border-bottom: none; }
+.count-label { flex: 1; }
+.count-label .name { font-size: 15.5px; color: var(--text-primary); }
+.count-label .hint { font-family: var(--font-mono); font-size: 11px; letter-spacing: .2px; text-transform: uppercase; color: var(--text-muted); margin-top: 3px; line-height: 1.4; }
+.stepper { display: inline-flex; align-items: center; border: 1px solid var(--border); border-radius: 4px; background: var(--white); overflow: hidden; flex-shrink: 0; }
+.stepper button { width: 38px; height: 38px; border: none; background: var(--white); color: var(--navy); font-size: 20px; cursor: pointer; line-height: 1; }
+.stepper button:hover { background: var(--surface); }
+.stepper button:disabled { color: var(--border); cursor: default; background: var(--white); }
+.stepper .val { width: 44px; text-align: center; font-family: var(--font-mono); font-size: 15px; color: var(--navy); border-left: 1px solid var(--border); border-right: 1px solid var(--border); height: 38px; line-height: 38px; }
+.stepper .val.zero { color: var(--text-muted); }
+
+/* ---------- Rating cards ---------- */
+.rate-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 16px; }
+.rate-card .cat { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 2px; }
+.rate-card .qty { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+.rate-card.collapsed { padding: 14px 20px; cursor: pointer; transition: border-color 120ms ease; }
+.rate-card.collapsed:hover { border-color: var(--gold-muted); }
+.collapsed-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.collapsed-row .cat { margin-bottom: 3px; }
+.collapse-mark { font-family: var(--font-mono); font-size: 18px; color: var(--gold-muted); flex-shrink: 0; }
+.rate-card.done .collapse-mark { color: var(--success); }
+.rate-card.open { border-color: var(--gold); box-shadow: 0 4px 16px rgba(11,29,58,0.07); }
+@keyframes cardPulse { 0% { box-shadow: 0 0 0 4px rgba(201,168,76,0.55); } 100% { box-shadow: 0 4px 16px rgba(11,29,58,0.07); } }
+.rate-card.open.just-opened { animation: cardPulse 700ms cubic-bezier(0.22,1,0.36,1); }
+.rate-dim { margin-top: 16px; }
+.rate-dim .dim-label { font-size: 13.5px; color: var(--text-secondary); margin-bottom: 7px; }
+.rate-dim .dim-label .help { color: var(--text-muted); }
+.scale { display: flex; gap: 5px; flex-wrap: wrap; }
+.scale button {
+  flex: 1 1 0; min-width: 28px; height: 34px; border: 1px solid var(--border); background: var(--white);
+  border-radius: 4px; font-family: var(--font-mono); font-size: 13px; color: var(--navy); cursor: pointer;
+  transition: background 100ms ease, border-color 100ms ease;
+}
+.scale button:hover { border-color: var(--gold-muted); }
+.scale button.sel { background: var(--gold); border-color: var(--gold); color: var(--navy); font-weight: 600; }
+.scale-anchors { display: flex; justify-content: space-between; margin-top: 5px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .3px; text-transform: uppercase; color: var(--text-muted); }
+.unsure-btn { margin-top: 8px; padding: 5px 12px; border: 1px solid var(--border); background: var(--white); border-radius: 4px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .4px; text-transform: uppercase; color: var(--text-muted); cursor: pointer; transition: background 100ms ease, border-color 100ms ease, color 100ms ease; }
+.unsure-btn:hover { border-color: var(--gold-muted); color: var(--navy); }
+.unsure-btn.sel { background: var(--navy); border-color: var(--navy); color: #fff; }
+.skip-note { font-family: var(--font-mono); font-size: 11px; letter-spacing: .3px; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
+
+/* ---------- Documents ---------- */
+.doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
+.doc-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; cursor: pointer; font-size: 14.5px; line-height: 1.35; color: var(--text-primary); }
+.doc-box { width: 18px; height: 18px; border: 1.5px solid var(--navy); border-radius: 4px; flex-shrink: 0; margin-top: 1px; display: inline-flex; align-items: center; justify-content: center; color: #fff; }
+.doc-item.on .doc-box { background: var(--navy); }
+.doc-item.on .doc-box::after { content: "\2713"; font-size: 12px; }
+
+/* ---------- Questions ---------- */
+.q-block { padding: 18px 0; border-bottom: 1px solid var(--border-light); }
+.q-block:last-child { border-bottom: none; }
+.q-text { font-size: 15.5px; color: var(--text-primary); margin-bottom: 12px; line-height: 1.5; }
+
+/* ---------- Reveal ---------- */
+.score-hero { text-align: center; background: var(--navy); color: #fff; border-radius: 12px; padding: 36px 28px; margin-bottom: 22px; }
+.score-hero .num { font-family: var(--font-display); font-size: 80px; line-height: 1; color: #fff; }
+.score-hero .num span { font-size: 34px; color: var(--gold); }
+.score-hero .band { font-family: var(--font-mono); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-top: 10px; }
+.facts { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 22px; }
+.fact { flex: 1 1 0; min-width: 140px; background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; }
+.fact .k { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+.fact .v { font-family: var(--font-display); font-size: 24px; color: var(--navy); }
+.fact .v small { font-size: 13px; color: var(--text-muted); font-family: var(--font-body); }
+.verdict { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 8px; padding: 20px 22px; margin-bottom: 18px; font-size: 17px; line-height: 1.55; color: var(--text-primary); }
+.unsure-note { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; margin-bottom: 26px; font-size: 14px; line-height: 1.55; color: var(--text-secondary); }
+.unsure-note b { color: var(--navy); }
+.score-hero .explain { font-size: 14px; color: rgba(255,255,255,0.72); margin-top: 12px; max-width: 460px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+.reveal-meaning { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0 auto 18px; max-width: 580px; text-align: center; }
+.meter { max-width: 560px; margin: 0 auto 26px; }
+.meter-track { display: flex; height: 10px; border-radius: 9999px; overflow: hidden; position: relative; border: 1px solid var(--border); background: var(--surface); }
+.meter-seg { height: 100%; background: var(--surface); }
+.meter-seg + .meter-seg { border-left: 1px solid var(--bg); }
+.meter-seg.active { background: rgba(201,168,76,0.32); }
+.meter-marker { position: absolute; top: 50%; width: 14px; height: 14px; border-radius: 50%; background: var(--navy); border: 2px solid #fff; transform: translate(-50%, -50%); box-shadow: 0 1px 4px rgba(11,29,58,0.35); }
+.meter-labels { display: flex; margin-top: 8px; }
+.meter-labels span { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .3px; text-transform: uppercase; color: var(--text-muted); text-align: center; padding: 0 2px; }
+.meter-labels span.active { color: var(--navy); font-weight: 600; }
+.meter-ref { text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 10px; }
+.section-scores { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.ss { flex: 1 1 0; min-width: 120px; text-align: center; padding: 12px; border: 1px solid var(--border-light); border-radius: 8px; }
+.ss .k { font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
+.ss .v { font-family: var(--font-mono); font-size: 18px; color: var(--navy); }
+.ss .v small { font-size: 12px; color: var(--text-muted); }
+.ss-caption { font-size: 12px; color: var(--text-muted); text-align: center; margin: 0 0 26px; }
+
+/* ---------- Email capture ---------- */
+.capture { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 26px; }
+.capture h2 { font-size: 22px; }
+.capture p { color: var(--text-secondary); font-size: 14.5px; line-height: 1.6; margin-bottom: 18px; }
+.form-input { display: block; width: 100%; padding: 12px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; color: var(--text-primary); font-family: var(--font-body); font-size: 15px; margin-bottom: 14px; transition: border-color 150ms ease, background 150ms ease; }
+.form-input:focus { outline: none; border-color: var(--gold); background: var(--white); }
+.form-input.invalid { border-color: var(--error); }
+.consent { display: flex; align-items: flex-start; gap: 10px; font-size: 12.5px; line-height: 1.5; color: var(--text-secondary); margin: 2px 0 16px; cursor: pointer; }
+.consent input { margin-top: 2px; flex-shrink: 0; }
+.consent.invalid { color: var(--error); }
+.alt-actions { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+.alt-actions .btn { flex: 1 1 0; min-width: 160px; }
+.fine { margin-top: 16px; font-size: 12px; line-height: 1.6; color: var(--text-muted); }
+.back-link { display: inline-block; margin-top: 22px; color: var(--text-muted); font-size: 14px; text-decoration: none; }
+.back-link:hover { color: var(--navy); }
+
+@media (max-width: 620px) {
+  h1 { font-size: 34px; }
+  .doc-grid { grid-template-columns: 1fr; }
+  .score-hero .num { font-size: 64px; }
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="inner">
+    <a href="/"><img src="/LT_logo_blue_for_whiteBG.svg" alt="LegacyTrackr"></a>
+    <span class="header-note">Family Clarity Score</span>
+  </div>
+</header>
+
+<main id="app"><!-- rendered by JS --></main>
+
+<script src="/clarity-scoring.js"></script>
+<script>
+(function () {
+  'use strict';
+  var CFG = window.ClarityScoring.CONFIG;
+  var compute = window.ClarityScoring.computeScores;
+
+  // ---- Capture endpoint (Supabase edge function; mirror of worksheet-request) ----
+  var CLARITY_ENDPOINT = 'https://ffrqhefpkmocgffnolkn.supabase.co/functions/v1/clarity-request';
+
+  function uuid() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return 'sess-' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+  }
+  function getParam(n) { return new URLSearchParams(location.search).get(n) || ''; }
+
+  var state = {
+    sessionId: uuid(),
+    counts: {},
+    ratings: {},
+    documents: new Array(CFG.documents.length).fill(false),
+    questions: {}
+  };
+
+  // Screens: intro, count, rate, docs, questions, reveal
+  var STEPS = ['count', 'rate', 'docs', 'questions'];
+  var screen = 'intro';
+  var openRate = null; // which rating card is expanded (accordion)
+  var app = document.getElementById('app');
+
+  // ---- Backend seams (stubbed) ----
+  function saveProgress(stepKey) {
+    var payload = {
+      lead_type: 'clarity',
+      session_id: state.sessionId,
+      furthest_step: stepKey,
+      source: getParam('src') || getParam('utm_source') || 'clarity_direct',
+      scores: compute(state, CFG),
+      counts: state.counts,
+      ratings: state.ratings,
+      documents: state.documents,
+      questions: state.questions
+    };
+    // TODO(backend phase): POST upsert (by session_id) to CLARITY_ENDPOINT. No email, no IP.
+    console.log('[saveProgress stub]', stepKey, payload);
+  }
+  function captureEmail(email, cb) {
+    if (!CLARITY_ENDPOINT) { setTimeout(function () { cb(true); }, 300); return; } // preview fallback
+    var payload = {
+      lead_type: 'clarity',
+      email: email,
+      source: getParam('src') || getParam('utm_source') || 'clarity_direct',
+      page_url: window.location.href,
+      referrer: document.referrer || '',
+      utm_source: getParam('utm_source'),
+      utm_medium: getParam('utm_medium'),
+      utm_campaign: getParam('utm_campaign'),
+      utm_term: getParam('utm_term'),
+      utm_content: getParam('utm_content'),
+      session_id: state.sessionId,
+      results: compute(state, CFG),
+      answers: { counts: state.counts, ratings: state.ratings, documents: state.documents, questions: state.questions }
+    };
+    fetch(CLARITY_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (resp) { cb(resp.ok); }).catch(function () { cb(false); });
+  }
+
+  // ---- Helpers ----
+  function el(html) { var d = document.createElement('div'); d.innerHTML = html.trim(); return d.firstChild; }
+  function heldCategories() {
+    return CFG.categories.filter(function (c) { return (Number(state.counts[c.key]) || 0) > 0; });
+  }
+  function isCatComplete(key) {
+    var r = state.ratings[key] || {};
+    return CFG.dimensions.every(function (d) { var v = r[d.key]; return typeof v === 'number' || v === 'unsure'; });
+  }
+  function nextIncomplete(held, exceptKey) {
+    for (var i = 0; i < held.length; i++) {
+      if (held[i].key !== exceptKey && !isCatComplete(held[i].key)) return held[i].key;
+    }
+    return null;
+  }
+  function scrollTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+
+  function progressHTML(stepKey) {
+    var idx = STEPS.indexOf(stepKey);
+    var pct = Math.round(((idx + 1) / (STEPS.length + 1)) * 100);
+    var s = compute(state, CFG);
+    var live = idx >= 1 ? '<span class="progress-score">Clarity so far <b>' + s.clarity + '</b>/10</span>' : '<span></span>';
+    return '<div class="progress"><div class="progress-meta"><span class="progress-step">Step ' + (idx + 1) + ' of ' + STEPS.length + '</span>' + live + '</div>' +
+      '<div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%"></div></div></div>';
+  }
+
+  function scaleHTML(name, value) {
+    var out = '<div class="scale" data-scale="' + name + '">';
+    for (var i = 1; i <= 10; i++) {
+      out += '<button type="button" data-val="' + i + '"' + (value === i ? ' class="sel"' : '') + '>' + i + '</button>';
+    }
+    return out + '</div>';
+  }
+
+  function unsureBtnHTML(value) {
+    return '<button type="button" class="unsure-btn' + (value === 'unsure' ? ' sel' : '') + '" data-val="unsure">Not sure</button>';
+  }
+
+  function meterHTML(s) {
+    var prev = 0, segs = '', labels = '';
+    CFG.clarityBands.forEach(function (b) {
+      var w = ((b.max - prev) / 10) * 100;
+      var active = (b.band === s.band);
+      segs += '<div class="meter-seg' + (active ? ' active' : '') + '" style="width:' + w + '%"></div>';
+      labels += '<span class="' + (active ? 'active' : '') + '" style="width:' + w + '%">' + b.band + '</span>';
+      prev = b.max;
+    });
+    var pos = Math.max(0, Math.min(100, (s.clarity / 10) * 100));
+    return '<div class="meter"><div class="meter-track">' + segs +
+      '<div class="meter-marker" style="left:' + pos + '%"></div></div>' +
+      '<div class="meter-labels">' + labels + '</div>' +
+      '<div class="meter-ref">A well-prepared family scores 8 or higher. You scored ' + s.clarity + '.</div></div>';
+  }
+
+  // ---- Renderers ----
+  function renderIntro() {
+    app.innerHTML = '';
+    app.appendChild(el(
+      '<div class="intro-split">' +
+        '<section class="intro-left">' +
+          '<div>' +
+            '<div class="logo"><a href="/"><img src="/LT_logo_white_for_blueBG.svg" alt="LegacyTrackr"></a></div>' +
+            '<div class="intro-eyebrow">Family Clarity Score</div>' +
+            '<h1>How ready is your financial picture?</h1>' +
+            '<p class="intro-p">A free assessment, with no strings attached, of two things: how complex your financial life has become, and how ready the people who would step in are to take it over.</p>' +
+            '<div class="intro-fitlist">' +
+              '<div class="intro-fit"><span class="intro-fitmark">&#10003;</span><span>Your wealth is spread across many accounts, advisors, and entities.</span></div>' +
+              '<div class="intro-fit"><span class="intro-fitmark">&#10003;</span><span>You hold private deals, real estate, an operating business, or trusts and LLCs.</span></div>' +
+              '<div class="intro-fit"><span class="intro-fitmark">&#10003;</span><span>Right now, the complete picture lives mostly in your head.</span></div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="intro-quote">We built LegacyTrackr for our own families first, then realized others needed it too. This is the readiness check we wished we had.</div>' +
+        '</section>' +
+        '<section class="intro-right">' +
+          '<div class="start-card">' +
+            '<h2>Take the assessment</h2>' +
+            '<p class="start-desc">A few minutes, and you will see your Family Clarity Score and where the gaps are. We never ask for balances or account numbers.</p>' +
+            '<div class="start-meta"><span>5&ndash;10 min</span><span>Private</span><span>Free</span></div>' +
+            '<button class="btn btn-gold btn-block" id="startBtn">Get your Family Clarity Score</button>' +
+            '<div class="start-or"><a href="/personal-financial-inventory.pdf" download>Prefer paper? Download it</a></div>' +
+          '</div>' +
+        '</section>' +
+      '</div>'
+    ));
+    document.getElementById('startBtn').onclick = function () { go('count'); };
+  }
+
+  function renderCount() {
+    var rows = CFG.categories.map(function (c) {
+      var n = Number(state.counts[c.key]) || 0;
+      return '<div class="count-row">' +
+        '<div class="count-label"><div class="name">' + c.label + '</div>' + (c.hint ? '<div class="hint">' + c.hint + '</div>' : '') + '</div>' +
+        '<div class="stepper" data-cat="' + c.key + '">' +
+          '<button type="button" data-d="-1"' + (n === 0 ? ' disabled' : '') + '>&minus;</button>' +
+          '<span class="val' + (n === 0 ? ' zero' : '') + '">' + n + '</span>' +
+          '<button type="button" data-d="1">+</button>' +
+        '</div></div>';
+    }).join('');
+    app.innerHTML = '';
+    app.appendChild(el(
+      '<div class="wrap">' + progressHTML('count') +
+      '<h2>What do you hold?</h2>' +
+      '<p class="step-help">Give your best count for each. It does not have to be exact, this is just to gauge how complex your picture is. You will only rate the ones you hold, so it stays short.</p>' +
+      rows +
+      '<div class="nav-row"><button class="btn btn-ghost" id="backBtn">Back</button><button class="btn btn-gold" id="nextBtn">Continue</button></div>' +
+      '</div>'
+    ));
+    app.querySelectorAll('.stepper').forEach(function (st) {
+      st.querySelectorAll('button').forEach(function (b) {
+        b.onclick = function () {
+          var key = st.getAttribute('data-cat');
+          var d = parseInt(b.getAttribute('data-d'), 10);
+          var cur = Number(state.counts[key]) || 0;
+          state.counts[key] = Math.max(0, cur + d);
+          renderCount();
+        };
+      });
+    });
+    document.getElementById('backBtn').onclick = function () { go('intro'); };
+    document.getElementById('nextBtn').onclick = function () { go('rate'); };
+  }
+
+  function renderRate(scrollToOpen) {
+    var held = heldCategories();
+    if (!held.length) { go('docs'); return; }
+    var skipped = CFG.categories.filter(function (c) { return (Number(state.counts[c.key]) || 0) === 0; });
+    // validate open card
+    if (openRate && !held.some(function (h) { return h.key === openRate; })) openRate = null;
+    var ratedCount = held.filter(function (h) { return isCatComplete(h.key); }).length;
+
+    var cards = held.map(function (c) {
+      var qty = state.counts[c.key];
+      var complete = isCatComplete(c.key);
+      if (c.key === openRate) {
+        var them = qty > 1 ? 'them' : 'it';
+        var r = state.ratings[c.key] || {};
+        var dims = CFG.dimensions.map(function (d) {
+          var help = d.help.replace(/\{them\}/g, them);
+          return '<div class="rate-dim" data-cat="' + c.key + '" data-dim="' + d.key + '">' +
+            '<div class="dim-label">' + d.label + ' <span class="help">— ' + help + '</span></div>' +
+            scaleHTML(c.key + ':' + d.key, r[d.key]) + unsureBtnHTML(r[d.key]) + '</div>';
+        }).join('');
+        var qtyLine = qty + ' held' + (qty > 1 ? '  ·  rate these as a whole' : '');
+        return '<div class="rate-card open"><div class="cat">' + c.label + '</div><div class="qty">' + qtyLine + '</div>' + dims + '</div>';
+      }
+      // collapsed
+      var r2 = state.ratings[c.key] || {};
+      var summary = complete
+        ? CFG.dimensions.map(function (d) { var v = r2[d.key]; return d.label.split(' ')[0] + ' ' + (v === 'unsure' ? 'Unsure' : v); }).join('  ·  ')
+        : qty + ' held — tap to rate';
+      return '<div class="rate-card collapsed' + (complete ? ' done' : '') + '" data-open="' + c.key + '">' +
+        '<div class="collapsed-row"><div><div class="cat">' + c.label + '</div><div class="qty">' + summary + '</div></div>' +
+        '<div class="collapse-mark">' + (complete ? '&#10003;' : '&rsaquo;') + '</div></div></div>';
+    }).join('');
+
+    app.innerHTML = '';
+    app.appendChild(el(
+      '<div class="wrap">' + progressHTML('rate') +
+      '<h2>How ready is your family on each?</h2>' +
+      '<p class="step-help">1 = not at all, 10 = completely. ' + ratedCount + ' of ' + held.length + ' rated. Tap any to revisit.</p>' +
+      cards +
+      (skipped.length ? '<div class="skip-note">Skipped (you hold none): ' + skipped.map(function (s) { return s.label; }).join(' · ') + '</div>' : '') +
+      '<div class="nav-row"><button class="btn btn-ghost" id="backBtn">Back</button><button class="btn btn-gold" id="nextBtn">Continue</button></div>' +
+      '</div>'
+    ));
+
+    app.querySelectorAll('.rate-card.collapsed').forEach(function (card) {
+      card.onclick = function () { openRate = card.getAttribute('data-open'); renderRate(true); };
+    });
+    app.querySelectorAll('.rate-dim').forEach(function (dim) {
+      var cat = dim.getAttribute('data-cat'), dk = dim.getAttribute('data-dim');
+      dim.querySelectorAll('button[data-val]').forEach(function (b) {
+        b.onclick = function () {
+          var raw = b.getAttribute('data-val');
+          var val = (raw === 'unsure') ? 'unsure' : parseInt(raw, 10);
+          var wasComplete = isCatComplete(cat);
+          state.ratings[cat] = state.ratings[cat] || {};
+          if (state.ratings[cat][dk] === val) { delete state.ratings[cat][dk]; } // tap selected -> clear
+          else { state.ratings[cat][dk] = val; }
+          if (!wasComplete && isCatComplete(cat)) {
+            openRate = nextIncomplete(heldCategories(), cat); // advance, or null when all done
+            renderRate(true);
+          } else {
+            renderRate(false); // reflect (de)selection and completeness in place
+          }
+          updateLiveScore();
+        };
+      });
+    });
+    document.getElementById('backBtn').onclick = function () { go('count'); };
+    document.getElementById('nextBtn').onclick = function () { go('docs'); };
+
+    if (scrollToOpen) {
+      var oc = app.querySelector('.rate-card.open');
+      if (oc) { oc.classList.add('just-opened'); oc.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+    }
+  }
+
+  function renderDocs() {
+    var items = CFG.documents.map(function (d, i) {
+      return '<div class="doc-item' + (state.documents[i] ? ' on' : '') + '" data-i="' + i + '"><span class="doc-box"></span><span>' + d + '</span></div>';
+    }).join('');
+    app.innerHTML = '';
+    app.appendChild(el(
+      '<div class="wrap">' + progressHTML('docs') +
+      '<h2>Estate &amp; transition documents</h2>' +
+      '<p class="step-help">Check only what is signed, current, and your family could locate today without your help. The blanks are the gaps.</p>' +
+      '<div class="doc-grid">' + items + '</div>' +
+      '<div class="nav-row"><button class="btn btn-ghost" id="backBtn">Back</button><button class="btn btn-gold" id="nextBtn">Continue</button></div>' +
+      '</div>'
+    ));
+    app.querySelectorAll('.doc-item').forEach(function (it) {
+      it.onclick = function () {
+        var i = parseInt(it.getAttribute('data-i'), 10);
+        state.documents[i] = !state.documents[i];
+        it.classList.toggle('on');
+        updateLiveScore();
+      };
+    });
+    document.getElementById('backBtn').onclick = function () { go('rate'); };
+    document.getElementById('nextBtn').onclick = function () { go('questions'); };
+  }
+
+  function renderQuestions() {
+    var blocks = CFG.questions.map(function (q) {
+      return '<div class="q-block" data-q="' + q.key + '"><div class="q-text">' + q.text + '</div>' +
+        scaleHTML(q.key, state.questions[q.key]) +
+        '<div class="scale-anchors"><span>' + q.low + '</span><span>' + q.high + '</span></div>' +
+        unsureBtnHTML(state.questions[q.key]) + '</div>';
+    }).join('');
+    app.innerHTML = '';
+    app.appendChild(el(
+      '<div class="wrap">' + progressHTML('questions') +
+      '<h2>Four candid questions</h2>' +
+      '<p class="step-help">Be honest. These reveal how much of your wealth is genuinely protected. 1 to 10.</p>' +
+      blocks +
+      '<div class="nav-row"><button class="btn btn-ghost" id="backBtn">Back</button><button class="btn btn-gold" id="nextBtn">See your score</button></div>' +
+      '</div>'
+    ));
+    app.querySelectorAll('.q-block').forEach(function (qb) {
+      var qk = qb.getAttribute('data-q');
+      qb.querySelectorAll('button[data-val]').forEach(function (b) {
+        b.onclick = function () {
+          var raw = b.getAttribute('data-val');
+          var val = (raw === 'unsure') ? 'unsure' : parseInt(raw, 10);
+          var deselect = (state.questions[qk] === val);
+          if (deselect) { delete state.questions[qk]; } // tap selected -> clear
+          else { state.questions[qk] = val; }
+          qb.querySelectorAll('button[data-val]').forEach(function (x) { x.classList.remove('sel'); });
+          if (!deselect) b.classList.add('sel');
+          updateLiveScore();
+        };
+      });
+    });
+    document.getElementById('backBtn').onclick = function () { go('docs'); };
+    document.getElementById('nextBtn').onclick = function () { go('reveal'); };
+  }
+
+  function renderReveal() {
+    var s = compute(state, CFG);
+    var entities = s.entitiesCount;
+    var ss = function (label, val) {
+      var disp = (val === null) ? '&ndash;' : (val + '<small>/10</small>');
+      return '<div class="ss"><div class="k">' + label + '</div><div class="v">' + disp + '</div></div>';
+    };
+    app.innerHTML = '';
+    app.appendChild(el(
+      '<div class="wrap">' +
+      '<div class="score-hero"><div class="num">' + s.clarity + '<span>/10</span></div><div class="band">' + s.band + '</div><div class="explain">' + s.bandExplain + '</div></div>' +
+      '<p class="reveal-meaning">This is how ready the people who would step in are, if you could not manage things yourself: to find, understand, and carry your financial picture forward.</p>' +
+      meterHTML(s) +
+      '<div class="facts">' +
+        '<div class="fact"><div class="k">Complexity</div><div class="v">' + s.complexityTier + '</div></div>' +
+        '<div class="fact"><div class="k">Items tracked</div><div class="v">' + s.totalItems + '</div></div>' +
+        '<div class="fact"><div class="k">Entities</div><div class="v">' + entities + '</div></div>' +
+      '</div>' +
+      '<div class="verdict">' + s.verdict + '</div>' +
+      (s.unsureCount > 0 ? '<div class="unsure-note">You marked <b>' + s.unsureCount + '</b> of ' + s.answeredItems + ' answers "not sure." That uncertainty is itself a gap, and those are often the first things worth pinning down.</div>' : '') +
+      '<div class="section-scores">' +
+        ss('Asset readiness', s.inventoryScore) + ss('Documents', s.documentsScore) + ss('The four questions', s.questionsScore) +
+      '</div>' +
+      '<div class="ss-caption">Each section is scored out of 10. Your Clarity Score is their average.</div>' +
+      '<div class="capture" id="capture">' +
+        '<h2>Email me a copy of my results</h2>' +
+        '<input class="form-input" type="email" id="email" placeholder="you@example.com" autocomplete="email">' +
+        '<label class="consent" id="consentLabel"><input type="checkbox" id="consent"><span>I understand my answers and email will be stored so LegacyTrackr can send my results and may follow up. No account balances or numbers are collected.</span></label>' +
+        '<button class="btn btn-gold btn-block" id="emailBtn">Send my results</button>' +
+        '<div class="alt-actions">' +
+          '<a class="btn btn-ghost" href="/personal-financial-inventory.pdf" download>Download the printable PDF</a>' +
+          '<a class="btn btn-navy" href="/demo.html?src=clarity_score">Schedule a call</a>' +
+        '</div>' +
+        '<p class="fine">This is a self-assessment, not financial or legal advice. Your results map your financial life, so keep them somewhere private.</p>' +
+      '</div>' +
+      '<a class="back-link" id="reviseBtn" href="#">&larr; Revise my answers</a><a class="back-link" href="/" style="margin-left:20px">Back to LegacyTrackr</a>' +
+      '</div>'
+    ));
+    var emailEl = document.getElementById('email');
+    var consentEl = document.getElementById('consent');
+    var consentLabel = document.getElementById('consentLabel');
+    var btn = document.getElementById('emailBtn');
+    btn.onclick = function () {
+      var v = emailEl.value.trim();
+      var okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      if (!okEmail) emailEl.classList.add('invalid');
+      if (!consentEl.checked) consentLabel.classList.add('invalid');
+      if (!okEmail || !consentEl.checked) return;
+      emailEl.classList.remove('invalid');
+      btn.disabled = true; btn.textContent = 'Sending...';
+      captureEmail(v, function (ok) {
+        var cap = document.getElementById('capture');
+        if (ok) {
+          cap.innerHTML = '<h2>On its way.</h2><p>Check your inbox for your results and a printable copy. If your answers gave you pause, just reply to that email.</p>' +
+            '<div class="alt-actions"><a class="btn btn-ghost" href="/personal-financial-inventory.pdf" download>Download the printable PDF</a>' +
+            '<a class="btn btn-navy" href="/demo.html?src=clarity_score">Schedule a call</a></div>';
+        } else {
+          btn.disabled = false; btn.textContent = 'Email me my results';
+          alert('Something went wrong. Please try again or email info@legacytrackr.com.');
+        }
+      });
+    };
+    emailEl.addEventListener('input', function () { emailEl.classList.remove('invalid'); });
+    consentEl.addEventListener('change', function () { consentLabel.classList.remove('invalid'); });
+    var revise = document.getElementById('reviseBtn');
+    if (revise) revise.onclick = function (e) { e.preventDefault(); go('count'); };
+  }
+
+  function updateLiveScore() {
+    var fill = document.querySelector('.progress-score b');
+    if (fill) fill.textContent = compute(state, CFG).clarity;
+  }
+
+  // ---- Navigation ----
+  function go(next) {
+    // persist progress when leaving a real step
+    if (STEPS.indexOf(screen) !== -1) saveProgress(screen);
+    screen = next;
+    var hdr = document.querySelector('.site-header');
+    if (hdr) hdr.style.display = (next === 'intro') ? 'none' : '';
+    if (next === 'rate') { var hc = heldCategories(); openRate = hc.length ? nextIncomplete(hc, null) : null; }
+    if (next === 'reveal') saveProgress('reveal');
+    var map = { intro: renderIntro, count: renderCount, rate: renderRate, docs: renderDocs, questions: renderQuestions, reveal: renderReveal };
+    (map[next] || renderIntro)();
+    scrollTop();
+  }
+
+  // ---- Dev hook: ?screen=reveal&demo=1 to preview with sample data ----
+  var demo = getParam('demo');
+  if (demo === '1' || demo === 'counts') {
+    state.counts = { bank: 3, retirement: 2, pe: 14, realestate: 4, entities: 6, business: 1, crypto: 2, insurance: 2, personal: 0, liabilities: 1 };
+  }
+  if (demo === '1') {
+    CFG.categories.forEach(function (c) {
+      if ((state.counts[c.key] || 0) > 0) { state.ratings[c.key] = { location: 5, documents: 3, plan: 4 }; }
+    });
+    if (state.ratings.pe) state.ratings.pe.documents = 'unsure';
+    if (state.ratings.entities) state.ratings.entities.plan = 'unsure';
+    state.documents = [true, true, false, true, false, false, false, true, false, false];
+    state.questions = { q1: 4, q2: 'unsure', q3: 5, q4: 4 };
+  }
+  var startScreen = getParam('screen');
+  go(['count', 'rate', 'docs', 'questions', 'reveal'].indexOf(startScreen) !== -1 ? startScreen : 'intro');
+})();
+</script>
+</body>
+</html>
