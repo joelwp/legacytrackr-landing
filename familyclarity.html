@@ -149,9 +149,9 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
 .rate-dim { margin-top: 16px; }
 .rate-dim .dim-label { font-size: 13.5px; color: var(--text-secondary); margin-bottom: 7px; }
 .rate-dim .dim-label .help { color: var(--text-muted); }
-.scale { display: flex; gap: 5px; flex-wrap: wrap; }
+.scale { display: grid; grid-template-columns: repeat(10, 1fr); gap: 5px; }
 .scale button {
-  flex: 1 1 0; min-width: 28px; height: 34px; border: 1px solid var(--border); background: var(--white);
+  min-width: 0; height: 36px; border: 1px solid var(--border); background: var(--white);
   border-radius: 4px; font-family: var(--font-mono); font-size: 13px; color: var(--navy); cursor: pointer;
   transition: background 100ms ease, border-color 100ms ease;
 }
@@ -227,6 +227,8 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
   h1 { font-size: 34px; }
   .doc-grid { grid-template-columns: 1fr; }
   .score-hero .num { font-size: 64px; }
+  .scale { grid-template-columns: repeat(5, 1fr); }
+  .scale button { height: 40px; }
 }
 </style>
 </head>
