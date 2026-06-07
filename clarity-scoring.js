@@ -27,9 +27,7 @@
     ],
 
     dimensions: [
-      { key: 'location',  label: 'Location & access',  help: 'Could your family find {them} and reach {them} without you?' },
-      { key: 'documents', label: 'Documents in order', help: 'Are the records current and easy for your family to locate?' },
-      { key: 'plan',      label: 'Plan & intentions',  help: 'Does your family know what you intend for {them}, and is it written down?' }
+      { key: 'readiness', label: 'Family readiness', help: 'Could your family find {them}, understand {them}, and know your plan for {them}?' }
     ],
 
     documents: [
@@ -68,10 +66,10 @@
 
     // Clarity bands by score ceiling (continuous 0-10).
     clarityBands: [
-      { band: 'Critical gap',    max: 2,  explain: 'If something happened to you, whoever had to step in would be starting from scratch.' },
-      { band: 'Exposed',         max: 4,  explain: 'Much of your wealth would be hard for anyone but you to find or make sense of.' },
-      { band: 'Partially ready', max: 7,  explain: 'Some of it is in order, but real gaps would be hard for anyone but you to handle.' },
-      { band: 'Well prepared',   max: 10, explain: 'If you stepped away, someone could pick up your full picture with little friction.' }
+      { band: 'Critical gap', max: 2,  explain: 'If something happened to you, whoever had to step in would be starting from scratch.' },
+      { band: 'Major gaps',   max: 4,  explain: 'The plan has real gaps. Much of your picture would be hard for anyone but you to find or follow.' },
+      { band: 'Some gaps',    max: 7,  explain: 'A solid start, with gaps remaining that someone else would still struggle to handle.' },
+      { band: 'Well prepared', max: 10, explain: 'If you stepped away, someone could pick up your full picture with little friction.' }
     ],
 
     // Verdict = (complexity High/Very-high?) x (clarity >= clarityHighCutoff?)

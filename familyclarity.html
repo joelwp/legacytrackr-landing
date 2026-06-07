@@ -137,6 +137,7 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
 .rate-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 16px; }
 .rate-card .cat { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 2px; }
 .rate-card .qty { font-family: var(--font-mono); font-size: 12px; color: var(--text-muted); }
+.rate-card .scale { margin-top: 12px; }
 .rate-card.collapsed { padding: 14px 20px; cursor: pointer; transition: border-color 120ms ease; }
 .rate-card.collapsed:hover { border-color: var(--gold-muted); }
 .collapsed-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
@@ -434,80 +435,57 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
     document.getElementById('nextBtn').onclick = function () { go('rate'); };
   }
 
-  function renderRate(scrollToOpen) {
+  function renderRate() {
     var held = heldCategories();
     if (!held.length) { go('docs'); return; }
     var skipped = CFG.categories.filter(function (c) { return (Number(state.counts[c.key]) || 0) === 0; });
-    // validate open card
-    if (openRate && !held.some(function (h) { return h.key === openRate; })) openRate = null;
     var ratedCount = held.filter(function (h) { return isCatComplete(h.key); }).length;
+    var dim = CFG.dimensions[0]; // single holistic readiness rating per category
 
     var cards = held.map(function (c) {
       var qty = state.counts[c.key];
-      var complete = isCatComplete(c.key);
-      if (c.key === openRate) {
-        var them = qty > 1 ? 'them' : 'it';
-        var r = state.ratings[c.key] || {};
-        var dims = CFG.dimensions.map(function (d) {
-          var help = d.help.replace(/\{them\}/g, them);
-          return '<div class="rate-dim" data-cat="' + c.key + '" data-dim="' + d.key + '">' +
-            '<div class="dim-label">' + d.label + ' <span class="help">— ' + help + '</span></div>' +
-            scaleHTML(c.key + ':' + d.key, r[d.key]) + unsureBtnHTML(r[d.key]) + '</div>';
-        }).join('');
-        var qtyLine = qty + ' held' + (qty > 1 ? '  ·  rate these as a whole' : '');
-        return '<div class="rate-card open"><div class="cat">' + c.label + '</div><div class="qty">' + qtyLine + '</div>' + dims + '</div>';
-      }
-      // collapsed
-      var r2 = state.ratings[c.key] || {};
-      var summary = complete
-        ? CFG.dimensions.map(function (d) { var v = r2[d.key]; return d.label.split(' ')[0] + ' ' + (v === 'unsure' ? 'Unsure' : v); }).join('  ·  ')
-        : qty + ' held — tap to rate';
-      return '<div class="rate-card collapsed' + (complete ? ' done' : '') + '" data-open="' + c.key + '">' +
-        '<div class="collapsed-row"><div><div class="cat">' + c.label + '</div><div class="qty">' + summary + '</div></div>' +
-        '<div class="collapse-mark">' + (complete ? '&#10003;' : '&rsaquo;') + '</div></div></div>';
+      var r = state.ratings[c.key] || {};
+      var qtyLine = qty + ' held' + (qty > 1 ? '  ·  rate as a whole' : '');
+      return '<div class="rate-card" data-cat="' + c.key + '" data-dim="' + dim.key + '">' +
+        '<div class="cat">' + c.label + '</div>' +
+        '<div class="qty">' + qtyLine + '</div>' +
+        scaleHTML(c.key + ':' + dim.key, r[dim.key]) +
+        '<div class="scale-anchors"><span>Not at all</span><span>Completely</span></div>' +
+        unsureBtnHTML(r[dim.key]) +
+        '</div>';
     }).join('');
 
     app.innerHTML = '';
     app.appendChild(el(
       '<div class="wrap">' + progressHTML('rate') +
       '<h2>How ready is your family on each?</h2>' +
-      '<p class="step-help">1 = not at all, 10 = completely. ' + ratedCount + ' of ' + held.length + ' rated. Tap any to revisit.</p>' +
+      '<p class="step-help">For each, could your family find it, understand it, and know your plan for it? 1 = not at all, 10 = completely. <span id="ratedCount">' + ratedCount + ' of ' + held.length + '</span> rated.</p>' +
       cards +
       (skipped.length ? '<div class="skip-note">Skipped (you hold none): ' + skipped.map(function (s) { return s.label; }).join(' · ') + '</div>' : '') +
       '<div class="nav-row"><button class="btn btn-ghost" id="backBtn">Back</button><button class="btn btn-gold" id="nextBtn">Continue</button></div>' +
       '</div>'
     ));
 
-    app.querySelectorAll('.rate-card.collapsed').forEach(function (card) {
-      card.onclick = function () { openRate = card.getAttribute('data-open'); renderRate(true); };
-    });
-    app.querySelectorAll('.rate-dim').forEach(function (dim) {
-      var cat = dim.getAttribute('data-cat'), dk = dim.getAttribute('data-dim');
-      dim.querySelectorAll('button[data-val]').forEach(function (b) {
+    app.querySelectorAll('.rate-card[data-cat]').forEach(function (card) {
+      var cat = card.getAttribute('data-cat'), dk = card.getAttribute('data-dim');
+      card.querySelectorAll('button[data-val]').forEach(function (b) {
         b.onclick = function () {
           var raw = b.getAttribute('data-val');
           var val = (raw === 'unsure') ? 'unsure' : parseInt(raw, 10);
-          var wasComplete = isCatComplete(cat);
           state.ratings[cat] = state.ratings[cat] || {};
-          if (state.ratings[cat][dk] === val) { delete state.ratings[cat][dk]; } // tap selected -> clear
-          else { state.ratings[cat][dk] = val; }
-          if (!wasComplete && isCatComplete(cat)) {
-            openRate = nextIncomplete(heldCategories(), cat); // advance, or null when all done
-            renderRate(true);
-          } else {
-            renderRate(false); // reflect (de)selection and completeness in place
-          }
+          var deselect = (state.ratings[cat][dk] === val);
+          if (deselect) { delete state.ratings[cat][dk]; } else { state.ratings[cat][dk] = val; }
+          card.querySelectorAll('button[data-val]').forEach(function (x) { x.classList.remove('sel'); });
+          if (!deselect) b.classList.add('sel');
+          var held2 = heldCategories();
+          var rc = document.getElementById('ratedCount');
+          if (rc) rc.textContent = held2.filter(function (h) { return isCatComplete(h.key); }).length + ' of ' + held2.length;
           updateLiveScore();
         };
       });
     });
     document.getElementById('backBtn').onclick = function () { go('count'); };
     document.getElementById('nextBtn').onclick = function () { go('docs'); };
-
-    if (scrollToOpen) {
-      var oc = app.querySelector('.rate-card.open');
-      if (oc) { oc.classList.add('just-opened'); oc.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
-    }
   }
 
   function renderDocs() {
@@ -664,10 +642,10 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
   }
   if (demo === '1') {
     CFG.categories.forEach(function (c) {
-      if ((state.counts[c.key] || 0) > 0) { state.ratings[c.key] = { location: 5, documents: 3, plan: 4 }; }
+      if ((state.counts[c.key] || 0) > 0) { state.ratings[c.key] = { readiness: 4 }; }
     });
-    if (state.ratings.pe) state.ratings.pe.documents = 'unsure';
-    if (state.ratings.entities) state.ratings.entities.plan = 'unsure';
+    if (state.ratings.pe) state.ratings.pe.readiness = 'unsure';
+    if (state.ratings.entities) state.ratings.entities.readiness = 3;
     state.documents = [true, true, false, true, false, false, false, true, false, false];
     state.questions = { q1: 4, q2: 'unsure', q3: 5, q4: 4 };
   }
