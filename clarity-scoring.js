@@ -27,7 +27,7 @@
     ],
 
     dimensions: [
-      { key: 'readiness', label: 'Family readiness', help: 'Could your family find {them}, understand {them}, and know your plan for {them}?' }
+      { key: 'readiness', label: 'Family readiness', help: 'Could your family find and make sense of {them} without you?' }
     ],
 
     documents: [
@@ -44,10 +44,8 @@
     ],
 
     questions: [
-      { key: 'q1', text: 'If you became unavailable today, could your family locate every account, property, policy, and entity you hold, without your help?', low: 'Nothing findable',      high: 'Everything documented' },
-      { key: 'q2', text: 'Does your family understand your holdings: what you own, why, and the risks and obligations attached?',                              low: 'No understanding',       high: 'Fully informed' },
-      { key: 'q3', text: 'Does your family know your key advisors (attorney, CPA, advisor), and do those advisors know your plan?',                            low: 'No contacts known',      high: 'All documented' },
-      { key: 'q4', text: 'If you were no longer available, how much of your strategy, context, and decision-making would survive?',                            low: 'Lost and irreversible',  high: 'Fully transferable' }
+      { key: 'q1', text: 'Does your family know your key advisors (attorney, CPA, financial advisor), and do those advisors know your plan?', low: 'No contacts known',     high: 'All documented' },
+      { key: 'q2', text: 'If you were no longer available, how much of your strategy, context, and decision-making would survive?',            low: 'Lost and irreversible', high: 'Fully transferable' }
     ],
 
     // Overall Clarity = weighted average of the three section scores. Equal by default.
