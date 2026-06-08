@@ -208,6 +208,10 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
 .ss .v small { font-size: 12px; color: var(--text-muted); }
 .ss-caption { font-size: 12px; color: var(--text-muted); text-align: center; margin: 0 0 26px; }
 .suggest { margin-bottom: 26px; }
+.btn-suggest { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 24px; border-radius: 6px; font-family: var(--font-body); font-size: 16px; font-weight: 700; cursor: pointer; background: rgba(201,168,76,0.14); border: 1px solid var(--gold); color: var(--navy); transition: background 150ms ease; }
+.btn-suggest:hover { background: rgba(201,168,76,0.24); }
+.btn-suggest .chev { font-family: var(--font-mono); font-size: 18px; line-height: 1; transition: transform 150ms ease; }
+.btn-suggest.open .chev { transform: rotate(90deg); }
 .suggest-box { margin-top: 12px; display: flex; flex-direction: column; gap: 12px; }
 .suggest-box[hidden] { display: none; }
 .suggest-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 8px; padding: 16px 18px; }
@@ -587,7 +591,7 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
         ss('Asset readiness', s.inventoryScore) + ss('Documents', s.documentsScore) + ss('Key questions', s.questionsScore) +
       '</div>' +
       '<div class="ss-caption">Each section is scored out of 10. Your Clarity Score is their average.</div>' +
-      '<div class="suggest"><button class="btn btn-ghost btn-block" id="suggestBtn">See your suggested next steps</button>' +
+      '<div class="suggest"><button class="btn-suggest" id="suggestBtn"><span id="suggestLabel">See your suggested next steps</span><span class="chev">&#8250;</span></button>' +
         '<div class="suggest-box" id="suggestBox" hidden>' + sgHtml + '</div></div>' +
       '<div class="capture" id="capture">' +
         '<h2>Email me a copy of my results</h2>' +
@@ -635,8 +639,9 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
     var suggestBox = document.getElementById('suggestBox');
     if (suggestBtn && suggestBox) suggestBtn.onclick = function () {
       var open = suggestBox.hasAttribute('hidden');
-      if (open) { suggestBox.removeAttribute('hidden'); suggestBtn.textContent = 'Hide suggested next steps'; }
-      else { suggestBox.setAttribute('hidden', ''); suggestBtn.textContent = 'See your suggested next steps'; }
+      var label = document.getElementById('suggestLabel');
+      if (open) { suggestBox.removeAttribute('hidden'); suggestBtn.classList.add('open'); if (label) label.textContent = 'Hide suggested next steps'; }
+      else { suggestBox.setAttribute('hidden', ''); suggestBtn.classList.remove('open'); if (label) label.textContent = 'See your suggested next steps'; }
     };
   }
 
