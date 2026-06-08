@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LegacyTrackr - Personal Financial Inventory Worksheet</title>
-<meta name="description" content="Download the Personal Financial Inventory worksheet for complex households with assets, entities, documents, and advisors spread across many places.">
+<title>LegacyTrackr - Family Clarity Score (printable)</title>
+<meta name="description" content="The printable Family Clarity Score. Count what you hold, check the documents your family could find today, and score how ready your financial picture is.">
 <link rel="icon" href="/favicon-lt.svg" type="image/svg+xml">
 <link rel="shortcut icon" href="/favicon-lt.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -288,25 +288,25 @@ h1 {
         <a href="/"><img src="/LT_logo_white_for_blueBG.svg" height="64" alt="LegacyTrackr"></a>
       </div>
 
-      <div class="eyebrow">Personal Financial Inventory</div>
-      <h1>See how complete your financial picture really is.</h1>
-      <p class="intro">This free worksheet helps you map the accounts, entities, documents, people, and obligations that your family would need to find if they had to step in. If you are not sure, leave it blank. Those gaps show where the plan still depends on memory, inboxes, or other people's files.</p>
+      <div class="eyebrow">Family Clarity Score</div>
+      <h1>How ready is your financial picture?</h1>
+      <p class="intro">This is the printable version of the assessment. You count what you hold, check off the documents your family could find today, answer two honest questions, and score yourself by hand. We never ask for balances or account numbers.</p>
 
-      <div class="fit-list" aria-label="Who this worksheet is for">
-        <div class="fit-item"><span class="fit-mark">&#10003;</span><span>You have assets spread across multiple institutions, advisors, or spreadsheets.</span></div>
-        <div class="fit-item"><span class="fit-mark">&#10003;</span><span>You own private investments, real estate, an operating business, or entities such as trusts and LLCs.</span></div>
-        <div class="fit-item"><span class="fit-mark">&#10003;</span><span>Right now, the full picture depends on you. You need a plan to bring your spouse, family, or executor into the picture before they have to act.</span></div>
+      <div class="fit-list" aria-label="Who this is for">
+        <div class="fit-item"><span class="fit-mark">&#10003;</span><span>Your wealth is spread across many accounts, advisors, and entities.</span></div>
+        <div class="fit-item"><span class="fit-mark">&#10003;</span><span>You hold private deals, real estate, an operating business, or trusts and LLCs.</span></div>
+        <div class="fit-item"><span class="fit-mark">&#10003;</span><span>Right now, the complete picture lives mostly in your head.</span></div>
       </div>
 
-      <div class="quote">If the worksheet is hard to finish, the issue is not the worksheet. It is a sign the plan still depends too much on you.</div>
+      <div class="quote">We built LegacyTrackr for our own families first, then realized others needed it too. This is the readiness check we wished we had.</div>
     </div>
   </section>
 
   <section class="right">
     <div class="form-card">
       <div id="formWrapper">
-        <h2 class="form-title">Get the worksheet.</h2>
-        <p class="form-desc">Tell us where to send the worksheet. The download link will also appear immediately. No account required.</p>
+        <h2 class="form-title">Get the printable version.</h2>
+        <p class="form-desc">Tell us where to send it. The download link appears right away too. No account required.</p>
 
         <form id="worksheetForm" novalidate>
           <label class="form-label" for="email">Email</label>
@@ -316,17 +316,17 @@ h1 {
           <label class="form-label" for="name">Name <span class="optional">(optional)</span></label>
           <input class="form-input" type="text" id="name" name="name" placeholder="Your name" autocomplete="name">
 
-          <button type="submit" class="form-submit" id="submitBtn">Send Me the Worksheet</button>
+          <button type="submit" class="form-submit" id="submitBtn">Email It to Me</button>
         </form>
 
-        <p class="safe-note">Once filled in, this worksheet may describe sensitive financial information. Do not write live passwords, PINs, or private keys on it. Store the completed copy somewhere secure.</p>
+        <p class="safe-note">Once filled in, this maps sensitive details about your financial life. Do not write live passwords, PINs, or private keys on it. Keep the completed copy somewhere secure.</p>
       </div>
 
       <div class="form-success" id="formSuccess">
-        <h2 class="success-title">Your worksheet is ready.</h2>
-        <p class="success-copy">Check your email for the worksheet, or download it here now. Fill in what you can, and use the blanks as a guide to what still lives only in your head or someone else's files.</p>
+        <h2 class="success-title">Your printable version is ready.</h2>
+        <p class="success-copy">Check your email for it, or download it now. Count what you hold, check what your family could find today, and score yourself. The blanks are the gaps.</p>
         <a class="download-btn" href="/personal-financial-inventory.pdf" download>Download PDF</a>
-        <a class="review-btn" href="/demo.html?src=worksheet_download">Schedule a Call</a>
+        <a class="review-btn" href="/demo.html?src=worksheet_download">Schedule a Call or Demo</a>
         <a href="/" class="back-link">Back to LegacyTrackr</a>
       </div>
     </div>
@@ -406,7 +406,7 @@ form.addEventListener('submit', function(e) {
   })
   .catch(function() {
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Send Me the Worksheet';
+    submitBtn.textContent = 'Email It to Me';
     alert('Something went wrong. Please try again or email info@legacytrackr.com.');
   });
 });
