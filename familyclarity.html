@@ -207,6 +207,13 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
 .ss .v { font-family: var(--font-mono); font-size: 18px; color: var(--navy); }
 .ss .v small { font-size: 12px; color: var(--text-muted); }
 .ss-caption { font-size: 12px; color: var(--text-muted); text-align: center; margin: 0 0 26px; }
+.suggest { margin-bottom: 26px; }
+.suggest-box { margin-top: 12px; display: flex; flex-direction: column; gap: 12px; }
+.suggest-box[hidden] { display: none; }
+.suggest-item { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 8px; padding: 16px 18px; }
+.suggest-title { font-weight: 700; color: var(--navy); font-size: 15px; margin-bottom: 5px; }
+.suggest-text { font-size: 14px; line-height: 1.55; color: var(--text-primary); }
+.suggest-lt { font-size: 13px; line-height: 1.5; color: var(--text-secondary); font-style: italic; margin-top: 7px; }
 
 /* ---------- Email capture ---------- */
 .capture { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 26px; }
@@ -243,7 +250,7 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
 
 <main id="app"><!-- rendered by JS --></main>
 
-<script src="/clarity-scoring.js"></script>
+<script src="/clarity-scoring.js?v=3"></script>
 <script>
 (function () {
   'use strict';
@@ -304,6 +311,7 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
       utm_content: getParam('utm_content'),
       session_id: state.sessionId,
       results: compute(state, CFG),
+      suggestions: window.ClarityScoring.buildSuggestions(compute(state, CFG), state, CFG),
       answers: { counts: state.counts, ratings: state.ratings, documents: state.documents, questions: state.questions }
     };
     fetch(CLARITY_ENDPOINT, {
@@ -440,6 +448,7 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
     if (!held.length) { go('docs'); return; }
     var skipped = CFG.categories.filter(function (c) { return (Number(state.counts[c.key]) || 0) === 0; });
     var ratedCount = held.filter(function (h) { return isCatComplete(h.key); }).length;
+    var totalItems = held.reduce(function (s, c) { return s + (Number(state.counts[c.key]) || 0); }, 0);
     var dim = CFG.dimensions[0]; // single holistic readiness rating per category
 
     var cards = held.map(function (c) {
@@ -459,7 +468,7 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
     app.appendChild(el(
       '<div class="wrap">' + progressHTML('rate') +
       '<h2>How ready is your family on each?</h2>' +
-      '<p class="step-help">For each, could your family find and make sense of it without you? 1 = not at all, 10 = completely. <span id="ratedCount">' + ratedCount + ' of ' + held.length + '</span> rated.</p>' +
+      '<p class="step-help">You are tracking about ' + totalItems + ' holdings across ' + held.length + ' categor' + (held.length === 1 ? 'y' : 'ies') + '. For each, how ready would your family be, in your absence, to find it, keep it in good hands, and carry out your plans for it? 1 = not at all, 10 = completely. <span id="ratedCount">' + ratedCount + ' of ' + held.length + '</span> rated.</p>' +
       cards +
       (skipped.length ? '<div class="skip-note">Skipped (you hold none): ' + skipped.map(function (s) { return s.label; }).join(' · ') + '</div>' : '') +
       '<div class="nav-row"><button class="btn btn-ghost" id="backBtn">Back</button><button class="btn btn-gold" id="nextBtn">Continue</button></div>' +
@@ -555,6 +564,12 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
       var disp = (val === null) ? '&ndash;' : (val + '<small>/10</small>');
       return '<div class="ss"><div class="k">' + label + '</div><div class="v">' + disp + '</div></div>';
     };
+    var suggestions = window.ClarityScoring.buildSuggestions(s, state, CFG);
+    var sgHtml = suggestions.map(function (x) {
+      return '<div class="suggest-item"><div class="suggest-title">' + x.title + '</div>' +
+        '<div class="suggest-text">' + x.text + '</div>' +
+        (x.lt ? '<div class="suggest-lt">' + x.lt + '</div>' : '') + '</div>';
+    }).join('');
     app.innerHTML = '';
     app.appendChild(el(
       '<div class="wrap">' +
@@ -572,14 +587,16 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
         ss('Asset readiness', s.inventoryScore) + ss('Documents', s.documentsScore) + ss('Key questions', s.questionsScore) +
       '</div>' +
       '<div class="ss-caption">Each section is scored out of 10. Your Clarity Score is their average.</div>' +
+      '<div class="suggest"><button class="btn btn-ghost btn-block" id="suggestBtn">See your suggested next steps</button>' +
+        '<div class="suggest-box" id="suggestBox" hidden>' + sgHtml + '</div></div>' +
       '<div class="capture" id="capture">' +
         '<h2>Email me a copy of my results</h2>' +
         '<input class="form-input" type="email" id="email" placeholder="you@example.com" autocomplete="email">' +
-        '<label class="consent" id="consentLabel"><input type="checkbox" id="consent"><span>I understand my answers and email will be stored so LegacyTrackr can send my results and may follow up. No account balances or numbers are collected.</span></label>' +
+        '<label class="consent" id="consentLabel"><input type="checkbox" id="consent"><span>I agree to receive an email with my results.</span></label>' +
         '<button class="btn btn-gold btn-block" id="emailBtn">Send my results</button>' +
         '<div class="alt-actions">' +
           '<a class="btn btn-ghost" href="/personal-financial-inventory.pdf" download>Download the printable PDF</a>' +
-          '<a class="btn btn-navy" href="/demo.html?src=clarity_score">Schedule a call</a>' +
+          '<a class="btn btn-navy" href="/demo.html?src=clarity_score">Schedule a call or demo</a>' +
         '</div>' +
         '<p class="fine">This is a self-assessment, not financial or legal advice. Your results map your financial life, so keep them somewhere private.</p>' +
       '</div>' +
@@ -603,7 +620,7 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
         if (ok) {
           cap.innerHTML = '<h2>On its way.</h2><p>Check your inbox for your results and a printable copy. If your answers gave you pause, just reply to that email.</p>' +
             '<div class="alt-actions"><a class="btn btn-ghost" href="/personal-financial-inventory.pdf" download>Download the printable PDF</a>' +
-            '<a class="btn btn-navy" href="/demo.html?src=clarity_score">Schedule a call</a></div>';
+            '<a class="btn btn-navy" href="/demo.html?src=clarity_score">Schedule a call or demo</a></div>';
         } else {
           btn.disabled = false; btn.textContent = 'Email me my results';
           alert('Something went wrong. Please try again or email info@legacytrackr.com.');
@@ -614,6 +631,13 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
     consentEl.addEventListener('change', function () { consentLabel.classList.remove('invalid'); });
     var revise = document.getElementById('reviseBtn');
     if (revise) revise.onclick = function (e) { e.preventDefault(); go('count'); };
+    var suggestBtn = document.getElementById('suggestBtn');
+    var suggestBox = document.getElementById('suggestBox');
+    if (suggestBtn && suggestBox) suggestBtn.onclick = function () {
+      var open = suggestBox.hasAttribute('hidden');
+      if (open) { suggestBox.removeAttribute('hidden'); suggestBtn.textContent = 'Hide suggested next steps'; }
+      else { suggestBox.setAttribute('hidden', ''); suggestBtn.textContent = 'See your suggested next steps'; }
+    };
   }
 
   function updateLiveScore() {

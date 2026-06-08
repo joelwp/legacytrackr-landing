@@ -180,7 +180,58 @@
     };
   }
 
-  var api = { CONFIG: CONFIG, computeScores: computeScores, avg: avg, round1: round1 };
+  // A reading is "weak" if not sure, or a number below 7.
+  function midLow(v) { return v === 'unsure' || (typeof v === 'number' && v < 7); }
+
+  function weakestCategoryLabel(state, cfg) {
+    var ratings = state.ratings || {}, counts = state.counts || {};
+    var worst = null, worstVal = 99;
+    for (var i = 0; i < cfg.categories.length; i++) {
+      var cat = cfg.categories[i];
+      if ((Number(counts[cat.key]) || 0) <= 0) continue;
+      var v = (ratings[cat.key] || {})[cfg.dimensions[0].key];
+      var nv = v === 'unsure' ? cfg.unsureValue : (typeof v === 'number' ? v : null);
+      if (nv !== null && nv < worstVal) { worstVal = nv; worst = cat.label; }
+    }
+    return (worst && worstVal < 7) ? worst : null;
+  }
+
+  // Tailored, sincere next steps from the weak sub-scores. Every LT note must be TRUE
+  // of what LegacyTrackr actually does. Tapers as the score rises. Capped at 4.
+  function buildSuggestions(scores, state, cfg) {
+    cfg = cfg || CONFIG; scores = scores || {}; state = state || {};
+    var clarity = scores.clarity || 0;
+    var q = state.questions || {};
+    var out = [];
+
+    if (clarity >= 8) {
+      out.push({ title: 'Keep it current', text: 'You are in good shape. The main risk now is drift, so revisit this as accounts, entities, and documents change.', lt: '' });
+      return out;
+    }
+
+    if (typeof scores.documentsScore === 'number' && scores.documentsScore < 7) {
+      out.push({ title: 'Get your core documents in order', text: 'Make sure your will, powers of attorney, trust, and beneficiary designations are signed, current, and somewhere your family can actually find them.', lt: 'LegacyTrackr gives you one place to keep these and note where the originals live.' });
+    }
+    if ((scores.complexityTier === 'High' || scores.complexityTier === 'Very high') && clarity < 6) {
+      out.push({ title: 'Bring the whole picture into one place', text: 'Your wealth spans a lot of moving parts. A single, current inventory lets your family see everything without reconstructing it from scratch.', lt: 'That is the heart of what LegacyTrackr does: one place that holds what you own and where it lives.' });
+    }
+    if (midLow(q.q1)) {
+      out.push({ title: 'Hand off your advisor list', text: 'Give your family a current list of your attorney, CPA, and financial advisor, and how to reach each one.', lt: 'LegacyTrackr keeps those contacts next to the assets they touch.' });
+    }
+    if (midLow(q.q2)) {
+      out.push({ title: 'Write down the why', text: 'Capture the context and intent behind your key holdings. That knowledge is the hardest thing for anyone else to reconstruct.', lt: 'LegacyTrackr lets you attach notes and instructions to each holding.' });
+    }
+    var weak = weakestCategoryLabel(state, cfg);
+    if (weak) {
+      out.push({ title: 'Start with ' + weak, text: 'This looks like the area your family is least ready for today. Document what you hold there and where the records and access live.', lt: '' });
+    }
+    if (!out.length) {
+      out.push({ title: 'Tighten the gaps', text: 'A few documents and a shared place to keep them would close most of what is missing.', lt: 'LegacyTrackr is built to be that shared place.' });
+    }
+    return out.slice(0, 4);
+  }
+
+  var api = { CONFIG: CONFIG, computeScores: computeScores, buildSuggestions: buildSuggestions, avg: avg, round1: round1 };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   if (root) root.ClarityScoring = api;
 })(typeof window !== 'undefined' ? window : null);
