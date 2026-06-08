@@ -275,7 +275,8 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
     counts: {},
     ratings: {},
     documents: new Array(CFG.documents.length).fill(false),
-    questions: {}
+    questions: {},
+    maxStepReached: -1
   };
 
   // Screens: intro, count, rate, docs, questions, reveal
@@ -284,27 +285,10 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
   var openRate = null; // which rating card is expanded (accordion)
   var app = document.getElementById('app');
 
-  // ---- Backend seams (stubbed) ----
-  function saveProgress(stepKey) {
-    var payload = {
-      lead_type: 'clarity',
+  // ---- Backend: progressive anonymous upsert + email capture (one row per session) ----
+  function basePayload() {
+    return {
       session_id: state.sessionId,
-      furthest_step: stepKey,
-      source: getParam('src') || getParam('utm_source') || 'clarity_direct',
-      scores: compute(state, CFG),
-      counts: state.counts,
-      ratings: state.ratings,
-      documents: state.documents,
-      questions: state.questions
-    };
-    // TODO(backend phase): POST upsert (by session_id) to CLARITY_ENDPOINT. No email, no IP.
-    console.log('[saveProgress stub]', stepKey, payload);
-  }
-  function captureEmail(email, cb) {
-    if (!CLARITY_ENDPOINT) { setTimeout(function () { cb(true); }, 300); return; } // preview fallback
-    var payload = {
-      lead_type: 'clarity',
-      email: email,
       source: getParam('src') || getParam('utm_source') || 'clarity_direct',
       page_url: window.location.href,
       referrer: document.referrer || '',
@@ -313,11 +297,27 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
       utm_campaign: getParam('utm_campaign'),
       utm_term: getParam('utm_term'),
       utm_content: getParam('utm_content'),
-      session_id: state.sessionId,
-      results: compute(state, CFG),
-      suggestions: window.ClarityScoring.buildSuggestions(compute(state, CFG), state, CFG),
-      answers: { counts: state.counts, ratings: state.ratings, documents: state.documents, questions: state.questions }
+      counts: state.counts,
+      ratings: state.ratings,
+      documents: state.documents,
+      questions: state.questions,
+      results: compute(state, CFG)
     };
+  }
+  function saveProgress(stepKey) {
+    if (!CLARITY_ENDPOINT) { console.log('[saveProgress noop]', stepKey); return; }
+    var payload = basePayload();
+    payload.furthest_step = stepKey; // anonymous: no email
+    try {
+      fetch(CLARITY_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload), keepalive: true }).catch(function () {});
+    } catch (e) {}
+  }
+  function captureEmail(email, cb) {
+    if (!CLARITY_ENDPOINT) { setTimeout(function () { cb(true); }, 300); return; } // preview fallback
+    var payload = basePayload();
+    payload.email = email;
+    payload.furthest_step = 'email';
+    payload.suggestions = window.ClarityScoring.buildSuggestions(payload.results, state, CFG);
     fetch(CLARITY_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -652,16 +652,18 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
 
   // ---- Navigation ----
   function go(next) {
-    // persist progress when leaving a real step
-    if (STEPS.indexOf(screen) !== -1) saveProgress(screen);
     screen = next;
     var hdr = document.querySelector('.site-header');
     if (hdr) hdr.style.display = (next === 'intro') ? 'none' : '';
     if (next === 'rate') { var hc = heldCategories(); openRate = hc.length ? nextIncomplete(hc, null) : null; }
-    if (next === 'reveal') saveProgress('reveal');
     var map = { intro: renderIntro, count: renderCount, rate: renderRate, docs: renderDocs, questions: renderQuestions, reveal: renderReveal };
     (map[next] || renderIntro)();
     scrollTop();
+    // Capture progress the first time each step (or the reveal) is reached. Tracking the
+    // furthest step (not current) avoids downgrading when someone revises their answers.
+    var order = ['count', 'rate', 'docs', 'questions', 'reveal'];
+    var idx = order.indexOf(next);
+    if (idx > state.maxStepReached) { state.maxStepReached = idx; saveProgress(next); }
   }
 
   // ---- Dev hook: ?screen=reveal&demo=1 to preview with sample data ----
