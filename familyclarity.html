@@ -404,7 +404,7 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
             '<p class="start-desc">A few minutes, and you will see your Family Clarity Score and where the gaps are. We never ask for balances or account numbers.</p>' +
             '<div class="start-meta"><span>5&ndash;10 min</span><span>Private</span><span>Free</span></div>' +
             '<button class="btn btn-gold btn-block" id="startBtn">Get your Family Clarity Score</button>' +
-            '<div class="start-or"><a href="/personal-financial-inventory.pdf" download>Prefer paper? Download it</a></div>' +
+            '<div class="start-or"><a href="/worksheet?src=clarity_intro">Prefer paper? Get the worksheet</a></div>' +
           '</div>' +
         '</section>' +
       '</div>'
@@ -599,7 +599,7 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
         '<label class="consent" id="consentLabel"><input type="checkbox" id="consent"><span>I agree to receive an email with my results.</span></label>' +
         '<button class="btn btn-gold btn-block" id="emailBtn">Send my results</button>' +
         '<div class="alt-actions">' +
-          '<a class="btn btn-ghost" href="/personal-financial-inventory.pdf" download>Download the printable PDF</a>' +
+          '<a class="btn btn-ghost" href="/worksheet?src=clarity_reveal">Get the printable worksheet</a>' +
           '<a class="btn btn-navy" href="/demo.html?src=clarity_score">Schedule a call or demo</a>' +
         '</div>' +
         '<p class="fine">This is a self-assessment, not financial or legal advice. Your results map your financial life, so keep them somewhere private.</p>' +
@@ -623,7 +623,7 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
         var cap = document.getElementById('capture');
         if (ok) {
           cap.innerHTML = '<h2>On its way.</h2><p>Check your inbox for your results and a printable copy. If your answers gave you pause, just reply to that email.</p>' +
-            '<div class="alt-actions"><a class="btn btn-ghost" href="/personal-financial-inventory.pdf" download>Download the printable PDF</a>' +
+            '<div class="alt-actions"><a class="btn btn-ghost" href="/worksheet?src=clarity_reveal">Get the printable worksheet</a>' +
             '<a class="btn btn-navy" href="/demo.html?src=clarity_score">Schedule a call or demo</a></div>';
         } else {
           btn.disabled = false; btn.textContent = 'Email me my results';
