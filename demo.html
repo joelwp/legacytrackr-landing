@@ -118,6 +118,8 @@ h1 {
   .cal-container { min-height: 400px; }
 }
 </style>
+  <!-- Meta Pixel (self-disabling until PIXEL_ID is set in lt-pixel.js) -->
+  <script src="/lt-pixel.js?v=1"></script>
 </head>
 <body>
 
@@ -154,6 +156,11 @@ Cal("inline", {
   config: {
     theme: "light"
   }
+});
+// Fire a Meta "Schedule" conversion when a call/demo is actually booked.
+Cal("on", {
+  action: "bookingSuccessful",
+  callback: function () { if (window.ltTrack) ltTrack('Schedule', { content_name: 'demo_booking' }); }
 });
 </script>
 

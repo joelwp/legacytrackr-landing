@@ -243,6 +243,8 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
   .scale button { height: 40px; }
 }
 </style>
+  <!-- Meta Pixel (self-disabling until PIXEL_ID is set in lt-pixel.js) -->
+  <script src="/lt-pixel.js?v=1"></script>
 </head>
 <body>
 <header class="site-header">
@@ -622,6 +624,7 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
       captureEmail(v, function (ok) {
         var cap = document.getElementById('capture');
         if (ok) {
+          if (window.ltTrack) ltTrack('Lead', { content_name: 'family_clarity_score' });
           cap.innerHTML = '<h2>On its way.</h2><p>Check your inbox for your results and a printable copy. If your answers gave you pause, just reply to that email.</p>' +
             '<div class="alt-actions"><a class="btn btn-ghost" href="/worksheet?src=clarity_reveal">Get the printable version</a>' +
             '<a class="btn btn-navy" href="/demo.html?src=clarity_score">Schedule a call or demo</a></div>';
@@ -663,7 +666,14 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
     // furthest step (not current) avoids downgrading when someone revises their answers.
     var order = ['count', 'rate', 'docs', 'questions', 'reveal'];
     var idx = order.indexOf(next);
-    if (idx > state.maxStepReached) { state.maxStepReached = idx; saveProgress(next); }
+    if (idx > state.maxStepReached) {
+      state.maxStepReached = idx;
+      saveProgress(next);
+      if (next === 'reveal' && window.ltTrack) {
+        var rv = compute(state, CFG);
+        ltTrack('CompleteAssessment', { complexity_tier: rv.complexityTier, clarity: rv.clarity });
+      }
+    }
   }
 
   // ---- Dev hook: ?screen=reveal&demo=1 to preview with sample data ----
