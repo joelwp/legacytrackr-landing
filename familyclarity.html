@@ -691,7 +691,12 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
     state.questions = { q1: 5, q2: 4 };
   }
   var startScreen = getParam('screen');
-  go(['count', 'rate', 'docs', 'questions', 'reveal'].indexOf(startScreen) !== -1 ? startScreen : 'intro');
+  var startAt = ['count', 'rate', 'docs', 'questions', 'reveal'].indexOf(startScreen) !== -1 ? startScreen : 'intro';
+  // Record the landing hit (anonymous, furthest_step='landing') so the funnel can see the
+  // landing->start drop natively and reconcile against Meta's landing-page-view count.
+  // Skipped for deep-links and demo previews so they don't pollute the count.
+  if (startAt === 'intro' && demo !== '1' && demo !== 'counts') saveProgress('landing');
+  go(startAt);
 })();
 </script>
 </body>
