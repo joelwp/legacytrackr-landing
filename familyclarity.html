@@ -137,6 +137,24 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
 .stepper .val { width: 44px; text-align: center; font-family: var(--font-mono); font-size: 15px; color: var(--navy); border-left: 1px solid var(--border); border-right: 1px solid var(--border); height: 38px; line-height: 38px; }
 .stepper .val.zero { color: var(--text-muted); }
 
+/* Step 1 — tappable category tiles (mobile-first). Tap a tile to select it
+   (count = 1); selected tiles reveal a stepper to bump the quantity. Replaces the
+   10-row always-on stepper wall that cold mobile traffic was bouncing on. */
+.cat-list { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 8px; }
+@media (min-width: 600px) { .cat-list { grid-template-columns: 1fr 1fr; } }
+.cat-tile { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; padding: 13px 15px; min-height: 58px; background: var(--white); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: border-color 120ms ease, background 120ms ease, box-shadow 120ms ease; }
+.cat-tile:hover { border-color: var(--text-muted); }
+.cat-tile.sel { border-color: var(--gold); background: #fffdf3; box-shadow: inset 0 0 0 1px var(--gold); }
+.cat-mark { width: 22px; height: 22px; flex-shrink: 0; border: 1px solid var(--border); border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; color: transparent; font-size: 13px; }
+.cat-tile.sel .cat-mark { background: var(--gold); border-color: var(--gold); color: var(--navy); }
+.cat-main { flex: 1; min-width: 0; }
+.cat-main .cat-name { display: block; font-size: 15px; color: var(--text-primary); line-height: 1.25; }
+.cat-main .cat-hint { display: block; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .2px; text-transform: uppercase; color: var(--text-muted); margin-top: 3px; line-height: 1.35; }
+.cat-stepper { display: inline-flex; align-items: center; flex-shrink: 0; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; background: var(--white); }
+.cat-stepper button { width: 40px; height: 40px; border: none; background: var(--white); color: var(--navy); font-size: 20px; line-height: 1; cursor: pointer; }
+.cat-stepper button:hover { background: var(--surface); }
+.cat-stepper .cat-count { width: 34px; text-align: center; font-family: var(--font-mono); font-size: 15px; color: var(--navy); }
+
 /* ---------- Rating cards ---------- */
 .rate-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; margin-bottom: 16px; }
 .rate-card .cat { font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 2px; }
@@ -422,32 +440,55 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
   }
 
   function renderCount() {
-    var rows = CFG.categories.map(function (c) {
+    var tiles = CFG.categories.map(function (c) {
       var n = Number(state.counts[c.key]) || 0;
-      return '<div class="count-row">' +
-        '<div class="count-label"><div class="name">' + c.label + '</div>' + (c.hint ? '<div class="hint">' + c.hint + '</div>' : '') + '</div>' +
-        '<div class="stepper" data-cat="' + c.key + '">' +
-          '<button type="button" data-d="-1"' + (n === 0 ? ' disabled' : '') + '>&minus;</button>' +
-          '<span class="val' + (n === 0 ? ' zero' : '') + '">' + n + '</span>' +
-          '<button type="button" data-d="1">+</button>' +
-        '</div></div>';
+      var sel = n > 0;
+      return '<div class="cat-tile' + (sel ? ' sel' : '') + '" data-cat="' + c.key + '" role="button" tabindex="0" aria-pressed="' + (sel ? 'true' : 'false') + '">' +
+        '<span class="cat-mark">' + (sel ? '&#10003;' : '') + '</span>' +
+        '<span class="cat-main"><span class="cat-name">' + c.label + '</span>' + (c.hint ? '<span class="cat-hint">' + c.hint + '</span>' : '') + '</span>' +
+        (sel ?
+          '<span class="cat-stepper" data-cat="' + c.key + '">' +
+            '<button type="button" data-d="-1" aria-label="Fewer">&minus;</button>' +
+            '<span class="cat-count">' + n + '</span>' +
+            '<button type="button" data-d="1" aria-label="More">+</button>' +
+          '</span>'
+        : '') +
+      '</div>';
     }).join('');
     app.innerHTML = '';
     app.appendChild(el(
       '<div class="wrap">' + progressHTML('count') +
       '<h2>What do you hold?</h2>' +
-      '<p class="step-help">Give your best count for each. It does not have to be exact, this is just to gauge how complex your picture is. You will only rate the ones you hold, so it stays short.</p>' +
-      rows +
+      '<p class="step-help">Tap everything you hold. If you have several of something, use plus to add a count. It does not have to be exact, and you only rate what you tap, so it stays short.</p>' +
+      '<div class="cat-list">' + tiles + '</div>' +
       '<div class="nav-row"><button class="btn btn-ghost" id="backBtn">Back</button><button class="btn btn-gold" id="nextBtn">Continue</button></div>' +
       '</div>'
     ));
-    app.querySelectorAll('.stepper').forEach(function (st) {
+    // Tap the tile body to toggle "I hold this" (0 <-> 1). Stepper clicks are handled
+    // separately and must not also toggle the tile.
+    app.querySelectorAll('.cat-tile').forEach(function (tile) {
+      var key = tile.getAttribute('data-cat');
+      function toggle() {
+        var cur = Number(state.counts[key]) || 0;
+        state.counts[key] = cur > 0 ? 0 : 1;
+        renderCount();
+      }
+      tile.onclick = function (e) {
+        if (e.target.closest('.cat-stepper')) return;
+        toggle();
+      };
+      tile.onkeydown = function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+      };
+    });
+    app.querySelectorAll('.cat-stepper').forEach(function (st) {
+      var key = st.getAttribute('data-cat');
       st.querySelectorAll('button').forEach(function (b) {
-        b.onclick = function () {
-          var key = st.getAttribute('data-cat');
+        b.onclick = function (e) {
+          e.stopPropagation();
           var d = parseInt(b.getAttribute('data-d'), 10);
           var cur = Number(state.counts[key]) || 0;
-          state.counts[key] = Math.max(0, cur + d);
+          state.counts[key] = Math.max(0, cur + d); // - to 0 deselects the tile
           renderCount();
         };
       });
