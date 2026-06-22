@@ -293,6 +293,18 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
     return 'sess-' + Math.random().toString(36).slice(2) + Date.now().toString(36);
   }
   function getParam(n) { return new URLSearchParams(location.search).get(n) || ''; }
+  // Build a CTA href that FORWARDS the original acquisition params (src, utm_*) so paid
+  // attribution survives the handoff to /worksheet or /demo. `cta` records which in-page
+  // link was used; we fall back to it as src only when there is no upstream src.
+  function ctaHref(path, cta) {
+    var keep = ['src', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+    var cur = new URLSearchParams(location.search);
+    var out = new URLSearchParams();
+    keep.forEach(function (k) { var v = cur.get(k); if (v) out.set(k, v); });
+    if (!out.get('src')) out.set('src', cta);
+    out.set('cta', cta);
+    return path + '?' + out.toString();
+  }
 
   var state = {
     sessionId: uuid(),
@@ -429,7 +441,7 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
             '<p class="start-desc">Answer a few quick questions and you will see your Family Clarity Score and where the gaps are. We never ask for balances or account numbers.</p>' +
             '<div class="start-meta"><span>Private</span><span>Free</span></div>' +
             '<button class="btn btn-gold btn-block" id="startBtn">Get your Family Clarity Score</button>' +
-            '<div class="start-or"><a href="/worksheet?src=clarity_intro">Prefer paper? Get the printable version</a></div>' +
+            '<div class="start-or"><a href="' + ctaHref('/worksheet', 'clarity_intro') + '">Prefer paper? Get the printable version</a></div>' +
           '</div>' +
         '</section>' +
       '</div>'
@@ -649,8 +661,8 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
         '<label class="consent" id="consentLabel"><input type="checkbox" id="consent"><span>I agree to receive an email with my results.</span></label>' +
         '<button class="btn btn-gold btn-block" id="emailBtn">Send my results</button>' +
         '<div class="alt-actions">' +
-          '<a class="btn btn-ghost" href="/worksheet?src=clarity_reveal">Get the printable version</a>' +
-          '<a class="btn btn-navy" href="/demo.html?src=clarity_score">Schedule a call or demo</a>' +
+          '<a class="btn btn-ghost" href="' + ctaHref('/worksheet', 'clarity_reveal') + '">Get the printable version</a>' +
+          '<a class="btn btn-navy" href="' + ctaHref('/demo.html', 'clarity_score') + '">Schedule a call or demo</a>' +
         '</div>' +
         '<p class="fine">This is a self-assessment, not financial or legal advice. Your results map your financial life, so keep them somewhere private.</p>' +
       '</div>' +
@@ -674,8 +686,8 @@ h2 { font-family: var(--font-display); font-weight: 400; font-size: 28px; line-h
         if (ok) {
           if (window.ltTrack) ltTrack('Lead', { content_name: 'family_clarity_score' });
           cap.innerHTML = '<h2>On its way.</h2><p>Check your inbox for your results and a printable copy. If your answers gave you pause, just reply to that email.</p>' +
-            '<div class="alt-actions"><a class="btn btn-ghost" href="/worksheet?src=clarity_reveal">Get the printable version</a>' +
-            '<a class="btn btn-navy" href="/demo.html?src=clarity_score">Schedule a call or demo</a></div>';
+            '<div class="alt-actions"><a class="btn btn-ghost" href="' + ctaHref('/worksheet', 'clarity_reveal') + '">Get the printable version</a>' +
+            '<a class="btn btn-navy" href="' + ctaHref('/demo.html', 'clarity_score') + '">Schedule a call or demo</a></div>';
         } else {
           btn.disabled = false; btn.textContent = 'Email me my results';
           alert('Something went wrong. Please try again or email info@legacytrackr.com.');
