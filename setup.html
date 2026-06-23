@@ -217,6 +217,8 @@ class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.state = { scrolled: false, openFaq: 0 };
+    // First-party funnel session id (paired across landing + CTA-click events).
+    this.sid = 'setup-' + Math.random().toString(36).slice(2) + Date.now().toString(36);
   }
 
   /* ============================================================
@@ -227,6 +229,7 @@ class Component extends DCLogic {
       CAL_COM_EVENT_URL: 'https://cal.com/legacytrackr/legacytrackr-setup-session', // confirmed cal.com event URL
       SIGNUP_BASE_URL:   'https://app.legacytrackr.com/signup', // confirmed product signup base URL
       SIGNUP_CAMPAIGN:   'setup3',                              // fixed: triggers 3-months-free (monthly) / 25%-off (annual) at checkout
+      SETUP_ENDPOINT:    'https://ffrqhefpkmocgffnolkn.supabase.co/functions/v1/setup-request', // first-party funnel capture
     };
     // Free-months number is the `freeMonths` prop (default 3) — change it in one place.
   }
@@ -265,11 +268,42 @@ class Component extends DCLogic {
 
   book() {
     if (window.ltTrack) window.ltTrack('Lead', { content_name: 'book_setup_call' });
+    this.track({ cta_clicked: 'book_call' });
     // anchor navigation proceeds normally
   }
 
   signup() {
     if (window.ltTrack) window.ltTrack('InitiateCheckout', { content_name: 'start_free' });
+    this.track({ cta_clicked: 'start_free' });
+  }
+
+  // First-party funnel capture (Supabase). sendBeacon survives the CTA navigation; text/plain
+  // body keeps it a simple CORS request (no preflight). Fire-and-forget, never blocks the user.
+  track(payload) {
+    try {
+      var body = JSON.stringify(Object.assign({ session_id: this.sid }, payload));
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(this.CFG.SETUP_ENDPOINT, body);
+      } else {
+        fetch(this.CFG.SETUP_ENDPOINT, { method: 'POST', body: body, keepalive: true });
+      }
+    } catch (e) { /* tracking must never break the page */ }
+  }
+
+  trackLanding() {
+    if (this._landed) return;
+    this._landed = true;
+    var p = this.forwardParams();
+    this.track({
+      source: p.get('src') || p.get('utm_source') || 'setup_direct',
+      utm_source: p.get('utm_source') || undefined,
+      utm_medium: p.get('utm_medium') || undefined,
+      utm_campaign: p.get('utm_campaign') || undefined,
+      utm_content: p.get('utm_content') || undefined,
+      utm_term: p.get('utm_term') || undefined,
+      page_url: location.href,
+      referrer: document.referrer || undefined
+    });
   }
 
   // Assemble the address from parts so Cloudflare's email obfuscation (which the
@@ -284,6 +318,7 @@ class Component extends DCLogic {
 
   componentDidMount() {
     var self = this;
+    this.trackLanding();
     this._onScroll = function () {
       var s = window.scrollY > 560;
       if (s !== self.state.scrolled) self.setState({ scrolled: s });
