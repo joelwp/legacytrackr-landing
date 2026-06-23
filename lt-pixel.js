@@ -16,7 +16,7 @@
   var PIXEL_ID = '1592196959288308';
 
   // Standard Meta events use track(); anything else uses trackCustom().
-  var STANDARD = { PageView: 1, Lead: 1, CompleteRegistration: 1, Schedule: 1, Contact: 1, ViewContent: 1 };
+  var STANDARD = { PageView: 1, Lead: 1, CompleteRegistration: 1, Schedule: 1, Contact: 1, ViewContent: 1, InitiateCheckout: 1 };
 
   var enabled = PIXEL_ID && PIXEL_ID.indexOf('REPLACE_WITH') !== 0;
 
