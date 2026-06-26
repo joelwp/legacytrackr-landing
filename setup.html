@@ -49,7 +49,7 @@
 
       <p style="font-size:14px;line-height:1.55;color:rgba(255,255,255,0.7);margin:12px 0 0;max-width:420px;">We'll start mapping it out together, right on the call.</p>
       <div style="display:flex;align-items:center;gap:18px;margin-top:18px;flex-wrap:wrap;">
-        <a href="{{ signupHref }}" onClick="{{ signup }}" style="font-size:15px;font-weight:500;color:rgba(255,255,255,0.82);text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.3);padding-bottom:2px;" style-hover="color:#FFFFFF;border-color:#FFFFFF;">Or start on your own</a>
+        <a href="{{ signupHref }}" onClick="{{ signup }}" style="font-size:16px;font-weight:600;color:#FFFFFF;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.45);padding-bottom:2px;" style-hover="color:#FFFFFF;border-color:#FFFFFF;">Or start on your own &rarr;</a>
       </div>
       <p style="font-size:13px;color:rgba(255,255,255,0.55);margin:22px 0 0;">No obligation. Your data stays private.</p>
     </div>
@@ -77,13 +77,13 @@
         <div style="background:#FFFFFF;border:1px solid #E5E2DA;border-radius:12px;padding:24px;">
           <div style="font-family:'Geist Mono',monospace;font-size:13px;font-weight:600;color:#C9A84C;margin-bottom:10px;">03</div>
           <h3 style="font-size:18px;font-weight:600;color:#1A1A18;margin:0 0 8px;">Then simple, transparent pricing</h3>
-          <p style="font-size:15px;line-height:1.65;color:#5C5A54;margin:0;">One flat price, no tiers or feature gating. If you start on your own, a card is required and you can cancel anytime. We cover the details on the call, so no surprises.</p>
+          <p style="font-size:15px;line-height:1.65;color:#5C5A54;margin:0;">$250 a month, or $2,500 a year. One flat price, no tiers or feature gating. With the current offer that is your first {{ freeMonths }} months free on monthly, or 25% off the first year annual. If you start on your own a card is required and you can cancel anytime.</p>
         </div>
       </div>
 
       <a href="{{ calHref }}" onClick="{{ book }}" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:420px;box-sizing:border-box;margin-top:32px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:17px;line-height:1;padding:18px 28px;border-radius:4px;background:#C9A84C;color:#0B1D3A;text-decoration:none;border:1px solid #C9A84C;transition:background 120ms ease;" style-hover="background:#D4BA6A;border-color:#D4BA6A;">Book your setup call</a>
-      <div style="margin-top:14px;"><a href="{{ signupHref }}" onClick="{{ signup }}" style="font-size:15px;font-weight:500;color:#0B1D3A;text-decoration:none;border-bottom:1px solid #C9A84C;padding-bottom:2px;">Or start on your own</a></div>
-      <p style="font-size:14px;line-height:1.6;color:#8A8780;margin:16px 0 0;">Either way you get help getting set up. Starting on your own just lands you on the same screen to book your call.</p>
+      <div style="margin-top:14px;"><a href="{{ signupHref }}" onClick="{{ signup }}" style="font-size:16px;font-weight:600;color:#0B1D3A;text-decoration:none;border-bottom:1px solid #C9A84C;padding-bottom:2px;">Or start on your own &rarr;</a></div>
+      <p style="font-size:14px;line-height:1.6;color:#8A8780;margin:16px 0 0;">Either way you get help getting set up. Start on your own and we offer you a setup call right after you sign up.</p>
     </div>
   </section>
 
@@ -161,7 +161,7 @@
       <h2 style="font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:34px;line-height:1.18;color:#1A1A18;margin:0 0 28px;text-wrap:pretty;">The things people ask first.</h2>
 
       <div style="background:#FFFFFF;border:1px solid #E5E2DA;border-radius:12px;overflow:hidden;">
-        <sc-for list="{{ faqs }}" as="faq" hint-placeholder-count="5">
+        <sc-for list="{{ faqs }}" as="faq" hint-placeholder-count="6">
           <div style="border-bottom:1px solid #EEECE6;">
             <button onClick="{{ faq.toggle }}" style="display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:20px 22px;font-family:'DM Sans',sans-serif;">
               <span style="font-size:16px;font-weight:600;color:#1A1A18;">{{ faq.q }}</span>
@@ -185,7 +185,7 @@
       <p style="font-size:16px;line-height:1.65;color:rgba(255,255,255,0.75);margin:0 0 28px;">Book a setup call. Up to 2.5 hours of help included, and your first {{ freeMonths }} months at no cost.</p>
       <a href="{{ calHref }}" onClick="{{ book }}" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:420px;box-sizing:border-box;margin:0 auto;font-family:'DM Sans',sans-serif;font-weight:600;font-size:17px;line-height:1;padding:18px 28px;border-radius:4px;background:#C9A84C;color:#0B1D3A;text-decoration:none;border:1px solid #C9A84C;transition:background 120ms ease;" style-hover="background:#D4BA6A;border-color:#D4BA6A;">Book your setup call</a>
       <p style="font-size:14px;line-height:1.55;color:rgba(255,255,255,0.7);margin:14px auto 0;max-width:420px;">We'll start mapping it out together on the call.</p>
-      <div style="margin-top:16px;"><a href="{{ signupHref }}" onClick="{{ signup }}" style="font-size:15px;font-weight:500;color:rgba(255,255,255,0.82);text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.3);padding-bottom:2px;">Or start on your own</a></div>
+      <div style="margin-top:16px;"><a href="{{ signupHref }}" onClick="{{ signup }}" style="font-size:16px;font-weight:600;color:#FFFFFF;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.45);padding-bottom:2px;">Or start on your own &rarr;</a></div>
     </div>
   </section>
 
@@ -337,8 +337,9 @@ class Component extends DCLogic {
 
     var faqData = [
       { q: 'What does onboarding involve?', a: 'A short intro call to understand your situation, then up to a couple of hours of guided setup, done together. You talk through your accounts, entities, and assets, and we work through it with you. Full-service setup is available if you would rather we take on more.' },
-      { q: 'What does it cost, and is a card required?', a: 'One simple flat price, no tiers or feature gating. If you start on your own, a card is required and you can cancel anytime. Right now you can try it at no cost for ' + months + ' months on monthly, or 25% off annual. We walk through all of it on the call so there are no surprises.' },
+      { q: 'What does it cost, and is a card required?', a: 'One simple flat price: $250 a month or $2,500 a year, no tiers or feature gating. Right now you can try it at no cost for ' + months + ' months on monthly, or get 25% off annual. If you start on your own, a card is required and you can cancel anytime. We walk through all of it on the call so there are no surprises.' },
       { q: 'Is my data safe?', a: 'Yes. Bank-grade encryption, and we never sell or share your data. You control what gets entered and who ever sees it.' },
+      { q: 'How private is my data, and who can see it?', a: 'Your data is yours. It is encrypted in transit and at rest, and the most sensitive details, like account numbers and access information, are individually encrypted on top of that. We never sell or share it, and we do not connect to your bank or brokerage logins, so there is nothing like that for us to store. You decide who ever sees it, and you can keep it entirely to yourself.' },
       { q: 'Do I have to enter everything myself?', a: 'No. We get on a call and do it together, so you are never staring at a blank form alone. Some people want a quick walkthrough, others want more hands-on help, and full-service setup is available if you would rather we take it on.' },
       { q: 'Can my family see it?', a: 'When you are ready, you choose what they see. A spouse can get full access, children a high-level view, advisors only what you grant.' }
     ];
