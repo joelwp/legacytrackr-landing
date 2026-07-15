@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LegacyTrackr - The family office platform for families who run it themselves</title>
+<meta name="description" content="Family office software, without the staff. One private place for everything you own, under your control, shared with the people you choose. Family office platforms can easily cost $100,000+ a year. We are $2,500, all in.">
+<link rel="icon" href="/favicon-lt.svg" type="image/svg+xml">
+<link rel="shortcut icon" href="/favicon-lt.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400..700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; }
+  * { box-sizing: border-box; }
+  ::selection { background: #C9A84C; color: #0B1D3A; }
+  a { -webkit-tap-highlight-color: rgba(201,168,76,0.2); }
+</style>
+<script src="lt-pixel.js"></script>
+</helmet>
+
+<div style="font-family:'DM Sans',-apple-system,Arial,sans-serif;color:#1A1A18;background:#FAFAF7;overflow-x:hidden;">
+
+  <!-- ============ HERO ============ -->
+  <section style="position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;background:#0B1D3A;overflow:hidden;padding:96px 24px 48px;">
+    <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1600&q=80') center/cover no-repeat;filter:brightness(0.3);"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,29,58,0.55) 0%,rgba(11,29,58,0.35) 40%,rgba(11,29,58,0.85) 100%);"></div>
+
+    <!-- header -->
+    <div style="position:absolute;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;z-index:3;">
+      <a href="/" style="display:block;"><img src="assets/logo-lockup-on-dark.svg" alt="LegacyTrackr" style="height:44px;width:auto;display:block;" /></a>
+      <a href="{{ calHref }}" onClick="{{ book }}" style="font-size:14px;font-weight:600;color:#D4BA6A;text-decoration:none;">Book a call</a>
+    </div>
+
+    <div style="position:relative;z-index:2;max-width:620px;margin:0 auto;width:100%;">
+      <div style="font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#C9A84C;margin-bottom:18px;">Family office software</div>
+      <h1 style="font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:44px;line-height:1.12;letter-spacing:-0.3px;color:#FFFFFF;margin:0 0 20px;text-wrap:pretty;">{{ heroHeadline }}</h1>
+      <p style="font-size:17px;line-height:1.65;color:rgba(255,255,255,0.78);margin:0 0 16px;max-width:540px;">LegacyTrackr is the family office platform for families who run it themselves. One private place for everything you own, under your control, shared with the people you choose.</p>
+      <p style="font-size:15px;line-height:1.6;color:#D4BA6A;margin:0 0 28px;font-weight:500;">Family office platforms can easily cost $100,000+ a year. We are $2,500, all in.</p>
+
+      <a href="{{ calHref }}" onClick="{{ book }}" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:420px;box-sizing:border-box;font-family:'DM Sans',sans-serif;font-weight:600;font-size:17px;line-height:1;padding:18px 28px;border-radius:4px;background:#C9A84C;color:#0B1D3A;text-decoration:none;border:1px solid #C9A84C;transition:background 120ms ease;" style-hover="background:#D4BA6A;border-color:#D4BA6A;">Book your setup call</a>
+
+      <p style="font-size:14px;line-height:1.55;color:rgba(255,255,255,0.7);margin:12px 0 0;max-width:420px;">We'll start mapping it out together, right on the call.</p>
+      <div style="display:flex;align-items:center;gap:18px;margin-top:18px;flex-wrap:wrap;">
+        <a href="{{ signupHref }}" onClick="{{ signup }}" style="font-size:16px;font-weight:600;color:#FFFFFF;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.45);padding-bottom:2px;" style-hover="color:#FFFFFF;border-color:#FFFFFF;">Or start on your own &rarr;</a>
+      </div>
+      <p style="font-size:13px;color:rgba(255,255,255,0.55);margin:22px 0 0;">No obligation. Your assets, your data, always secure and private.</p>
+    </div>
+  </section>
+
+  <!-- ============ WHY WE BUILT IT ============ -->
+  <section style="background:#FAFAF7;padding:64px 24px;">
+    <div style="max-width:620px;margin:0 auto;">
+      <div style="font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#A8923F;margin-bottom:12px;">Why we built it</div>
+      <div style="width:56px;height:2px;background:#C9A84C;margin-bottom:24px;"></div>
+      <h2 style="font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:34px;line-height:1.18;color:#1A1A18;margin:0 0 20px;text-wrap:pretty;">We built LegacyTrackr for ourselves.</h2>
+      <p style="font-size:16px;line-height:1.75;color:#5C5A54;margin:0 0 16px;">We looked at every platform. The institutional ones assumed a staff we don't have: analysts, committees, a six-figure license. The portals only saw what the brokerage saw. And all of them belonged to someone else's business model.</p>
+      <p style="font-size:16px;line-height:1.75;color:#5C5A54;margin:0 0 16px;">We also realized we weren't unusual. In most first and second generation families, a handful of people make the decisions about investments, giving, and strategy. No staff, no committees, no reporting built for twelve stakeholders. The over-engineered institutional layer isn't something those families are missing; it is something they never needed.</p>
+      <p style="font-size:16px;line-height:1.75;color:#5C5A54;margin:0 0 16px;">We wanted a place to bring it all together. The accounts, the entities, the real estate, the private deals, the documents, and the instructions that go with them. A way to see complex wealth whole, and to share it with the people who need to know.</p>
+      <p style="font-size:16px;line-height:1.75;color:#5C5A54;margin:0;">We wanted a platform we control, not a portal someone else gave us. We couldn't find it, so we built it.</p>
+      <div style="margin-top:32px;">
+        <img src="images/fo-dashboard.png" alt="LegacyTrackr portfolio summary: every asset class in one net worth view" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid #E5E2DA;border-radius:12px;box-shadow:0 8px 24px rgba(11,29,58,0.10);" />
+        <p style="font-size:14px;line-height:1.5;color:#8A8780;margin:10px 0 0;">Your complete balance sheet: every asset class, one net worth view.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT IT DOES ============ -->
+  <section style="background:#F5F4F0;padding:64px 24px;border-top:1px solid #E5E2DA;border-bottom:1px solid #E5E2DA;">
+    <div style="max-width:620px;margin:0 auto;">
+      <div style="font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#A8923F;margin-bottom:12px;">What it does</div>
+      <h2 style="font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:34px;line-height:1.18;color:#1A1A18;margin:0 0 14px;text-wrap:pretty;">The family office function, without the apparatus.</h2>
+      <p style="font-size:16px;line-height:1.7;color:#5C5A54;margin:0 0 32px;">A family office keeps the whole picture: what exists, what it's worth, where the documents are, and what the plan is. That is the job LegacyTrackr does.</p>
+
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div style="background:#FFFFFF;border:1px solid #E5E2DA;border-radius:12px;padding:24px;">
+          <div style="font-family:'Geist Mono',monospace;font-size:13px;font-weight:600;color:#C9A84C;margin-bottom:10px;">01</div>
+          <h3 style="font-size:18px;font-weight:600;color:#1A1A18;margin:0 0 8px;">See it whole</h3>
+          <p style="font-size:15px;line-height:1.65;color:#5C5A54;margin:0;">Every holding in one private place: accounts, entities, real estate, private investments, operating businesses, digital assets, and the documents behind them. One clear picture, so decisions start from the whole balance sheet instead of a search through logins.</p>
+        </div>
+        <div style="background:#FFFFFF;border:1px solid #E5E2DA;border-radius:12px;padding:24px;">
+          <div style="font-family:'Geist Mono',monospace;font-size:13px;font-weight:600;color:#C9A84C;margin-bottom:10px;">02</div>
+          <h3 style="font-size:18px;font-weight:600;color:#1A1A18;margin:0 0 8px;">Keep it yours</h3>
+          <p style="font-size:15px;line-height:1.65;color:#5C5A54;margin:0;">You own the platform, not an advisor. You decide what goes in and who ever sees any of it, and you can keep it entirely to yourself. Nothing about your picture routes through anyone else's system or business model.</p>
+        </div>
+        <div style="background:#FFFFFF;border:1px solid #E5E2DA;border-radius:12px;padding:24px;">
+          <div style="font-family:'Geist Mono',monospace;font-size:13px;font-weight:600;color:#C9A84C;margin-bottom:10px;">03</div>
+          <h3 style="font-size:18px;font-weight:600;color:#1A1A18;margin:0 0 8px;">Share the plan</h3>
+          <p style="font-size:15px;line-height:1.65;color:#5C5A54;margin:0;">When you choose, bring in the people who need to understand it. A spouse with full access, children with a high-level view, an advisor with only what you grant. With instructions attached, so the plan can be carried forward, not reconstructed.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:32px;">
+        <img src="images/fo-estate-vault.png" alt="LegacyTrackr estate document vault: will, trusts, powers of attorney, instructions" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid #E5E2DA;border-radius:12px;box-shadow:0 8px 24px rgba(11,29,58,0.10);" />
+        <p style="font-size:14px;line-height:1.5;color:#8A8780;margin:10px 0 0;">Your estate documents in one vault: will, trusts, powers of attorney, instructions.</p>
+      </div>
+      <div style="margin-top:28px;">
+        <img src="images/fo-pfs.png" alt="LegacyTrackr Personal Financial Statement, generated on demand" loading="lazy" style="width:100%;height:auto;display:block;border:1px solid #E5E2DA;border-radius:12px;box-shadow:0 8px 24px rgba(11,29,58,0.10);" />
+        <p style="font-size:14px;line-height:1.5;color:#8A8780;margin:10px 0 0;">A complete Personal Financial Statement, generated in seconds, whenever your attorney, banker, or CPA needs one.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT IT COSTS ============ -->
+  <section style="background:#FAFAF7;padding:64px 24px;">
+    <div style="max-width:620px;margin:0 auto;">
+      <div style="font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#A8923F;margin-bottom:12px;">What it costs</div>
+      <h2 style="font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:34px;line-height:1.18;color:#1A1A18;margin:0 0 20px;text-wrap:pretty;">Family office function, at software prices.</h2>
+      <p style="font-size:16px;line-height:1.75;color:#5C5A54;margin:0 0 16px;">A traditional family office runs on people: analysts, an administrator, institutional software. The platforms built for that world start at $65,000 a year, and the office around them runs well past $100,000.</p>
+      <p style="font-size:16px;line-height:1.75;color:#5C5A54;margin:0 0 24px;">LegacyTrackr is <strong style="color:#1A1A18;">$2,500 a year, or $250 a month.</strong> One flat price, no tiers, no feature gating, no per-seat math.</p>
+
+      <div style="background:#FFFFFF;border:1px solid #E5E2DA;border-radius:12px;padding:24px;">
+        <div style="font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#A8923F;margin-bottom:10px;">Current offer</div>
+        <p style="font-size:15px;line-height:1.7;color:#5C5A54;margin:0;">Up to 2.5 hours of setup help, included, so you never start from a blank form. Try it at no cost for {{ freeMonths }} months on monthly, or take 25% off your first year annual. Booking the call costs nothing and takes no card.</p>
+      </div>
+
+      <a href="{{ calHref }}" onClick="{{ book }}" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:420px;box-sizing:border-box;margin-top:32px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:17px;line-height:1;padding:18px 28px;border-radius:4px;background:#C9A84C;color:#0B1D3A;text-decoration:none;border:1px solid #C9A84C;transition:background 120ms ease;" style-hover="background:#D4BA6A;border-color:#D4BA6A;">Book your setup call</a>
+      <div style="margin-top:14px;"><a href="{{ signupHref }}" onClick="{{ signup }}" style="font-size:16px;font-weight:600;color:#0B1D3A;text-decoration:none;border-bottom:1px solid #C9A84C;padding-bottom:2px;">Or start on your own &rarr;</a></div>
+      <p style="font-size:14px;line-height:1.6;color:#8A8780;margin:16px 0 0;">Either way you get help getting set up. Start on your own and we offer you a setup call right after you sign up.</p>
+    </div>
+  </section>
+
+  <!-- ============ VALUES ============ -->
+  <section style="background:#0B1D3A;padding:64px 24px;">
+    <div style="max-width:620px;margin:0 auto;">
+      <div style="font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#C9A84C;margin-bottom:12px;">Our values</div>
+      <h2 style="font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:34px;line-height:1.18;color:#FFFFFF;margin:0 0 28px;text-wrap:pretty;">What we built this on.</h2>
+
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div><div style="font-weight:600;color:#FFFFFF;font-size:16px;margin-bottom:3px;">Privacy</div><div style="font-size:15px;line-height:1.6;color:rgba(255,255,255,0.7);">Your data is yours. Bank-grade encryption, you decide who ever sees it, and we never sell or share it. It is never used to train AI, ours or anyone else's. Full export anytime; nothing is locked in.</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px;"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <div><div style="font-weight:600;color:#FFFFFF;font-size:16px;margin-bottom:3px;">Legacy</div><div style="font-size:15px;line-height:1.6;color:rgba(255,255,255,0.7);">You worked hard building this. We make sure it carries forward, so the people who would step in can find everything instead of piecing it together for months.</div></div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px;"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+          <div><div style="font-weight:600;color:#FFFFFF;font-size:16px;margin-bottom:3px;">Trust</div><div style="font-size:15px;line-height:1.6;color:rgba(255,255,255,0.7);">We built LegacyTrackr for our own families first, and now we build it alongside yours. One flat price, no data selling, no upsell games.</div></div>
+        </div>
+      </div>
+      <p style="font-size:14px;color:rgba(255,255,255,0.55);margin:28px 0 0;">Questions first? Reach us at <a href="{{ emailHref }}" style="color:#D4BA6A;text-decoration:none;">{{ email }}</a>.</p>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section style="background:#F5F4F0;padding:64px 24px;border-top:1px solid #E5E2DA;border-bottom:1px solid #E5E2DA;">
+    <div style="max-width:620px;margin:0 auto;">
+      <div style="font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#A8923F;margin-bottom:12px;">Questions</div>
+      <h2 style="font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:34px;line-height:1.18;color:#1A1A18;margin:0 0 28px;text-wrap:pretty;">The things people ask first.</h2>
+
+      <div style="background:#FFFFFF;border:1px solid #E5E2DA;border-radius:12px;overflow:hidden;">
+        <sc-for list="{{ faqs }}" as="faq" hint-placeholder-count="8">
+          <div style="border-bottom:1px solid #EEECE6;">
+            <button onClick="{{ faq.toggle }}" style="display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:20px 22px;font-family:'DM Sans',sans-serif;">
+              <span style="font-size:16px;font-weight:600;color:#1A1A18;">{{ faq.q }}</span>
+              <span style="flex:none;font-family:'Geist Mono',monospace;font-size:20px;color:#C9A84C;line-height:1;">{{ faq.sign }}</span>
+            </button>
+            <div style="{{ faq.answerStyle }}">
+              <p style="font-size:15px;line-height:1.7;color:#5C5A54;margin:0;padding:0 22px 20px;">{{ faq.a }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section style="position:relative;padding:80px 24px;overflow:hidden;background:#0B1D3A;">
+    <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1600&q=80') center/cover no-repeat;filter:brightness(0.28);"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,29,58,0.6),rgba(11,29,58,0.8));"></div>
+    <div style="position:relative;z-index:2;max-width:620px;margin:0 auto;text-align:center;">
+      <h2 style="font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:36px;line-height:1.15;color:#FFFFFF;margin:0 0 14px;text-wrap:pretty;">The greatest gift you leave behind is not money; it's <em style="color:#D4BA6A;">clarity</em> for those you love.</h2>
+      <p style="font-size:16px;line-height:1.65;color:rgba(255,255,255,0.75);margin:0 0 28px;">Book a setup call. Up to 2.5 hours of help included, and your first {{ freeMonths }} months at no cost.</p>
+      <a href="{{ calHref }}" onClick="{{ book }}" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:420px;box-sizing:border-box;margin:0 auto;font-family:'DM Sans',sans-serif;font-weight:600;font-size:17px;line-height:1;padding:18px 28px;border-radius:4px;background:#C9A84C;color:#0B1D3A;text-decoration:none;border:1px solid #C9A84C;transition:background 120ms ease;" style-hover="background:#D4BA6A;border-color:#D4BA6A;">Book your setup call</a>
+      <p style="font-size:14px;line-height:1.55;color:rgba(255,255,255,0.7);margin:14px auto 0;max-width:420px;">We'll start mapping it out together on the call.</p>
+      <div style="margin-top:16px;"><a href="{{ signupHref }}" onClick="{{ signup }}" style="font-size:16px;font-weight:600;color:#FFFFFF;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.45);padding-bottom:2px;">Or start on your own &rarr;</a></div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="background:#0B1D3A;padding:32px 24px 120px;border-top:1px solid rgba(255,255,255,0.08);">
+    <div style="max-width:620px;margin:0 auto;display:flex;flex-direction:column;gap:16px;align-items:flex-start;">
+      <a href="/" style="display:block;"><img src="assets/logo-lockup-on-dark.svg" alt="LegacyTrackr" style="height:30px;width:auto;display:block;" /></a>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;">
+        <a href="https://app.legacytrackr.com/privacy" style="font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none;">Privacy</a>
+        <a href="https://app.legacytrackr.com/terms" style="font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none;">Terms</a>
+        <a href="{{ emailHref }}" style="font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none;">{{ email }}</a>
+      </div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.3);">Legacy Tracker, Inc.</div>
+    </div>
+  </footer>
+
+  <!-- ============ STICKY MOBILE CTA ============ -->
+  <div style="{{ stickyStyle }}">
+    <div style="width:100%;max-width:620px;margin:0 auto;">
+      <a href="{{ calHref }}" onClick="{{ book }}" style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;box-sizing:border-box;font-family:'DM Sans',sans-serif;font-weight:600;font-size:16px;line-height:1;padding:15px 24px;border-radius:4px;background:#C9A84C;color:#0B1D3A;text-decoration:none;border:1px solid #C9A84C;">Book your setup call</a>
+      <div style="text-align:center;font-size:12px;color:rgba(255,255,255,0.6);margin-top:7px;">No obligation · {{ freeMonths }} months at no cost</div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;freeMonths&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:3,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:1,&quot;max&quot;:12},&quot;showStickyCta&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { scrolled: false, openFaq: 0 };
+    // First-party funnel session id (paired across landing + CTA-click events).
+    this.sid = 'fo-' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+  }
+
+  get CFG() {
+    return {
+      CAL_COM_EVENT_URL: 'https://cal.com/legacytrackr/legacytrackr-setup-session',
+      SIGNUP_BASE_URL:   'https://app.legacytrackr.com/signup',
+      SIGNUP_CAMPAIGN:   'setup3', // reusing the setup3 coupon config; swap if a new campaign key is minted
+      SETUP_ENDPOINT:    'https://ffrqhefpkmocgffnolkn.supabase.co/functions/v1/setup-request',
+    };
+  }
+
+  /* Message-match: mirror the clicked ad's headline as the hero line, keyed off utm_content.
+     Direct visits (no utm) get the category headline. */
+  heroHeadline() {
+    var map = {
+      e_founder:    "Ours. Not our RIA's.",
+      d_agency:     'Run it your way. Share it on your terms.',
+      c_continuity: 'Everything you own. Findable by the people who will need it.'
+    };
+    var key = new URLSearchParams(window.location.search).get('utm_content');
+    return map[key] || 'Family office software, without the staff.';
+  }
+
+  /* Forward the page's attribution so paid clicks stay attributable.
+     Mirrors setup.html — never hard-stamp src. */
+  forwardParams() {
+    var p = new URLSearchParams(window.location.search);
+    var out = new URLSearchParams();
+    ['src', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid']
+      .forEach(function (k) { var v = p.get(k); if (v) out.set(k, v); });
+    return out;
+  }
+
+  calHref() {
+    var out = this.forwardParams();
+    if (!out.get('utm_source')) out.set('utm_source', out.get('src') || 'landing_familyoffice');
+    if (!out.get('utm_medium')) out.set('utm_medium', 'cta');
+    out.set('utm_content', 'book_setup_call');
+    var base = this.CFG.CAL_COM_EVENT_URL;
+    var q = out.toString();
+    return q ? base + (base.indexOf('?') > -1 ? '&' : '?') + q : base;
+  }
+
+  signupHref() {
+    var out = new URLSearchParams();
+    out.set('campaign', this.CFG.SIGNUP_CAMPAIGN);
+    var fwd = this.forwardParams();
+    fwd.forEach(function (v, k) { out.set(k, v); });
+    if (!out.get('src')) out.set('src', 'landing_familyoffice');
+    var base = this.CFG.SIGNUP_BASE_URL;
+    return base + (base.indexOf('?') > -1 ? '&' : '?') + out.toString();
+  }
+
+  book() {
+    if (window.ltTrack) window.ltTrack('Lead', { content_name: 'fo_book_setup_call' });
+    this.track({ cta_clicked: 'book_call' });
+  }
+
+  signup() {
+    if (window.ltTrack) window.ltTrack('InitiateCheckout', { content_name: 'fo_start_free' });
+    this.track({ cta_clicked: 'start_free' });
+  }
+
+  // First-party funnel capture (Supabase). sendBeacon survives the CTA navigation; text/plain
+  // body keeps it a simple CORS request (no preflight). Fire-and-forget, never blocks the user.
+  track(payload) {
+    try {
+      var body = JSON.stringify(Object.assign({ session_id: this.sid, page: 'familyoffice' }, payload));
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(this.CFG.SETUP_ENDPOINT, body);
+      } else {
+        fetch(this.CFG.SETUP_ENDPOINT, { method: 'POST', body: body, keepalive: true });
+      }
+    } catch (e) { /* tracking must never break the page */ }
+  }
+
+  trackLanding() {
+    if (this._landed) return;
+    this._landed = true;
+    var p = this.forwardParams();
+    this.track({
+      source: p.get('src') || p.get('utm_source') || 'fo_direct',
+      utm_source: p.get('utm_source') || undefined,
+      utm_medium: p.get('utm_medium') || undefined,
+      utm_campaign: p.get('utm_campaign') || undefined,
+      utm_content: p.get('utm_content') || undefined,
+      utm_term: p.get('utm_term') || undefined,
+      page_url: location.href,
+      referrer: document.referrer || undefined
+    });
+  }
+
+  // Assemble the address from parts so Cloudflare's email obfuscation (which the
+  // client-side render otherwise leaves stuck on "[email protected]") never sees a literal.
+  email() {
+    return ['info', 'legacytrackr.com'].join('@');
+  }
+
+  emailHref() {
+    return 'mailto:' + this.email();
+  }
+
+  componentDidMount() {
+    var self = this;
+    this.trackLanding();
+    this._onScroll = function () {
+      var s = window.scrollY > 560;
+      if (s !== self.state.scrolled) self.setState({ scrolled: s });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+
+  componentWillUnmount() {
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+  }
+
+  renderVals() {
+    var self = this;
+    var months = (this.props.freeMonths != null) ? this.props.freeMonths : 3;
+    var showSticky = (this.props.showStickyCta != null) ? this.props.showStickyCta : true;
+
+    var faqData = [
+      { q: 'Is this like hiring a family office?', a: 'No. A family office is people; this is software. LegacyTrackr does the record-keeping heart of the job: one private place for every holding, document, and instruction, without analysts, committees, or a six-figure budget. You stay the decision maker.' },
+      { q: 'Is this advisor software?', a: 'No. It is yours. Advisors can be granted a view if you want them to have one, and only of what you choose. Nothing about your picture routes through anyone else\'s platform or business model.' },
+      { q: 'What does it cost, and is a card required?', a: 'One simple flat price: $250 a month or $2,500 a year, no tiers or feature gating. Right now you can try it at no cost for ' + months + ' months on monthly, or get 25% off annual. If you start on your own, a card is required and you can cancel anytime. We walk through all of it on the call so there are no surprises.' },
+      { q: 'How private is my data, and who can see it?', a: 'Your data is yours. It is encrypted in transit and at rest, and the most sensitive details, like account numbers and access information, are individually encrypted on top of that. We never sell or share it, and we do not connect to your bank or brokerage logins, so there is nothing like that for us to store. You decide who ever sees it, and you can keep it entirely to yourself.' },
+      { q: 'Do I have to enter everything myself?', a: 'No. We get on a call and do it together, so you are never staring at a blank form alone. Some people want a quick walkthrough, others want more hands-on help, and full-service setup is available if you would rather we take it on.' },
+      { q: 'How much work is it to keep current?', a: 'Less than most people expect. A few hours a quarter keeps the picture current, and your accountant or assistant can do most of it with scoped access. You approve everything.' },
+      { q: 'Can my family see it?', a: 'When you are ready, you choose what they see. A spouse can get full access, children a high-level view, advisors only what you grant.' },
+      { q: 'Is this a portfolio tracker?', a: 'It is a registry, not a ticker. Real-time trackers watch your public accounts; LegacyTrackr holds the whole picture, including everything a tracker cannot see: entities, private deals, real estate, documents, and the instructions that go with them.' }
+    ];
+
+    var faqs = faqData.map(function (f, i) {
+      var open = self.state.openFaq === i;
+      return {
+        q: f.q,
+        a: f.a,
+        sign: open ? '–' : '+',
+        answerStyle: {
+          overflow: 'hidden',
+          maxHeight: open ? '480px' : '0px',
+          opacity: open ? 1 : 0,
+          transition: 'max-height 250ms cubic-bezier(0.22,1,0.36,1), opacity 200ms ease'
+        },
+        toggle: function () { self.setState({ openFaq: open ? -1 : i }); }
+      };
+    });
+
+    var stickyStyle = {
+      position: 'fixed', left: 0, right: 0, bottom: 0, zIndex: 50,
+      display: showSticky ? 'block' : 'none',
+      padding: '12px 16px calc(12px + env(safe-area-inset-bottom))',
+      background: '#0B1D3A',
+      boxShadow: '0 -4px 20px rgba(0,0,0,0.25)',
+      transform: this.state.scrolled ? 'translateY(0)' : 'translateY(130%)',
+      transition: 'transform 300ms cubic-bezier(0.22,1,0.36,1)'
+    };
+
+    return {
+      heroHeadline: this.heroHeadline(),
+      calHref: this.calHref(),
+      signupHref: this.signupHref(),
+      book: function () { self.book(); },
+      signup: function () { self.signup(); },
+      email: this.email(),
+      emailHref: this.emailHref(),
+      freeMonths: months,
+      faqs: faqs,
+      stickyStyle: stickyStyle
+    };
+  }
+}
+</script>
+</body>
+</html>
