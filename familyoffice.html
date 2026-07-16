@@ -232,8 +232,9 @@ class Component extends DCLogic {
   heroHeadline() {
     var map = {
       a_category: 'Family office software, without the staff.',
-      b_audience: 'The family office platform for first and second generation wealth.',
-      c_founder:  'We wanted a family office we ran ourselves. So we built the platform.'
+      g_gen:      'Built by Gen 1. Ready for Gen 2.',
+      d_quiet:    'Quiet money deserves quiet software.',
+      e_decades:  "Decades to build it. Two hours to make sure it's never lost."
     };
     var key = new URLSearchParams(window.location.search).get('utm_content');
     return map[key] || 'Family office software, without the staff.';
