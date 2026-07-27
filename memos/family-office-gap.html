@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Family Office Gap Below $100 Million | LegacyTrackr</title>
+<meta name="description" content="Roughly 4 million U.S. households hold $5 million to $100 million in net worth. Most will never hire a family office staff, but their finances have outgrown a spreadsheet. On the family office gap.">
+<meta property="og:title" content="The Family Office Gap Below $100 Million">
+<meta property="og:description" content="Roughly 4 million U.S. households hold $5 million to $100 million in net worth. Most will never hire a staff, but their finances have outgrown a spreadsheet.">
+<meta property="og:image" content="https://legacytrackr.com/images/og-memos.png">
+<meta property="og:url" content="https://legacytrackr.com/memos/family-office-gap">
+<meta property="og:type" content="article">
+<meta property="article:author" content="Joel Phillips">
+<meta property="article:published_time" content="2026-07-27">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon-lt.svg" type="image/svg+xml">
+<link rel="shortcut icon" href="/favicon-lt.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300..700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0B1D3A;
+  --navy-light: #132D54;
+  --gold: #C9A84C;
+  --gold-light: #D4BA6A;
+  --bg: #FAFAF7;
+  --surface: #F5F4F0;
+  --white: #FFFFFF;
+  --border: #E5E2DA;
+  --border-light: #EEECE6;
+  --text-primary: #1A1A18;
+  --text-secondary: #5C5A54;
+  --text-muted: #8A8780;
+  --text-on-navy: #F5F4F0;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========== NAV ========== */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0 48px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-light);
+  transition: box-shadow 250ms ease;
+}
+
+.nav.scrolled {
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.nav-links a:hover { color: var(--navy); }
+
+.btn-nav {
+  padding: 10px 24px;
+  background: var(--gold);
+  color: var(--navy) !important;
+  border-radius: 4px;
+  font-weight: 600 !important;
+  transition: background 150ms ease;
+}
+
+.btn-nav:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+
+.nav-login {
+  color: var(--text-muted) !important;
+  font-weight: 400 !important;
+}
+
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--navy);
+  border-radius: 1px;
+  transition: transform 250ms ease, opacity 150ms ease;
+}
+
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ========== MEMO ARTICLE ========== */
+.memo {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 168px 48px 80px;
+}
+
+.memo-back {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-bottom: 40px;
+  transition: color 150ms ease;
+}
+
+.memo-back:hover { color: var(--navy); }
+
+.memo-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.memo h1 {
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.memo-meta {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 56px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.memo-meta strong {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.memo-body p {
+  font-size: 18px;
+  color: var(--text-primary);
+  line-height: 1.85;
+  margin-bottom: 28px;
+}
+
+.memo-bio {
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.memo-bio strong { color: var(--text-primary); }
+
+.memo-cta {
+  margin-top: 24px;
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.memo-cta a {
+  color: var(--navy);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  background: var(--navy);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 32px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+.footer-copy {
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .nav { padding: 0 24px; }
+  .nav-hamburger { display: flex; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background: var(--white);
+    flex-direction: column;
+    padding: 16px 24px 24px;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li { padding: 12px 0; }
+  .nav-links .btn-nav {
+    display: block;
+    text-align: center;
+    margin-top: 8px;
+  }
+  .memo { padding: 120px 24px 64px; }
+  .memo h1 { font-size: 32px; }
+  .memo-body p { font-size: 17px; }
+  .footer { flex-direction: column; gap: 20px; text-align: center; }
+  .footer-links { flex-wrap: wrap; justify-content: center; }
+}
+</style>
+  <!-- Meta Pixel (self-disabling until PIXEL_ID is set in lt-pixel.js) -->
+  <script src="/lt-pixel.js?v=2"></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-logo">
+    <a href="/"><img src="/LT_logo_blue_for_whiteBG.svg" height="52" alt="LegacyTrackr"></a>
+  </div>
+  <button class="nav-hamburger" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/#features">Features</a></li>
+    <li><a href="/#how">How It Works</a></li>
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/advisors.html">For Advisors</a></li>
+    <li><a href="https://app.legacytrackr.com/login" class="nav-login">Log In</a></li>
+    <li><a href="/familyclarity?src=memos_nav" class="btn-nav">Take the Assessment</a></li>
+  </ul>
+</nav>
+
+<!-- MEMO -->
+<article class="memo">
+  <a class="memo-back" href="/memos/">&larr; All memos</a>
+  <div class="memo-eyebrow">Memo</div>
+  <h1>The Family Office Gap Below $100 Million</h1>
+  <div class="memo-meta"><strong>Joel Phillips</strong> &middot; July 2026</div>
+
+  <div class="memo-body">
+    <p>I used to think a family office was reserved for third-generation families with enough wealth to justify a staffed office and more than a handful of full-time employees.</p>
+
+    <p>But there is also a growing subset of &ldquo;family offices&rdquo; with no full-time staff at all. These are often Gen 1 families where the principal is still actively managing the portfolio they worked a lifetime to create.</p>
+
+    <p>If I had to define a family office, I would say it is an organized approach to managing a family&rsquo;s wealth, investments, businesses, and related affairs, typically with a multigenerational perspective. It can range from an informal structure managed by family members and outside advisers to a fully staffed professional organization.</p>
+
+    <p>That is admittedly pretty broad. By this definition, any family with significant accumulated assets, some organization around how those assets are managed, and an intention to carry that wealth forward could qualify.</p>
+
+    <p>It is hard to put exact numbers on this. The wealth has to be significant, and there has to be some intention behind how it is managed. Today, I would put the lower bound somewhere around $5 million. Once a family reaches $100 million or more, it probably begins to make sense to build staff around the complexity. When governance issues emerge across multiple branches and generations, that staff becomes even more necessary.</p>
+
+    <p>I ran the numbers using the Federal Reserve&rsquo;s 2022 Survey of Consumer Finances. There are roughly 4.7 million U.S. households in the $5 million to $100 million net-worth range. If we exclude primary-home equity, that number falls to just under 4 million.</p>
+
+    <p>From there, I think a reasonable estimate for this &ldquo;family office gap&rdquo; is around 3.2 million to 3.6 million Gen 1 and Gen 2 households. The exact number is debatable, but the group is clearly not small.</p>
+
+    <p>For a growing share of these households, the balance sheet is no longer a vacation home and a Schwab account. That was easy to track.</p>
+
+    <p>Today, the picture may include rental properties, angel investments, private funds, mineral rights, operating businesses, crypto, and other alternative assets. Those holdings are often spread across LLCs, SPVs, trusts, investor portals, spreadsheets, and documents sitting in different inboxes.</p>
+
+    <p>This is where the gap becomes pronounced. These families probably do not need a staffed office, but their financial lives have become far too complicated to live in a spreadsheet and one principal&rsquo;s head.</p>
+
+    <p>In the past few weeks alone, I have had multiple estate planners tell me some version of: &ldquo;My client needs what you&rsquo;re building.&rdquo; Their clients have outgrown the spreadsheet, but they have not reached the point where hiring a team of people makes sense.</p>
+
+    <p>The simplest test may be this: would your spouse be able to reconstruct the full picture if they had to?</p>
+
+    <p>If the answer is no, you have probably crossed the line where informal recordkeeping is no longer enough.</p>
+
+    <p>I do not think the answer is to turn every wealthy household into a traditional family office. The opportunity is to give these families enough structure to operate clearly and intentionally without adding an institutional layer they neither want nor need.</p>
+
+    <p>That is the gap I am exploring with LegacyTrackr. I am still forming the thesis, but conversation after conversation keeps pointing in the same direction. Wealth is becoming operationally complex much earlier than the infrastructure around it.</p>
+  </div>
+
+  <div class="memo-bio">
+    <strong>Joel Phillips</strong> is the CEO of LegacyTrackr. He writes and speaks on the operational complexity of modern wealth.
+  </div>
+  <div class="memo-cta">
+    If this sounds like your balance sheet, <a href="/demo.html?src=memo_family_office_gap">book a walkthrough</a>.
+  </div>
+</article>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">
+    <img src="/LT_logo_white_for_blueBG.svg" height="32" alt="LegacyTrackr">
+  </div>
+  <ul class="footer-links">
+    <li><a href="https://app.legacytrackr.com/privacy" target="_blank" rel="noopener">Privacy Policy</a></li>
+    <li><a href="https://app.legacytrackr.com/terms" target="_blank" rel="noopener">Terms of Service</a></li>
+    <li><a href="/familyclarity?src=memos_footer">Family Clarity Score</a></li>
+    <li><a href="/advisors.html">For Advisors</a></li>
+    <li><a href="/memos/">Memos</a></li>
+  </ul>
+  <div class="footer-copy">&copy; 2026 Legacy Tracker, Inc.</div>
+</footer>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  navToggle.classList.toggle('open');
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navToggle.classList.remove('open');
+    navLinks.classList.remove('open');
+  });
+});
+</script>
+
+</body>
+</html>
