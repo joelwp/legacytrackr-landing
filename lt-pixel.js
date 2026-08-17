@@ -1,5 +1,5 @@
 /*
- * LegacyTrackr — Meta Pixel loader + funnel event helper.
+ * LegacyTrackr — Meta Pixel + LinkedIn Insight Tag loader + funnel event helper.
  *
  * TO GO LIVE: replace the PIXEL_ID value below with your real Meta Pixel ID
  * (Events Manager > Data Sources > your Pixel > the ~15-digit ID). That is the
@@ -41,4 +41,24 @@
     if (!window.fbq) return;
     try { window.fbq(STANDARD[ev] ? 'track' : 'trackCustom', ev, params || {}); } catch (e) {}
   };
+})();
+
+/*
+ * LinkedIn Insight Tag (partner 9813900) — site-wide page tracking for
+ * Campaign Manager website demographics + Matched Audiences retargeting pool.
+ */
+(function () {
+  window._linkedin_partner_id = '9813900';
+  window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+  window._linkedin_data_partner_ids.push(window._linkedin_partner_id);
+  if (!window.lintrk) {
+    window.lintrk = function (a, b) { window.lintrk.q.push([a, b]); };
+    window.lintrk.q = [];
+  }
+  var s = document.getElementsByTagName('script')[0];
+  var b = document.createElement('script');
+  b.type = 'text/javascript';
+  b.async = true;
+  b.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js';
+  s.parentNode.insertBefore(b, s);
 })();
