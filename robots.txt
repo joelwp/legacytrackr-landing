@@ -1,4 +1,4 @@
-User-agent: *
-Allow: /
+# Cloudflare prepends its managed robots block (search/AI content-signals and
+# AI-crawler rules) above this file. We only add the sitemap reference here.
 
 Sitemap: https://legacytrackr.com/sitemap.xml
