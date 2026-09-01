@@ -1,7 +1,6 @@
 # Allow all crawlers, including search and AI, full access.
-# Note: Cloudflare may prepend a managed block above this file. If AI crawlers
-# need to be allowed, disable "Block AI bots" / managed robots.txt in the
-# Cloudflare dashboard (Security > Bots, and AI Audit > Manage robots.txt).
+# Cloudflare's managed robots.txt is disabled (Manage robots.txt > Disable
+# robots.txt configuration), so this file is the single source of truth.
 
 User-agent: *
 Allow: /
