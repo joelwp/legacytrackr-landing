@@ -1,4 +1,9 @@
-# Cloudflare prepends its managed robots block (search/AI content-signals and
-# AI-crawler rules) above this file. We only add the sitemap reference here.
+# Allow all crawlers, including search and AI, full access.
+# Note: Cloudflare may prepend a managed block above this file. If AI crawlers
+# need to be allowed, disable "Block AI bots" / managed robots.txt in the
+# Cloudflare dashboard (Security > Bots, and AI Audit > Manage robots.txt).
+
+User-agent: *
+Allow: /
 
 Sitemap: https://legacytrackr.com/sitemap.xml
