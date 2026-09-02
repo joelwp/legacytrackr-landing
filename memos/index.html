@@ -193,6 +193,84 @@ body {
   max-width: 620px;
 }
 
+/* ========== SUBSCRIBE ========== */
+.memo-subscribe {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 48px 80px;
+}
+
+.memo-subscribe-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+}
+
+.memo-subscribe-box h3 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.memo-subscribe-box p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.memo-subscribe-form {
+  display: flex;
+  gap: 12px;
+}
+
+.memo-subscribe-form input {
+  flex: 1;
+  padding: 12px 16px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-primary);
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  outline: none;
+}
+
+.memo-subscribe-form input:focus { border-color: var(--navy); }
+
+.memo-subscribe-form button {
+  padding: 12px 28px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--navy);
+  background: var(--gold);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.memo-subscribe-form button:hover { background: var(--gold-light); }
+.memo-subscribe-form button:disabled { opacity: 0.6; cursor: default; }
+
+.memo-subscribe-note {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.memo-subscribe-done { color: var(--navy); font-weight: 600; }
+
+@media (max-width: 768px) {
+  .memo-subscribe { padding: 0 24px 64px; }
+  .memo-subscribe-form { flex-direction: column; }
+  .memo-subscribe-form button { width: 100%; }
+}
+
 /* ========== FOOTER ========== */
 .footer {
   background: var(--navy);
@@ -300,6 +378,61 @@ body {
     <p>Roughly four million U.S. households hold $5 million to $100 million in net worth. Most will never hire a staff, but their finances have outgrown a spreadsheet. On the gap in between.</p>
   </a>
 </main>
+
+<!-- SUBSCRIBE -->
+<section class="memo-subscribe">
+  <div class="memo-subscribe-box">
+    <h3>Get the next memo by email</h3>
+    <p>Occasional writing on the operational complexity of modern wealth. No marketing, and one-click unsubscribe.</p>
+    <form class="memo-subscribe-form" id="memoSubscribeForm" novalidate>
+      <input type="email" id="memoSubscribeEmail" placeholder="you@example.com" autocomplete="email" aria-label="Email address" required>
+      <button type="submit" id="memoSubscribeBtn">Subscribe</button>
+    </form>
+    <p class="memo-subscribe-note" id="memoSubscribeNote">One email per memo. Nothing else.</p>
+  </div>
+</section>
+
+<script>
+(function () {
+  var NEWSLETTER_ENDPOINT = 'https://ffrqhefpkmocgffnolkn.supabase.co/functions/v1/newsletter-signup';
+  var PAGE_SOURCE = 'memos_index';
+  var form = document.getElementById('memoSubscribeForm');
+  var emailInput = document.getElementById('memoSubscribeEmail');
+  var btn = document.getElementById('memoSubscribeBtn');
+  var note = document.getElementById('memoSubscribeNote');
+
+  function getSubSource() {
+    var params = new URLSearchParams(window.location.search);
+    return params.get('src') || params.get('utm_source') || PAGE_SOURCE;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = (emailInput.value || '').trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      emailInput.focus();
+      return;
+    }
+    btn.disabled = true;
+    fetch(NEWSLETTER_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, source: getSubSource() })
+    })
+    .then(function (r) {
+      if (!r.ok) throw new Error('failed');
+      if (window.ltTrack) ltTrack('Lead', { content_name: 'memo_subscribe' });
+      form.hidden = true;
+      note.textContent = "You're on the list.";
+      note.className = 'memo-subscribe-note memo-subscribe-done';
+    })
+    .catch(function () {
+      btn.disabled = false;
+      note.textContent = 'Something went wrong. Please try again.';
+    });
+  });
+})();
+</script>
 
 <!-- FOOTER -->
 <footer class="footer">
