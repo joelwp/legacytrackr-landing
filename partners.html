@@ -356,7 +356,6 @@ textarea.form-input {
   <div class="form-card-desc">We work with a select group of professionals who serve families with complex financial lives.</div>
 
   <form id="advisorForm" novalidate>
-    <input type="hidden" id="referralSource" name="referral_source" value="">
     <div class="form-row">
       <div class="form-group">
         <label class="form-label" for="firstName">First name</label>
@@ -477,16 +476,21 @@ textarea.form-input {
 var form = document.getElementById('advisorForm');
 var submitBtn = document.getElementById('submitBtn');
 
-// Capture a referral/campaign tag from the URL (e.g. /partners?src=card) so we
-// can attribute where a partner came from, and personalize the page for
-// anyone arriving from an invitation. Sanitized to a short safe token.
+// Marketing lead capture (attribution/segmentation). The application of record
+// still goes to the app API below; this is a second, best-effort write.
+var PARTNER_ENDPOINT = 'https://ffrqhefpkmocgffnolkn.supabase.co/functions/v1/partner-request';
+
+function getParam(name) {
+  return new URLSearchParams(window.location.search).get(name) || '';
+}
+
+function getSource() {
+  return getParam('src') || getParam('utm_source') || getParam('utm_campaign') || 'partners_direct';
+}
+
+// Personalize the page for anyone arriving from an invitation link (?src=...).
 (function() {
-  var params = new URLSearchParams(window.location.search);
-  var raw = params.get('src') || params.get('utm_source') || '';
-  var tag = raw.toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 50);
-  if (tag) {
-    var hidden = document.getElementById('referralSource');
-    if (hidden) hidden.value = tag;
+  if (getParam('src') || getParam('utm_source') || getParam('utm_campaign')) {
     var eyebrow = document.querySelector('.hero-eyebrow');
     if (eyebrow) eyebrow.textContent = "You've been invited to partner with LegacyTrackr";
   }
@@ -557,9 +561,35 @@ form.addEventListener('submit', function(e) {
     advisor_type: document.getElementById('advisorType').value,
     client_count_range: document.getElementById('clientCount').value,
     message: document.getElementById('message').value.trim(),
-    advisor_type_other: document.getElementById('advisorTypeOther').value.trim(),
-    referral_source: document.getElementById('referralSource').value
+    advisor_type_other: document.getElementById('advisorTypeOther').value.trim()
   };
+
+  // Best-effort marketing copy to Supabase (attribution). Fire-and-forget: it
+  // never blocks or affects the application submission below.
+  try {
+    fetch(PARTNER_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        firm_name: data.firm_name,
+        advisor_type: data.advisor_type,
+        advisor_type_other: data.advisor_type_other,
+        client_count_range: data.client_count_range,
+        message: data.message,
+        source: getSource(),
+        page_url: window.location.href,
+        referrer: document.referrer || '',
+        utm_source: getParam('utm_source'),
+        utm_medium: getParam('utm_medium'),
+        utm_campaign: getParam('utm_campaign'),
+        utm_term: getParam('utm_term'),
+        utm_content: getParam('utm_content')
+      })
+    }).catch(function() {});
+  } catch (err) {}
 
   fetch('https://api.legacytrackr.com/api/advisor/apply', {
     method: 'POST',
