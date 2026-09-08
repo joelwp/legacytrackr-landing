@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LegacyTrackr - For Advisors &amp; Partners</title>
 <meta name="description" content="LegacyTrackr gives your clients one secure place to organize everything they own. Partner with us to bring it to the families you serve.">
-<meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="/favicon-lt.svg" type="image/svg+xml">
 <link rel="shortcut icon" href="/favicon-lt.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -348,7 +347,7 @@ textarea.form-input {
 <div class="hero">
   <div class="hero-eyebrow">For wealth advisors, estate planners, attorneys &amp; CPAs</div>
   <h1>Partner with LegacyTrackr.</h1>
-  <p>Your clients often hold complex wealth across many advisors, entities, accounts, and documents. LegacyTrackr gives them one secure place to organize the full picture and make it accessible to the right people when it matters. We work with professionals who already serve these families, so you can bring your clients a tool that makes your own work easier. A referral arrangement is available for partners who want one, though most simply use LegacyTrackr as a better way to serve their clients.</p>
+  <p>Your clients often hold complex wealth across many advisors, entities, accounts, and documents. LegacyTrackr gives them one secure place to organize the full picture and make it accessible to the right people when it matters. We work with professionals who already serve these families, so you can bring your clients a tool that makes your own work easier. A referral arrangement is available for partners who want one, though most simply use LegacyTrackr as a better way to serve their clients. A SOC 2 Type 2 audit is in process with an independent auditor, and security documentation is available for your firm's due diligence.</p>
 </div>
 
 <div class="form-card" id="formWrapper">
@@ -603,7 +602,7 @@ form.addEventListener('submit', function(e) {
   .then(function(result) {
     if (result.already_submitted) {
       document.getElementById('successTitle').textContent = 'We already have your application on file.';
-      document.getElementById('successMessage').textContent = 'No need to submit again — we\'ll be in touch soon.';
+      document.getElementById('successMessage').textContent = 'No need to submit again. We\'ll be in touch soon.';
     }
     document.getElementById('formWrapper').style.display = 'none';
     document.querySelector('.hero').style.display = 'none';
