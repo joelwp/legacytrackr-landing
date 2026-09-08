@@ -540,6 +540,48 @@ body {
   font-weight: 600;
 }
 
+/* ========== SECURITY ========== */
+.security-section {
+  background: var(--white);
+}
+
+.security-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 900px;
+  margin: 48px auto 0;
+}
+
+.security-card {
+  padding: 28px 32px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.security-card h3 {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.security-card p {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.security-note {
+  text-align: center;
+  margin-top: 32px;
+  font-size: 14px;
+  color: var(--text-muted);
+  letter-spacing: 0.2px;
+}
+
 /* ========== PRICING ========== */
 .pricing-section {
   background: var(--bg);
@@ -742,6 +784,7 @@ body {
   .section-heading { font-size: 30px; }
   .platform-grid { grid-template-columns: 1fr; gap: 32px; }
   .how-grid { grid-template-columns: 1fr; }
+  .security-grid { grid-template-columns: 1fr; }
   .quote-text { font-size: 22px; }
   .final-cta { padding: 80px 24px; }
   .final-cta h2 { font-size: 28px; }
@@ -869,6 +912,36 @@ See your full allocation, track what matters, and know the complete picture exis
 <section class="quote-section">
   <div class="quote-text">"I realized that 20+ investments, multiple entities, and real estate across two states all made perfect sense to me. But only to me. If my family, my attorney, or my accountant ever needed the full picture, they'd be starting from zero."</div>
   <div class="quote-attr"><strong>Steve McKeever</strong>, Founder</div>
+</section>
+
+<!-- SECURITY -->
+<section class="section-full security-section" id="security">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <div style="text-align: center;">
+      <div class="eyebrow">Security and Privacy</div>
+      <h2 class="section-heading">A registry, not a custodian.</h2>
+      <p class="section-body" style="max-width: 520px; margin: 0 auto;">LegacyTrackr holds the picture of what you own. It never holds the assets themselves.</p>
+    </div>
+    <div class="security-grid">
+      <div class="security-card">
+        <h3>Nothing moves through us.</h3>
+        <p>LegacyTrackr cannot move money, place a trade, or touch an account. Not us, not anyone who logs in. Connected balances are read-only, and you never give us a bank or brokerage password.</p>
+      </div>
+      <div class="security-card">
+        <h3>You decide who sees what.</h3>
+        <p>Every person you invite gets exactly the access you set, and you can change it anytime. Your advisor sees only the records you choose to share.</p>
+      </div>
+      <div class="security-card">
+        <h3>Encrypted throughout.</h3>
+        <p>Your data is encrypted in transit and at rest. Account numbers, access details, and documents are encrypted again individually. Two-step sign-in is on by default, and every document download is logged.</p>
+      </div>
+      <div class="security-card">
+        <h3>Yours, not ours to see.</h3>
+        <p>No internal access to your personal data. When you want help, onboarding and support happen on a screen share you start, or through access you grant.</p>
+      </div>
+    </div>
+    <p class="security-note">SOC 2 Type 2 in process. Penetration testing by Oneleet.</p>
+  </div>
 </section>
 
 <!-- PRICING -->
