@@ -488,8 +488,9 @@ function getSource() {
 }
 
 // Personalize the page for anyone arriving from an invitation link (?src=...).
+// Keyed on src only: utm_* tags come from paid traffic, which is not an invitation.
 (function() {
-  if (getParam('src') || getParam('utm_source') || getParam('utm_campaign')) {
+  if (getParam('src')) {
     var eyebrow = document.querySelector('.hero-eyebrow');
     if (eyebrow) eyebrow.textContent = "You've been invited to partner with LegacyTrackr";
   }
