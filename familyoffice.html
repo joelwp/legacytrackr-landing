@@ -241,7 +241,7 @@ class Component extends DCLogic {
   }
 
   /* Forward the page's attribution so paid clicks stay attributable.
-     Mirrors setup.html — never hard-stamp src. */
+     Mirrors setup.html. Never hard-stamp src. */
   forwardParams() {
     var p = new URLSearchParams(window.location.search);
     var out = new URLSearchParams();

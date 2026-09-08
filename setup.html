@@ -222,7 +222,7 @@ class Component extends DCLogic {
   }
 
   /* ============================================================
-     PLACEHOLDER CONSTANTS — fill these in before going live.
+     PLACEHOLDER CONSTANTS: fill these in before going live.
      ============================================================ */
   get CFG() {
     return {
@@ -231,11 +231,11 @@ class Component extends DCLogic {
       SIGNUP_CAMPAIGN:   'setup3',                              // fixed: triggers 3-months-free (monthly) / 25%-off (annual) at checkout
       SETUP_ENDPOINT:    'https://ffrqhefpkmocgffnolkn.supabase.co/functions/v1/setup-request', // first-party funnel capture
     };
-    // Free-months number is the `freeMonths` prop (default 3) — change it in one place.
+    // Free-months number is the `freeMonths` prop (default 3). Change it in one place.
   }
 
   /* Forward the page's attribution so paid clicks stay attributable.
-     Mirrors the ctaHref() helper added to familyclarity.html — never hard-stamp src. */
+     Mirrors the ctaHref() helper added to familyclarity.html. Never hard-stamp src. */
   forwardParams() {
     var p = new URLSearchParams(window.location.search);
     var out = new URLSearchParams();
