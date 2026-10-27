@@ -625,6 +625,8 @@ body {
   color: var(--text-muted);
   letter-spacing: 0.2px;
 }
+.security-note a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.security-note a:hover { color: #fff; }
 
 /* ========== PRICING ========== */
 .pricing-section {
@@ -765,21 +767,6 @@ body {
   justify-content: space-between;
   align-items: center;
 }
-
-.footer-badge {
-  display: flex;
-  justify-content: center;
-  padding-top: 24px;
-  border-top: 1px solid rgba(255,255,255,0.06);
-}
-
-.footer-badge img {
-  height: 118px;
-  width: auto;
-  display: block;
-}
-
-
 
 .footer-links {
   display: flex;
@@ -1026,7 +1013,7 @@ body {
         <p>We don't access your records. For those who need hands on support, it happens on a screen share you start, or with access you grant.</p>
       </div>
     </div>
-    <p class="security-note">SOC 2 Type 2 in process. Penetration testing by Oneleet.</p>
+    <p class="security-note">SOC 2 Type 2 in process. Full details, subprocessors and our disclosure policy at <a href="https://trust.legacytrackr.com" target="_blank" rel="noopener">trust.legacytrackr.com</a>.</p>
   </div>
 </section>
 
@@ -1088,17 +1075,12 @@ body {
     <ul class="footer-links">
       <li><a href="https://app.legacytrackr.com/privacy" target="_blank" rel="noopener">Privacy Policy</a></li>
       <li><a href="https://app.legacytrackr.com/terms" target="_blank" rel="noopener">Terms of Service</a></li>
+      <li><a href="https://trust.legacytrackr.com" target="_blank" rel="noopener">Security</a></li>
       <li><a href="/familyclarity?src=continuity_footer">Family Clarity Score</a></li>
       <li><a href="/partners">For Partners</a></li>
       <li><a href="/memos/">Memos</a></li>
     </ul>
     <div class="footer-copy">&copy; 2026 Legacy Tracker, Inc.</div>
-  </div>
-  <div class="footer-badge">
-    <a href="https://trust.legacytrackr.com" target="_blank" rel="noopener" aria-label="LegacyTrackr Trust Center, opens in a new tab">
-      <img src="https://badges.oneleet.com/badge/c141ba3a-1115-4786-b083-5da29d994004?dark=true"
-         alt="SOC 2 Type 2 in progress, monitored by Oneleet" loading="lazy" width="212" height="321">
-    </a>
   </div>
 </footer>
 
