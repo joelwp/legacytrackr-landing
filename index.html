@@ -754,6 +754,7 @@ body {
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
+  .br-desktop { display: none; }
   .nav { padding: 0 24px; }
   .nav-hamburger { display: flex; }
   .nav-links {
@@ -799,6 +800,35 @@ body {
   .footer-row { flex-direction: column; gap: 20px; }
   .footer-links { flex-wrap: wrap; justify-content: center; }
 }
+.shot-caption {
+  margin: 10px 2px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.ai-band {
+  background: var(--navy);
+  padding: 88px 48px;
+  text-align: center;
+}
+.ai-band .eyebrow { color: var(--gold); }
+.ai-band-date {
+  margin-left: 10px;
+  padding-left: 10px;
+  border-left: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.6);
+}
+.ai-band .ai-name { color: var(--gold); }
+.ai-band .section-heading {
+  color: #FFFFFF;
+  max-width: 640px;
+  margin: 0 auto 20px;
+}
+.ai-band .section-body {
+  max-width: 640px;
+  margin: 0 auto;
+  color: rgba(255,255,255,0.72);
+}
 </style>
   <!-- Meta Pixel (self-disabling until PIXEL_ID is set in lt-pixel.js) -->
   <script src="/lt-pixel.js?v=2"></script>
@@ -819,7 +849,7 @@ body {
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="/partners">For Partners</a></li>
     <li><a href="https://app.legacytrackr.com/login" class="nav-login">Log In</a></li>
-    <li><a href="/familyclarity?src=homepage_nav" class="btn-nav">Take the Assessment</a></li>
+    <li><a href="/demo.html?src=homepage_nav" class="btn-nav">Request a Demo</a></li>
   </ul>
 </nav>
 
@@ -827,13 +857,12 @@ body {
 <section class="hero">
   <div class="hero-content">
     <h1>The greatest gift you leave behind is not money. It is clarity for those you love.</h1>
-    <div class="hero-mission">LegacyTrackr turns financial complexity into family clarity that can be preserved and carried forward across generations.</div>
+    <div class="hero-mission">Every account, entity, property and document your family owns, in one place. With all the context anyone would ever need, whether that's your spouse, a child, your estate attorney or your wealth manager.</div>
     <div class="hero-actions">
       <a href="/demo.html?src=homepage_hero" class="btn-primary">
         Request a Demo
         <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
-      <a href="/familyclarity?src=homepage_hero" class="btn-secondary">Take the Family Clarity Assessment</a>
     </div>
   </div>
   <div class="hero-screenshot">
@@ -855,11 +884,18 @@ body {
       <div class="eyebrow">The Problem</div>
       <h2 class="section-heading">Nobody else sees the full picture.</h2>
       <p class="section-body">Right now, you are the only person who could step in and make sense of everything.</p>
+      <p class="section-body">Today that picture lives in a spreadsheet, and a spreadsheet only makes sense to the person who built it.</p>
       <p class="section-body">Not your spouse. Not your advisor. Not your attorney.</p>
-      <p class="section-body">If something happened, they would be starting from zero. Piecing together accounts, entities, and documents under pressure.</p>
+      <p class="section-body">If something happened, they would be starting from zero, piecing together accounts, entities, and documents under pressure.</p>
       <p class="section-body">And in that moment, this stops being about organization. It becomes about whether they can act without confusion.</p>
     </div>
   </div>
+</section>
+
+<!-- FOUNDER QUOTE -->
+<section class="quote-section">
+  <div class="quote-text">"I realized that 20+ investments, multiple entities, and real estate across two states all made perfect sense to me. But only to me. If my family, my attorney, or my accountant ever needed the full picture, they'd be starting from zero."</div>
+  <div class="quote-attr"><strong>Steve McKeever</strong>, Founder</div>
 </section>
 
 <!-- PLATFORM -->
@@ -867,13 +903,16 @@ body {
   <div class="platform-grid">
     <div>
       <div class="eyebrow">The Platform</div>
-      <h2 class="section-heading">Your entire financial life, in one place.</h2>
-      <p class="section-body">LegacyTrackr does the record-keeping heart of a family office's job, as software: every asset class, entity structure, and critical document in a single dashboard.</p>
-      <p class="section-body">See your full allocation, track what matters, and know the complete picture exists somewhere secure, structured, and accessible beyond a single file or device.</p>
+      <h2 class="section-heading">The family office record, without the family office.</h2>
+      <p class="section-body">Net worth is the easy part. The context around it is what nobody else could reconstruct: what each asset is, which entity holds it, who manages it, and where the documents are.</p>
+      <p class="section-body">A personal financial statement when the bank asks for one. A report before the meeting with your advisor. The operating agreement, without searching an inbox. And the structure chart, when it's time to walk your children through how it all fits together.</p>
+      <p class="section-body">The portal your wealth manager gives you shows what they manage. This holds all of it, across every advisor, every entity and everything nobody manages, and it stays with you when an advisor changes. Invite them in; the record is still yours.</p>
     </div>
     <div class="platform-visual">
-      <img src="images/screenshot-estate-allocation.png" alt="Portfolio allocation across asset classes with dollar amounts" style="width: 100%; border-radius: 8px;">
-      <img src="images/screenshot-pe-performance.png" alt="Private equity performance showing invested vs current value" style="width: 100%; border-radius: 8px; margin-top: 16px;">
+      <img src="images/screenshot-structure.png" alt="Ownership structure chart: a household, its revocable trust, an LLC beneath the trust, and the assets each one holds" style="width: 100%; border-radius: 8px;">
+      <p class="shot-caption">Trusts, LLCs and the assets beneath them, in one view.</p>
+      <img src="images/screenshot-entity-detail.png" alt="Entity detail panel for a family trust showing type, governing law, grantors, trustee, successor trustee and estate flags" style="width: 100%; border-radius: 8px; margin-top: 24px;">
+      <p class="shot-caption">Open any entity and the context is there: who holds it, who runs it, what's in the estate.</p>
     </div>
   </div>
 </section>
@@ -884,17 +923,18 @@ body {
     <div style="text-align: center; margin-bottom: 48px;">
       <div class="eyebrow">How It Works</div>
       <h2 class="section-heading">Three steps to a complete picture.</h2>
+      <p class="section-body" style="max-width: 640px; margin: 16px auto 0;">You don't build this alone. Build it with your accountant or advisor, or let us guide you or them through it. Or let LegacyTrackr AI do the heavy lifting: drag and drop your documents, or forward them from your email (from December 2026).</p>
     </div>
     <div class="how-grid">
       <div class="how-card">
         <div class="how-number">01</div>
         <h3>Add your assets.</h3>
-        <p>Every asset class: liquid investments, real estate, private equity, operating businesses, digital assets, personal property, royalties. Link brokerage and bank balances or enter them yourself, with as much or as little detail as you want. Our onboarding team walks through it with you.</p>
+        <p>Private equity, real estate, operating businesses, royalties, digital assets: the things no brokerage login can see. Enter them with as much or as little detail as you want, and link bank and brokerage balances alongside. Do it yourself, or have a person walk through it with you.</p>
       </div>
       <div class="how-card">
         <div class="how-number">02</div>
         <h3>Organize your structure.</h3>
-        <p>Document your entities (trusts, LLCs, LPs, foundations) and which assets they hold. See the full ownership picture in one view.</p>
+        <p>Add your trusts, LLCs, LPs and foundations, then connect the assets each one holds. See the whole ownership structure in one chart, and open any entity or asset from it.</p>
       </div>
       <div class="how-card">
         <div class="how-number">03</div>
@@ -905,20 +945,21 @@ body {
   </div>
 </section>
 
+<!-- AI -->
+<section class="ai-band">
+  <div class="eyebrow">Early access December 2026</div>
+  <h2 class="section-heading"><span class="ai-name">LegacyTrackr AI</span> files the paperwork. <br class="br-desktop">You approve it.</h2>
+  <p class="section-body">Email a document, forward one, or drag it into the platform. LegacyTrackr AI figures out where it belongs, filing a K-1 against the right fund or setting up a new asset. Nothing changes until you say so.</p>
+</section>
+
 <!-- WHY IT MATTERS -->
 <section class="section why-section">
   <div class="why-inner">
     <div class="eyebrow">Beyond Organization</div>
-    <h2 class="section-heading">Document your playbook. Share it on your terms.</h2>
+    <h2 class="section-heading">An instruction manual for your wealth, <br class="br-desktop">so it carries forward.</h2>
     <p class="section-body">Right now, you know where everything is. You know who manages what, which entities hold which assets, and where the documents are. That knowledge has real value: to your family, your partners, and your advisors.</p>
-    <p class="section-body">LegacyTrackr makes sure that knowledge lives somewhere accessible, not just in your head. So when anyone needs it, for tax season, estate planning, a liquidity event, or a transition, it's there.</p>
+    <p class="section-body">LegacyTrackr makes sure that knowledge lives somewhere accessible, not just in your head. The K-1, the operating agreement, the deed: attached to the thing it describes, not lost in an inbox. So when anyone needs it, for tax season, estate planning, a liquidity event, or a transition, it's there.</p>
   </div>
-</section>
-
-<!-- FOUNDER QUOTE -->
-<section class="quote-section">
-  <div class="quote-text">"I realized that 20+ investments, multiple entities, and real estate across two states all made perfect sense to me. But only to me. If my family, my attorney, or my accountant ever needed the full picture, they'd be starting from zero."</div>
-  <div class="quote-attr"><strong>Steve McKeever</strong>, Founder</div>
 </section>
 
 <!-- SECURITY -->
@@ -957,7 +998,7 @@ body {
     <div class="pricing-center">
       <div class="eyebrow">Founding Member Pricing</div>
       <h2 class="section-heading">One plan. Full access. White-glove onboarding.</h2>
-      <p class="section-body" style="max-width: 520px; margin: 0 auto;">No tiers. No feature gating. Every founding member gets the complete platform with dedicated onboarding support.</p>
+      <p class="section-body" style="max-width: 520px; margin: 0 auto;">No tiers. No feature gating. Every founding member gets the complete platform. Set it up yourself, privately, at your own pace. Or book one-to-one time with a person who walks you through it, on a screen share you start, so they see only what you show them. Both are included.</p>
     </div>
 
     <div class="pricing-card">
@@ -973,7 +1014,7 @@ body {
         </div>
         <div class="pricing-feature">
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          White-glove onboarding included: 2.5 hours on annual, 1 hour on monthly
+          One-to-one onboarding if you want it: 2.5 hours on annual, 1 hour on monthly
         </div>
         <div class="pricing-feature">
           <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -986,18 +1027,8 @@ body {
         <a href="https://app.legacytrackr.com/signup?src=homepage_pricing" class="pricing-cta">Start Signup</a>
       </div>
     </div>
-    <p class="pricing-note"><a href="/demo.html?src=homepage_pricing">Prefer to talk first? Book a walkthrough.</a><br>Have a referral code or coupon? Apply it at checkout.</p>
+    <p class="pricing-note"><a href="/demo.html?src=homepage_pricing">Prefer to talk first? Book a walkthrough.</a><br>Have a referral code or coupon? Apply it at checkout.<br>Not sure yet? <a href="/familyclarity?src=homepage_pricing">Start with the Family Clarity Assessment.</a></p>
   </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="final-cta">
-  <h2>Your complete financial picture.<br>Organized. Accessible. Secure.</h2>
-  <p>Book a walkthrough and see whether LegacyTrackr fits your family.</p>
-  <a href="/demo.html?src=homepage_final" class="btn-primary">
-    Request a Demo
-    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-  </a>
 </section>
 
 <!-- FOOTER -->
